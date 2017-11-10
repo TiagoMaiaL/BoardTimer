@@ -10,16 +10,26 @@ import UIKit
 
 class ViewController: UIViewController {
 
+  // MARK: Properties
+  
+  @IBOutlet weak var playerALabel: UILabel!
+  
+  private var timer = TimerManager(first: Player(),
+                                   second: Player(),
+                                   configuration: (amount: 60 * 2, increase: 12))
+  
+  // MARK: Life Cycle
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-    // Do any additional setup after loading the view, typically from a nib.
   }
-
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
+  
+  // MARK: Actions
+  
+  @IBAction func didTap(_ sender: UITapGestureRecognizer) {
+    
   }
-
+  
 
 }
 

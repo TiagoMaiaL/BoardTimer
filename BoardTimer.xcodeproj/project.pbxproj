@@ -13,6 +13,8 @@
 		47AD303E1FB6315500A911D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47AD303D1FB6315500A911D9 /* Assets.xcassets */; };
 		47AD30411FB6315500A911D9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47AD303F1FB6315500A911D9 /* LaunchScreen.storyboard */; };
 		47AD304C1FB6315600A911D9 /* BoardTimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AD304B1FB6315600A911D9 /* BoardTimerTests.swift */; };
+		47AD30591FB635DB00A911D9 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AD30581FB635DB00A911D9 /* TimerManager.swift */; };
+		47AD305B1FB6360200A911D9 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AD305A1FB6360200A911D9 /* Player.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,8 @@
 		47AD30471FB6315600A911D9 /* BoardTimerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BoardTimerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		47AD304B1FB6315600A911D9 /* BoardTimerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTimerTests.swift; sourceTree = "<group>"; };
 		47AD304D1FB6315600A911D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		47AD30581FB635DB00A911D9 /* TimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
+		47AD305A1FB6360200A911D9 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +83,8 @@
 			children = (
 				47AD30361FB6315500A911D9 /* AppDelegate.swift */,
 				47AD30381FB6315500A911D9 /* ViewController.swift */,
+				47AD30581FB635DB00A911D9 /* TimerManager.swift */,
+				47AD305A1FB6360200A911D9 /* Player.swift */,
 				47AD303A1FB6315500A911D9 /* Main.storyboard */,
 				47AD303D1FB6315500A911D9 /* Assets.xcassets */,
 				47AD303F1FB6315500A911D9 /* LaunchScreen.storyboard */,
@@ -199,6 +205,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47AD305B1FB6360200A911D9 /* Player.swift in Sources */,
+				47AD30591FB635DB00A911D9 /* TimerManager.swift in Sources */,
 				47AD30391FB6315500A911D9 /* ViewController.swift in Sources */,
 				47AD30371FB6315500A911D9 /* AppDelegate.swift in Sources */,
 			);
@@ -356,6 +364,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 79964U8894;
 				INFOPLIST_FILE = BoardTimer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tiago.maia.BoardTimer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -371,6 +380,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 79964U8894;
 				INFOPLIST_FILE = BoardTimer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tiago.maia.BoardTimer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
