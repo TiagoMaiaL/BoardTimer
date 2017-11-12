@@ -8,8 +8,6 @@
 
 import Foundation
 
-typealias TimerConfiguration = (amount: TimeInterval, increase: TimeInterval)
-
 protocol TimerManagerDelegate {
   
   /// Called when the internal timer has started
@@ -26,15 +24,8 @@ class TimerManager {
   
   // MARK: Properties
   
-  let configuration: TimerConfiguration
   private(set) var internalTimer: Timer?
   var delegate: TimerManagerDelegate?
-  
-  // MARK: Initializers
-  
-  init(configuration: TimerConfiguration) {
-    self.configuration = configuration
-  }
   
   // MARK: Imperatives
   

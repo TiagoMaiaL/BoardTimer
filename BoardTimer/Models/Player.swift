@@ -13,12 +13,18 @@ enum PlayerColor {
   case black
 }
 
-struct Player {
+class Player {
   
   // MARK: Properties
   
   let uid = UUID().uuidString
   let color: PlayerColor
   var remainingTime: TimeInterval = 0
+  
+  // MARK: Initializers
+  
+  init(color: PlayerColor) {
+    self.color = color
+  }
 
 }
