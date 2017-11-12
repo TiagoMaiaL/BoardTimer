@@ -34,6 +34,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="jc5-vP-CyN" appends="YES" id="SPm-gi-Avz"/>
+                            <outletCollection property="gestureRecognizers" destination="LAI-M2-Mpb" appends="YES" id="nzv-CS-4vU"/>
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" id="Gxc-mz-754"/>
@@ -46,9 +47,14 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="jc5-vP-CyN">
+                <tapGestureRecognizer id="jc5-vP-CyN" userLabel="pass gesture">
                     <connections>
                         <action selector="didTap:" destination="BYZ-38-t0r" id="HND-aG-dlD"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="LAI-M2-Mpb" userLabel="pause gesture">
+                    <connections>
+                        <action selector="didDoubleTap:" destination="BYZ-38-t0r" id="5Is-kL-aKn"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

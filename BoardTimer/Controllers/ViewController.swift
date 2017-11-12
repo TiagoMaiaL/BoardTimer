@@ -81,6 +81,25 @@ extension ViewController {
     } else {
       playerManager.playIncreaseRemainingTime()
       playerManager.toggleCurrentPlayer()
+      
+      switch playerManager.currentPlayer.color {
+      case .white:
+        whitePlayerLabel.textColor = .black
+        view.backgroundColor = .white
+      case .black:
+        whitePlayerLabel.textColor = .white
+        view.backgroundColor = .black
+      }
+      
+      whitePlayerLabel.text = getFormattedRemainingTime(for: playerManager.currentPlayer)
+    }
+  }
+  
+  @IBAction func didDoubleTap(_ sender: UITapGestureRecognizer) {
+    if playerManager.timer.isRunning() {
+      playerManager.timer.pause()
+    } else {
+      playerManager.timer.start()
     }
   }
 
