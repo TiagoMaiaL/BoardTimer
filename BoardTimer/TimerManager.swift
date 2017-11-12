@@ -8,50 +8,60 @@
 
 import Foundation
 
-typealias TimerConfiguration = (amount: Int, increase: Int)
+typealias TimerConfiguration = (amount: TimeInterval, increase: TimeInterval)
+
+protocol TimerManagerDelegate {
+  
+  /// Called when the internal timer has started
+  func timerHasStarted(manager: TimerManager)
+  
+  /// Called when the internal timer has stopped
+  func timerHasStopped(manager: TimerManager)
+  
+  /// Called every time the internal timer fires
+  func timerHasFired(manager: TimerManager)
+}
 
 class TimerManager {
   
   // MARK: Properties
   
-  private let configuration: TimerConfiguration
-  
-  private let whitePlayer: Player
-  private let blackPlayer: Player
-  
-  private var currentPlayer: Player?
-  
-  private var timer: Timer?
+  let configuration: TimerConfiguration
+  private(set) var internalTimer: Timer?
+  var delegate: TimerManagerDelegate?
   
   // MARK: Initializers
   
-  init(first whitePlayer: Player, second blackPlayer: Player, configuration: TimerConfiguration) {
-    self.whitePlayer = whitePlayer
-    self.blackPlayer = blackPlayer
+  init(configuration: TimerConfiguration) {
     self.configuration = configuration
   }
   
   // MARK: Imperatives
   
-  func startTimer() {
-    guard timer == nil else { return }
+  /// Starts the internal timer.
+  func start() {
+    guard internalTimer == nil else { return }
     
-    currentPlayer = whitePlayer
-    
-    timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-      
+    internalTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [unowned self] _ in
+      self.delegate?.timerHasFired(manager: self)
     }
+    
+    delegate?.timerHasStarted(manager: self)
   }
   
-  func pauseTimer() {
-    if let timer = timer {
+  /// Pauses the internal timer.
+  func pause() {
+    if let timer = internalTimer {
       timer.invalidate()
-      self.timer = nil
+      internalTimer = nil
+      
+      delegate?.timerHasStopped(manager: self)
     }
   }
   
-  func changePlayer() {
-    
+  /// Returns whether the timer is running.
+  func isRunning() -> Bool {
+    return internalTimer != nil
   }
   
 }

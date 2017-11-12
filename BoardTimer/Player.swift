@@ -8,10 +8,17 @@
 
 import Foundation
 
+enum PlayerColor {
+  case white
+  case black
+}
+
 struct Player {
   
   // MARK: Properties
   
-  var remainingTime = 0
+  let uid = UUID().uuidString
+  let color: PlayerColor
+  var remainingTime: TimeInterval = 0
 
 }
