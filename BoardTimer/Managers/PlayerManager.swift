@@ -76,4 +76,10 @@ class PlayerManager {
     delegate?.playerTimeHasDecreased(player: currentPlayer)
   }
   
+  /// Increases the current player's remaning time by the configured
+  /// amount passed in the configuration object.
+  func playIncreaseRemainingTime() {
+    currentPlayer.remainingTime += configuration.playIncrease
+  }
+  
 }

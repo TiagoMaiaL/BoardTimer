@@ -65,12 +65,12 @@ extension ViewController {
 //
 //    whiteLabelVertical.isActive = false
 //    whiteLabelHorizontal.isActive = false
-//    
+//
 //    whitePlayerLabel.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor,
 //                                             constant: -5).isActive = true
 //    whitePlayerLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor,
 //                                              constant: 5).isActive = true
-//    
+//
 //    UIView.animate(withDuration: 1) { [unowned self] in
 //      self.whitePlayerLabel.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
 //      self.view.layoutIfNeeded()
@@ -79,6 +79,7 @@ extension ViewController {
     if !playerManager.timer.isRunning() {
       playerManager.timer.start()
     } else {
+      playerManager.playIncreaseRemainingTime()
       playerManager.toggleCurrentPlayer()
     }
   }
