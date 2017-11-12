@@ -40,6 +40,8 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="whiteLabelHorizontal" destination="aTs-vm-cnU" id="e6W-TD-vbm"/>
+                        <outlet property="whiteLabelVertical" destination="StV-2D-f9B" id="iDv-5o-X5r"/>
                         <outlet property="whitePlayerLabel" destination="9FH-iE-eTY" id="tx4-Mp-g5y"/>
                     </connections>
                 </viewController>

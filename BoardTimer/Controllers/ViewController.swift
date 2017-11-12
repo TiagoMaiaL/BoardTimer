@@ -14,6 +14,9 @@ class ViewController: UIViewController {
   
   @IBOutlet weak var whitePlayerLabel: UILabel!
   
+  @IBOutlet weak var whiteLabelVertical: NSLayoutConstraint!
+  @IBOutlet weak var whiteLabelHorizontal: NSLayoutConstraint!
+  
   private var playerManager: PlayerManager!
   
   // MARK: Life Cycle
@@ -45,6 +48,11 @@ class ViewController: UIViewController {
     
     return "\(String(format: "%02d", minutes)):\(String(format: "%02d", seconds))"
   }
+  
+  func animate() {
+    
+  }
+  
 }
 
 // MARK: Actions
@@ -52,6 +60,22 @@ class ViewController: UIViewController {
 extension ViewController {
   
   @IBAction func didTap(_ sender: UITapGestureRecognizer) {
+    
+//    whitePlayerLabel.translatesAutoresizingMaskIntoConstraints = false
+//
+//    whiteLabelVertical.isActive = false
+//    whiteLabelHorizontal.isActive = false
+//    
+//    whitePlayerLabel.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor,
+//                                             constant: -5).isActive = true
+//    whitePlayerLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor,
+//                                              constant: 5).isActive = true
+//    
+//    UIView.animate(withDuration: 1) { [unowned self] in
+//      self.whitePlayerLabel.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
+//      self.view.layoutIfNeeded()
+//    }
+    
     if !playerManager.timer.isRunning() {
       playerManager.timer.start()
     } else {
