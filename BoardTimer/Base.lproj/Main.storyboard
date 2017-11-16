@@ -4,8 +4,8 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,18 +18,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="02:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9FH-iE-eTY">
-                                <rect key="frame" x="101.5" y="307.5" width="172" height="72"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="60"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ffD-wr-Jkr">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GK7-ox-tnL" userLabel="black player timer" customClass="XibView" customModule="BoardTimer" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="333.5"/>
+                                        <color key="backgroundColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="nibName" value="SingleTimerView"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mln-9Z-0bi" userLabel="white player timer" customClass="XibView" customModule="BoardTimer" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="333.5" width="375" height="333.5"/>
+                                        <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="nibName" value="SingleTimerView"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="9FH-iE-eTY" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="StV-2D-f9B"/>
-                            <constraint firstItem="9FH-iE-eTY" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="aTs-vm-cnU"/>
+                            <constraint firstItem="ffD-wr-Jkr" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="TNj-Vd-hja"/>
+                            <constraint firstItem="ffD-wr-Jkr" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="UUL-CY-5c7"/>
+                            <constraint firstItem="GK7-ox-tnL" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.5" id="jNv-oy-Mvv"/>
+                            <constraint firstAttribute="bottom" secondItem="ffD-wr-Jkr" secondAttribute="bottom" id="niO-Wk-kX6"/>
+                            <constraint firstItem="ffD-wr-Jkr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="sGI-AT-uDc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <connections>
@@ -41,9 +57,8 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="whiteLabelHorizontal" destination="aTs-vm-cnU" id="e6W-TD-vbm"/>
-                        <outlet property="whiteLabelVertical" destination="StV-2D-f9B" id="iDv-5o-X5r"/>
-                        <outlet property="whitePlayerLabel" destination="9FH-iE-eTY" id="tx4-Mp-g5y"/>
+                        <outlet property="blackWrapperView" destination="GK7-ox-tnL" id="Ghj-O1-oDH"/>
+                        <outlet property="whiteWrapperView" destination="mln-9Z-0bi" id="Aba-4e-ENf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

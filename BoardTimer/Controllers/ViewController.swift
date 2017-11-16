@@ -12,10 +12,10 @@ class ViewController: UIViewController {
 
   // MARK: Properties
   
-  @IBOutlet weak var whitePlayerLabel: UILabel!
-  
-  @IBOutlet weak var whiteLabelVertical: NSLayoutConstraint!
-  @IBOutlet weak var whiteLabelHorizontal: NSLayoutConstraint!
+  @IBOutlet weak var blackWrapperView: XibView!
+  @IBOutlet weak var whiteWrapperView: XibView!
+  weak var blackTimerView: SingleTimerView!
+  weak var whiteTimerView: SingleTimerView!
   
   private var playerManager: PlayerManager!
   
@@ -37,9 +37,21 @@ class ViewController: UIViewController {
                                   white: Player(color: .white),
                                   black: Player(color: .black))
     playerManager.delegate = self
+    
+    setupTimerViews()
   }
   
   // MARK: Imperatives
+  
+  func setupTimerViews() {
+    blackTimerView = blackWrapperView.contentView as! SingleTimerView
+    whiteTimerView = whiteWrapperView.contentView as! SingleTimerView
+    
+    blackTimerView.theme = .black
+    whiteTimerView.theme = .white
+    
+    blackTimerView.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
+  }
   
   func getFormattedRemainingTime(for player: Player) -> String {
     let remainingTime = player.remainingTime
@@ -81,17 +93,6 @@ extension ViewController {
     } else {
       playerManager.playIncreaseRemainingTime()
       playerManager.toggleCurrentPlayer()
-      
-      switch playerManager.currentPlayer.color {
-      case .white:
-        whitePlayerLabel.textColor = .black
-        view.backgroundColor = .white
-      case .black:
-        whitePlayerLabel.textColor = .white
-        view.backgroundColor = .black
-      }
-      
-      whitePlayerLabel.text = getFormattedRemainingTime(for: playerManager.currentPlayer)
     }
   }
   
@@ -119,7 +120,7 @@ extension ViewController: TimerManagerDelegate {
 
   func timerHasFired(manager: TimerManager) {
     playerManager.decreaseRemainingTime()
-    whitePlayerLabel.text = getFormattedRemainingTime(for: playerManager.currentPlayer)
+//    whitePlayerLabel.text = getFormattedRemainingTime(for: playerManager.currentPlayer)
   }
 
 }
@@ -137,7 +138,7 @@ extension ViewController: PlayerManagerDelegate {
   }
   
   func playerTimeHasDecreased(player: Player) {
-    whitePlayerLabel.text = getFormattedRemainingTime(for: player)
+//    whitePlayerLabel.text = getFormattedRemainingTime(for: player)
   }
   
 }
