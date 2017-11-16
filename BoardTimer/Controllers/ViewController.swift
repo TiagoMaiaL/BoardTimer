@@ -61,6 +61,19 @@ class ViewController: UIViewController {
     return "\(String(format: "%02d", minutes)):\(String(format: "%02d", seconds))"
   }
   
+  func getCurrentPlayerView() -> SingleTimerView {
+    if playerManager.currentPlayer.color == .white {
+      return whiteTimerView
+    } else {
+      return blackTimerView
+    }
+  }
+  
+  func updateLabels() {
+    let remainingTime = getFormattedRemainingTime(for: playerManager.currentPlayer)
+    getCurrentPlayerView().setText(remainingTime)
+  }
+  
   func animate() {
     
   }
@@ -120,7 +133,7 @@ extension ViewController: TimerManagerDelegate {
 
   func timerHasFired(manager: TimerManager) {
     playerManager.decreaseRemainingTime()
-//    whitePlayerLabel.text = getFormattedRemainingTime(for: playerManager.currentPlayer)
+    updateLabels()
   }
 
 }
@@ -131,6 +144,7 @@ extension ViewController: PlayerManagerDelegate {
   
   func playerHasChanged(currentPlayer: Player) {
     // TODO: Make the change animation
+    updateLabels()
   }
   
   func playerTimeHasRanOver(player: Player) {
@@ -138,7 +152,7 @@ extension ViewController: PlayerManagerDelegate {
   }
   
   func playerTimeHasDecreased(player: Player) {
-//    whitePlayerLabel.text = getFormattedRemainingTime(for: player)
+    updateLabels()
   }
   
 }

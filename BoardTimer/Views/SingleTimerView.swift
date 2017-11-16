@@ -60,5 +60,10 @@ class SingleTimerView: UIView {
       setColors(for: .black)
     }
   }
+  
+  func setText(_ time: String) {
+    timeLabel.text = time
+    rotatedLabel.text = time
+  }
 
 }
