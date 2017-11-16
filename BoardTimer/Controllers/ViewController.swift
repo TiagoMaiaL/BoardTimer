@@ -16,6 +16,15 @@ class ViewController: UIViewController {
   @IBOutlet weak var whiteWrapperView: XibView!
   weak var blackTimerView: SingleTimerView!
   weak var whiteTimerView: SingleTimerView!
+  var currentPlayerView: SingleTimerView {
+    get {
+      if playerManager.currentPlayer.color == .white {
+        return whiteTimerView
+      } else {
+        return blackTimerView
+      }
+    }
+  }
   
   @IBOutlet private var blackTimerDefaultHeight: NSLayoutConstraint!
   private var blackTimerIncreasedHeight: NSLayoutConstraint!
@@ -68,23 +77,10 @@ class ViewController: UIViewController {
     return "\(String(format: "%02d", minutes)):\(String(format: "%02d", seconds))"
   }
   
-  func getCurrentPlayerView() -> SingleTimerView {
-    if playerManager.currentPlayer.color == .white {
-      return whiteTimerView
-    } else {
-      return blackTimerView
-    }
-  }
-  
-  func updateLabels(of timer: SingleTimerView? = nil) {
-//    if timer == nil {
-//      timer = getCurrentPlayerView()
-//    }
-    
-    if let timer = timer {
-      let remainingTime = getFormattedRemainingTime(for: playerManager.currentPlayer)
-      timer.setText(remainingTime)
-    }
+  func updateLabels(of timerView: SingleTimerView? = nil) {
+    let timerView = timerView ?? currentPlayerView
+    let remainingTime = getFormattedRemainingTime(for: playerManager.currentPlayer)
+    timerView.setText(remainingTime)
   }
   
   func animatePlayerChange() {
@@ -117,7 +113,6 @@ extension ViewController {
     if !playerManager.timer.isRunning() {
       playerManager.timer.start()
     } else {
-      playerManager.playIncreaseRemainingTime()
       playerManager.toggleCurrentPlayer()
     }
   }
@@ -146,7 +141,7 @@ extension ViewController: TimerManagerDelegate {
 
   func timerHasFired(manager: TimerManager) {
     playerManager.decreaseRemainingTime()
-    updateLabels(of: getCurrentPlayerView())
+    updateLabels()
   }
 
 }
@@ -158,7 +153,7 @@ extension ViewController: PlayerManagerDelegate {
   func playerHasChanged(currentPlayer: Player) {
     // TODO: Make the change animation.
     // TODO: Give feedback in the time increase.
-    updateLabels(of: getCurrentPlayerView())
+    updateLabels()
     animatePlayerChange()
   }
   
@@ -167,7 +162,19 @@ extension ViewController: PlayerManagerDelegate {
   }
   
   func playerTimeHasDecreased(player: Player) {
-    updateLabels(of: getCurrentPlayerView())
+    updateLabels()
+  }
+  
+  func playerTimeHasIncreased(player: Player) {
+    let timerView: SingleTimerView!
+    
+    if player.color == .white {
+      timerView = whiteTimerView
+    } else {
+      timerView = blackTimerView
+    }
+    
+    updateLabels(of: timerView)
   }
   
 }
