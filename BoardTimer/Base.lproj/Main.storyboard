@@ -57,6 +57,7 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="blackTimerDefaultHeight" destination="jNv-oy-Mvv" id="wio-Xu-7hh"/>
                         <outlet property="blackWrapperView" destination="GK7-ox-tnL" id="Ghj-O1-oDH"/>
                         <outlet property="whiteWrapperView" destination="mln-9Z-0bi" id="Aba-4e-ENf"/>
                     </connections>

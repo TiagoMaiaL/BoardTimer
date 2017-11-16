@@ -17,6 +17,10 @@ class ViewController: UIViewController {
   weak var blackTimerView: SingleTimerView!
   weak var whiteTimerView: SingleTimerView!
   
+  @IBOutlet private var blackTimerDefaultHeight: NSLayoutConstraint!
+  private var blackTimerIncreasedHeight: NSLayoutConstraint!
+  private var blackTimerDecreasedHeight: NSLayoutConstraint!
+  
   private var playerManager: PlayerManager!
   
   // MARK: Life Cycle
@@ -51,6 +55,9 @@ class ViewController: UIViewController {
     whiteTimerView.theme = .white
     
     blackTimerView.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
+    
+    blackTimerIncreasedHeight = blackTimerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.8)
+    blackTimerDecreasedHeight = blackTimerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2)
   }
   
   func getFormattedRemainingTime(for player: Player) -> String {
@@ -69,13 +76,34 @@ class ViewController: UIViewController {
     }
   }
   
-  func updateLabels() {
-    let remainingTime = getFormattedRemainingTime(for: playerManager.currentPlayer)
-    getCurrentPlayerView().setText(remainingTime)
+  func updateLabels(of timer: SingleTimerView? = nil) {
+//    if timer == nil {
+//      timer = getCurrentPlayerView()
+//    }
+    
+    if let timer = timer {
+      let remainingTime = getFormattedRemainingTime(for: playerManager.currentPlayer)
+      timer.setText(remainingTime)
+    }
   }
   
-  func animate() {
+  func animatePlayerChange() {
+    let currentColor = playerManager.currentPlayer.color
     
+    blackTimerDefaultHeight.isActive = false
+    
+    if currentColor == .black {
+      blackTimerDecreasedHeight.isActive = false
+      blackTimerIncreasedHeight.isActive = true
+    } else {
+      blackTimerIncreasedHeight.isActive = false
+      blackTimerDecreasedHeight.isActive = true
+      
+    }
+    
+    UIView.animate(withDuration: 0.5) { [unowned self] in
+      self.view.layoutIfNeeded()
+    }
   }
   
 }
@@ -85,21 +113,6 @@ class ViewController: UIViewController {
 extension ViewController {
   
   @IBAction func didTap(_ sender: UITapGestureRecognizer) {
-    
-//    whitePlayerLabel.translatesAutoresizingMaskIntoConstraints = false
-//
-//    whiteLabelVertical.isActive = false
-//    whiteLabelHorizontal.isActive = false
-//
-//    whitePlayerLabel.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor,
-//                                             constant: -5).isActive = true
-//    whitePlayerLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor,
-//                                              constant: 5).isActive = true
-//
-//    UIView.animate(withDuration: 1) { [unowned self] in
-//      self.whitePlayerLabel.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
-//      self.view.layoutIfNeeded()
-//    }
     
     if !playerManager.timer.isRunning() {
       playerManager.timer.start()
@@ -124,16 +137,16 @@ extension ViewController {
 extension ViewController: TimerManagerDelegate {
 
   func timerHasStarted(manager: TimerManager) {
-    // TODO:
+    animatePlayerChange()
   }
 
   func timerHasStopped(manager: TimerManager) {
-    // TODO: Make the stop animation
+    // TODO: Make the stop animation.
   }
 
   func timerHasFired(manager: TimerManager) {
     playerManager.decreaseRemainingTime()
-    updateLabels()
+    updateLabels(of: getCurrentPlayerView())
   }
 
 }
@@ -143,16 +156,18 @@ extension ViewController: TimerManagerDelegate {
 extension ViewController: PlayerManagerDelegate {
   
   func playerHasChanged(currentPlayer: Player) {
-    // TODO: Make the change animation
-    updateLabels()
+    // TODO: Make the change animation.
+    // TODO: Give feedback in the time increase.
+    updateLabels(of: getCurrentPlayerView())
+    animatePlayerChange()
   }
   
   func playerTimeHasRanOver(player: Player) {
-    // TODO: End the timer
+    // TODO: End the timer.
   }
   
   func playerTimeHasDecreased(player: Player) {
-    updateLabels()
+    updateLabels(of: getCurrentPlayerView())
   }
   
 }
