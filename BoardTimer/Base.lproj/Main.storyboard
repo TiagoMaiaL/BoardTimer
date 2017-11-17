@@ -59,18 +59,20 @@
                     <connections>
                         <outlet property="blackTimerDefaultHeight" destination="jNv-oy-Mvv" id="wio-Xu-7hh"/>
                         <outlet property="blackWrapperView" destination="GK7-ox-tnL" id="Ghj-O1-oDH"/>
+                        <outlet property="passGesture" destination="jc5-vP-CyN" id="yht-YM-TlT"/>
+                        <outlet property="pauseGesture" destination="LAI-M2-Mpb" id="6Wl-w4-DgT"/>
                         <outlet property="whiteWrapperView" destination="mln-9Z-0bi" id="Aba-4e-ENf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="jc5-vP-CyN" userLabel="pass gesture">
-                    <connections>
-                        <action selector="didTap:" destination="BYZ-38-t0r" id="HND-aG-dlD"/>
-                    </connections>
-                </tapGestureRecognizer>
                 <tapGestureRecognizer numberOfTapsRequired="2" id="LAI-M2-Mpb" userLabel="pause gesture">
                     <connections>
                         <action selector="didDoubleTap:" destination="BYZ-38-t0r" id="5Is-kL-aKn"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="jc5-vP-CyN" userLabel="pass gesture">
+                    <connections>
+                        <action selector="didTap:" destination="BYZ-38-t0r" id="HND-aG-dlD"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

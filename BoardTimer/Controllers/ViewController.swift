@@ -30,6 +30,9 @@ class ViewController: UIViewController {
   private var blackTimerIncreasedHeight: NSLayoutConstraint!
   private var blackTimerDecreasedHeight: NSLayoutConstraint!
   
+  
+  @IBOutlet var pauseGesture: UITapGestureRecognizer!
+  @IBOutlet var passGesture: UITapGestureRecognizer!
   private var playerManager: PlayerManager!
   
   // MARK: Life Cycle
@@ -42,7 +45,7 @@ class ViewController: UIViewController {
     let timer = TimerManager()
     timer.delegate = self
     
-    let configuration = (timeAmount: TimeInterval(60 * 2),
+    let configuration = (timeAmount: TimeInterval(60 * 0.5),
                          playIncrease: TimeInterval(12))
     
     playerManager = PlayerManager(configuration: configuration,
@@ -52,9 +55,14 @@ class ViewController: UIViewController {
     playerManager.delegate = self
     
     setupTimerViews()
+    setupGestures()
   }
   
   // MARK: Imperatives
+  
+  func setupGestures() {
+    passGesture.require(toFail: pauseGesture)
+  }
   
   func setupTimerViews() {
     blackTimerView = blackWrapperView.contentView as! SingleTimerView
@@ -109,7 +117,6 @@ class ViewController: UIViewController {
 extension ViewController {
   
   @IBAction func didTap(_ sender: UITapGestureRecognizer) {
-    
     if !playerManager.timer.isRunning() {
       playerManager.timer.start()
     } else {
@@ -133,10 +140,13 @@ extension ViewController: TimerManagerDelegate {
 
   func timerHasStarted(manager: TimerManager) {
     animatePlayerChange()
+    print("Started")
   }
 
   func timerHasStopped(manager: TimerManager) {
     // TODO: Make the stop animation.
+    // TODO: Implement the paused state.
+    print("Paused")
   }
 
   func timerHasFired(manager: TimerManager) {
@@ -151,14 +161,14 @@ extension ViewController: TimerManagerDelegate {
 extension ViewController: PlayerManagerDelegate {
   
   func playerHasChanged(currentPlayer: Player) {
-    // TODO: Make the change animation.
-    // TODO: Give feedback in the time increase.
     updateLabels()
     animatePlayerChange()
   }
   
   func playerTimeHasRanOver(player: Player) {
-    // TODO: End the timer.
+    playerManager.timer.pause()
+    // TODO: Show finished state.
+    print("timer is over.")
   }
   
   func playerTimeHasDecreased(player: Player) {
