@@ -9,7 +9,8 @@
 import UIKit
 
 struct NotificationName {
-  static let restart = Notification.Name("restart_timer")
+  static let restartTimer = Notification.Name("restart_timer")
+  static let newTimer = Notification.Name("new_timer")
 }
 
 class ViewController: UIViewController {
@@ -53,14 +54,12 @@ class ViewController: UIViewController {
   
   // MARK: Setup
   
-  func setupManagers() {
+  func setupManagers(with playerConfig: PlayerConfiguration = (timeAmount: TimeInterval(60 * 0.5),
+                                                               playIncrease: TimeInterval(12))) {
     let timer = TimerManager()
     timer.delegate = self
     
-    let configuration = (timeAmount: TimeInterval(60 * 0.5),
-                         playIncrease: TimeInterval(12))
-    
-    playerManager = PlayerManager(configuration: configuration,
+    playerManager = PlayerManager(configuration: playerConfig,
                                   timer: timer,
                                   white: Player(color: .white),
                                   black: Player(color: .black))
@@ -70,7 +69,11 @@ class ViewController: UIViewController {
   func setupObservers() {
     NotificationCenter.default.addObserver(self,
                                            selector: #selector(restartRequested(notification:)),
-                                           name: NotificationName.restart,
+                                           name: NotificationName.restartTimer,
+                                           object: nil)
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(newTimerRequested(notification:)),
+                                           name: NotificationName.newTimer,
                                            object: nil)
   }
   
@@ -118,7 +121,6 @@ class ViewController: UIViewController {
     } else {
       blackTimerIncreasedHeight.isActive = false
       blackTimerDecreasedHeight.isActive = true
-      
     }
     
     UIView.animate(withDuration: 0.5) { [unowned self] in
@@ -126,9 +128,15 @@ class ViewController: UIViewController {
     }
   }
   
-  func restartTimer() {
+  func restartTimer(with playerConfig: PlayerConfiguration? = nil) {
     playerManager = nil
-    setupManagers()
+    
+    if let config = playerConfig {
+      setupManagers(with: config)
+    } else {
+      setupManagers()
+    }
+    
     restartTimerViews()
   }
   
@@ -167,6 +175,12 @@ extension ViewController {
   
   @objc func restartRequested(notification: Notification) {
     restartTimer()
+  }
+  
+  @objc func newTimerRequested(notification: Notification) {
+    guard let config = notification.userInfo?["player_configuration"] as? PlayerConfiguration else { return }
+    
+    restartTimer(with: config)
   }
   
 }

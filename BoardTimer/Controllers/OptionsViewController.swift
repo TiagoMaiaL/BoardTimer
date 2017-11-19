@@ -24,7 +24,7 @@ class OptionsViewController: UIViewController {
   }
   
   @IBAction func restartTapped(_ sender: UIButton) {
-    NotificationCenter.default.post(name: NotificationName.restart,
+    NotificationCenter.default.post(name: NotificationName.restartTimer,
                                     object: self)
     dismiss(animated: true, completion: nil)
   }

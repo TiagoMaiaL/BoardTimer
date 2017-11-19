@@ -130,10 +130,10 @@
             </objects>
             <point key="canvasLocation" x="1503.2" y="142.57871064467767"/>
         </scene>
-        <!--View Controller-->
+        <!--New Timer View Controller-->
         <scene sceneID="KaU-ms-E4Q">
             <objects>
-                <viewController id="hHC-Hl-OU4" sceneMemberID="viewController">
+                <viewController id="hHC-Hl-OU4" customClass="NewTimerViewController" customModule="BoardTimer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JO0-aE-Nml">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -160,6 +160,14 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i52-jA-rdm">
+                                <rect key="frame" x="170" y="328" width="35" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="done"/>
+                                <connections>
+                                    <action selector="doneTapped:" destination="hHC-Hl-OU4" eventType="touchUpInside" id="wu7-cr-RTy"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6O9-xI-ZID">
                                 <rect key="frame" x="16" y="211" width="150" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -172,6 +180,10 @@
                         <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                         <viewLayoutGuide key="safeArea" id="ZsC-mm-dIi"/>
                     </view>
+                    <connections>
+                        <outlet property="increaseTextField" destination="vJY-5i-zHR" id="0ML-fo-eP6"/>
+                        <outlet property="minutesTextField" destination="tsU-tD-fQl" id="eX4-kp-gLI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kPO-Sh-sT1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
