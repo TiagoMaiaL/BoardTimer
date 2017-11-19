@@ -126,6 +126,17 @@ class ViewController: UIViewController {
     }
   }
   
+  func restartTimer() {
+    playerManager = nil
+    setupManagers()
+    restartTimerViews()
+  }
+  
+  func restartTimerViews() {
+    updateLabels(of: whiteTimerView)
+    updateLabels(of: blackTimerView)
+  }
+  
 }
 
 // MARK: Actions
@@ -155,7 +166,7 @@ extension ViewController {
 extension ViewController {
   
   @objc func restartRequested(notification: Notification) {
-    // TODO:
+    restartTimer()
   }
   
 }
