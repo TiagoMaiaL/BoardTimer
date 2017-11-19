@@ -8,9 +8,15 @@
 
 import UIKit
 
+struct NotificationName {
+  static let restart = Notification.Name("restart_timer")
+}
+
 class ViewController: UIViewController {
 
   // MARK: Properties
+  
+  let optionsSegueId = "show_options"
   
   @IBOutlet weak var blackWrapperView: XibView!
   @IBOutlet weak var whiteWrapperView: XibView!
@@ -30,7 +36,6 @@ class ViewController: UIViewController {
   private var blackTimerIncreasedHeight: NSLayoutConstraint!
   private var blackTimerDecreasedHeight: NSLayoutConstraint!
   
-  
   @IBOutlet var pauseGesture: UITapGestureRecognizer!
   @IBOutlet var passGesture: UITapGestureRecognizer!
   private var playerManager: PlayerManager!
@@ -40,8 +45,15 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    navigationController?.isNavigationBarHidden = true
-    
+    setupManagers()
+    setupObservers()
+    setupTimerViews()
+    setupGestures()
+  }
+  
+  // MARK: Setup
+  
+  func setupManagers() {
     let timer = TimerManager()
     timer.delegate = self
     
@@ -53,15 +65,13 @@ class ViewController: UIViewController {
                                   white: Player(color: .white),
                                   black: Player(color: .black))
     playerManager.delegate = self
-    
-    setupTimerViews()
-    setupGestures()
   }
   
-  // MARK: Imperatives
-  
-  func setupGestures() {
-    passGesture.require(toFail: pauseGesture)
+  func setupObservers() {
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(restartRequested(notification:)),
+                                           name: NotificationName.restart,
+                                           object: nil)
   }
   
   func setupTimerViews() {
@@ -76,6 +86,12 @@ class ViewController: UIViewController {
     blackTimerIncreasedHeight = blackTimerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.8)
     blackTimerDecreasedHeight = blackTimerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2)
   }
+
+  func setupGestures() {
+    passGesture.require(toFail: pauseGesture)
+  }
+  
+  // MARK: Imperatives
   
   func getFormattedRemainingTime(for player: Player) -> String {
     let remainingTime = player.remainingTime
@@ -134,19 +150,27 @@ extension ViewController {
 
 }
 
+// MARK: Notification Actions
+
+extension ViewController {
+  
+  @objc func restartRequested(notification: Notification) {
+    // TODO:
+  }
+  
+}
+
 // MARK: Timer manager delegate
 
 extension ViewController: TimerManagerDelegate {
 
   func timerHasStarted(manager: TimerManager) {
     animatePlayerChange()
-    print("Started")
   }
 
   func timerHasStopped(manager: TimerManager) {
-    // TODO: Make the stop animation.
-    // TODO: Implement the paused state.
-    print("Paused")
+    performSegue(withIdentifier: optionsSegueId,
+                 sender: self)
   }
 
   func timerHasFired(manager: TimerManager) {
@@ -167,8 +191,7 @@ extension ViewController: PlayerManagerDelegate {
   
   func playerTimeHasRanOver(player: Player) {
     playerManager.timer.pause()
-    // TODO: Show finished state.
-    print("timer is over.")
+    performSegue(withIdentifier: optionsSegueId, sender: self)
   }
   
   func playerTimeHasDecreased(player: Player) {
