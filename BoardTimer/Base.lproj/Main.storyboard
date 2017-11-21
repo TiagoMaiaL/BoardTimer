@@ -116,9 +116,6 @@
                                 <state key="normal" title="new timer">
                                     <color key="titleColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
-                                <connections>
-                                    <segue destination="hHC-Hl-OU4" kind="show" id="ob6-zD-aol"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -128,7 +125,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CH1-aI-X61" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1503.2" y="142.57871064467767"/>
+            <point key="canvasLocation" x="2244" y="1041"/>
         </scene>
         <!--New Timer View Controller-->
         <scene sceneID="KaU-ms-E4Q">
@@ -187,7 +184,48 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kPO-Sh-sT1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2289" y="143"/>
+            <point key="canvasLocation" x="2348" y="143"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="9wl-ad-zau">
+            <objects>
+                <tableViewController id="2VZ-kC-YBq" customClass="SettingsTableViewController" customModule="BoardTimer" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Zx3-TM-sTR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="timer_cell" textLabel="16g-4f-HmA" style="IBUITableViewCellStyleDefault" id="yTS-vD-ZwA">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yTS-vD-ZwA" id="do6-hH-Pd3">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="16g-4f-HmA">
+                                            <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="2VZ-kC-YBq" id="M30-Ls-95Q"/>
+                            <outlet property="delegate" destination="2VZ-kC-YBq" id="uz8-6S-tGd"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Settings" largeTitleDisplayMode="always" id="ZrA-4d-Ffr"/>
+                    <connections>
+                        <segue destination="hHC-Hl-OU4" kind="show" id="LfD-pz-Uts"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zoe-n9-1tR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1543" y="143"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="paV-ux-znJ">
@@ -200,7 +238,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="EoY-xk-fPJ" kind="relationship" relationship="rootViewController" id="HEA-In-qFJ"/>
+                        <segue destination="2VZ-kC-YBq" kind="relationship" relationship="rootViewController" id="eX6-Nk-O9V"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cSu-uD-EgN" userLabel="First Responder" sceneMemberID="firstResponder"/>
