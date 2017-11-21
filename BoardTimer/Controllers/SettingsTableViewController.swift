@@ -64,10 +64,16 @@ extension SettingsTableViewController {
     }
   }
 
-  // TODO: Create the view for the title
-//  override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//    return UIView()
-//  }
+  override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: "header_cell") else { return nil }
+    
+    let titleTag = 1
+    let titleLabel = cell.viewWithTag(titleTag) as? UILabel
+    
+    titleLabel?.text = self.tableView(tableView, titleForHeaderInSection: section)
+    
+    return cell
+  }
   
   override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
     return 100
