@@ -81,7 +81,7 @@ extension SettingsTableViewController {
       other: ""
     ]
     static let rowsCount = [ // TODO: Return the correct number of rows.
-      timers: 4,
+      timers: TimerConfiguration.getDefaultConfigurations().count,
       custom: 1,
       sounds: 1,
       other: 1
@@ -130,8 +130,10 @@ extension SettingsTableViewController {
       let path = getPath(from: row)
       let cell = tableView.dequeueReusableCell(withIdentifier: "timer_cell", for: path)
       
-      cell.textLabel?.text = "Testing title"
-      cell.detailTextLabel?.text = "testing subtitle"
+      let timer = TimerConfiguration.getDefaultConfigurations()[row]
+      
+      cell.textLabel?.text = timer.name
+      cell.detailTextLabel?.text = "\(timer.remainingTime) min"
       
       return cell
     }

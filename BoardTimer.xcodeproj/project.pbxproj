@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		473E190E1FBD2CEE00F36715 /* XibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473E190D1FBD2CEE00F36715 /* XibView.swift */; };
-		4783DE8E1FC129BE00C6A077 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4783DE8D1FC129BE00C6A077 /* OptionsViewController.swift */; };
+		4780A2661FC808FB0035126F /* TimerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4780A2651FC808FB0035126F /* TimerConfiguration.swift */; };
 		4783DE901FC137F900C6A077 /* NewTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4783DE8F1FC137F900C6A077 /* NewTimerViewController.swift */; };
 		4783DE921FC4831D00C6A077 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4783DE911FC4831D00C6A077 /* SettingsTableViewController.swift */; };
 		47AD30371FB6315500A911D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AD30361FB6315500A911D9 /* AppDelegate.swift */; };
@@ -37,7 +37,7 @@
 
 /* Begin PBXFileReference section */
 		473E190D1FBD2CEE00F36715 /* XibView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XibView.swift; sourceTree = "<group>"; };
-		4783DE8D1FC129BE00C6A077 /* OptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
+		4780A2651FC808FB0035126F /* TimerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerConfiguration.swift; sourceTree = "<group>"; };
 		4783DE8F1FC137F900C6A077 /* NewTimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTimerViewController.swift; sourceTree = "<group>"; };
 		4783DE911FC4831D00C6A077 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		47AD30331FB6315500A911D9 /* BoardTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoardTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				47AD305A1FB6360200A911D9 /* Player.swift */,
+				4780A2651FC808FB0035126F /* TimerConfiguration.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -140,7 +141,6 @@
 			isa = PBXGroup;
 			children = (
 				47AD30381FB6315500A911D9 /* ViewController.swift */,
-				4783DE8D1FC129BE00C6A077 /* OptionsViewController.swift */,
 				4783DE8F1FC137F900C6A077 /* NewTimerViewController.swift */,
 				4783DE911FC4831D00C6A077 /* SettingsTableViewController.swift */,
 			);
@@ -275,9 +275,9 @@
 				47AD305B1FB6360200A911D9 /* Player.swift in Sources */,
 				4783DE921FC4831D00C6A077 /* SettingsTableViewController.swift in Sources */,
 				4783DE901FC137F900C6A077 /* NewTimerViewController.swift in Sources */,
-				4783DE8E1FC129BE00C6A077 /* OptionsViewController.swift in Sources */,
 				47AD30641FBD0DE800A911D9 /* RotatableLabel.swift in Sources */,
 				47AD30591FB635DB00A911D9 /* TimerManager.swift in Sources */,
+				4780A2661FC808FB0035126F /* TimerConfiguration.swift in Sources */,
 				47AD30391FB6315500A911D9 /* ViewController.swift in Sources */,
 				473E190E1FBD2CEE00F36715 /* XibView.swift in Sources */,
 				47AD30371FB6315500A911D9 /* AppDelegate.swift in Sources */,
