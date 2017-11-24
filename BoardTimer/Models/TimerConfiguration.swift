@@ -12,16 +12,16 @@ class TimerConfiguration: NSObject {
  
   // MARK: Properties
   
-  let remainingTime: TimeInterval
+  let time: TimeInterval
   let delay: TimeInterval
   // TODO: Add the types of delay to be added after the pass action.
   let name: String
   
   // MARK: Init
   
-  init(name: String, remainingTime: TimeInterval, delay: TimeInterval) {
+  init(name: String, time: TimeInterval, delay: TimeInterval) {
     self.name = name
-    self.remainingTime = remainingTime
+    self.time = time
     self.delay = delay
   }
   
@@ -29,11 +29,11 @@ class TimerConfiguration: NSObject {
   
   static func getDefaultConfigurations() -> [TimerConfiguration] {
     return [
-      TimerConfiguration(name: "Active", remainingTime: 30, delay: 0),
-      TimerConfiguration(name: "Rapid", remainingTime: 15, delay: 0),
-      TimerConfiguration(name: "Blitz", remainingTime: 5, delay: 0),
-      TimerConfiguration(name: "Bullet", remainingTime: 3, delay: 0),
-      TimerConfiguration(name: "Lightning", remainingTime: 1, delay: 0),
+      TimerConfiguration(name: "Active", time: 30, delay: 0),
+      TimerConfiguration(name: "Rapid", time: 15, delay: 0),
+      TimerConfiguration(name: "Blitz", time: 5, delay: 0),
+      TimerConfiguration(name: "Bullet", time: 3, delay: 0),
+      TimerConfiguration(name: "Lightning", time: 1, delay: 0),
     ]
   }
 }

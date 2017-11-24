@@ -133,7 +133,7 @@ extension SettingsTableViewController {
       let timer = TimerConfiguration.getDefaultConfigurations()[row]
       
       cell.textLabel?.text = timer.name
-      cell.detailTextLabel?.text = "\(timer.remainingTime) min"
+      cell.detailTextLabel?.text = "\(timer.time) min"
       
       return cell
     }

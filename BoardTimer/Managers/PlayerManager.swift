@@ -20,9 +20,6 @@ protocol PlayerManagerDelegate {
   
   /// Called when the player's remaining time has been decreased.
   func playerTimeHasDecreased(player: Player)
-  
-  /// Called when the player's remaining time is increased after a change in the current player.
-  func playerTimeHasIncreased(player: Player)
 }
 
 class PlayerManager {
@@ -47,9 +44,6 @@ class PlayerManager {
     blackPlayer = black
     
     currentPlayer = whitePlayer
-    
-    whitePlayer.remainingTime = configuration.timeAmount
-    blackPlayer.remainingTime = configuration.timeAmount
   }
   
   // MARK: Imperatives
@@ -57,10 +51,7 @@ class PlayerManager {
   /// Toggles the current player between the two handled players.
   func toggleCurrentPlayer() {
     
-    if configuration.playIncrease > 0 {
-      playIncreaseRemainingTime()
-      delegate?.playerTimeHasIncreased(player: currentPlayer)
-    }
+    currentPlayer.pass()
     
     switch currentPlayer.color {
     case .white:
@@ -76,19 +67,13 @@ class PlayerManager {
   /// If there's no time to decrease, we call the delegate's playerTimeHasRanOver
   /// method and return.
   func decreaseRemainingTime() {
-    if currentPlayer.remainingTime <= 0 {
+    if currentPlayer.isOver {
       delegate?.playerTimeHasRanOver(player: currentPlayer)
       return
     }
     
-    currentPlayer.remainingTime -= 1
+    currentPlayer.decreaseTime()
     delegate?.playerTimeHasDecreased(player: currentPlayer)
-  }
-  
-  /// Increases the current player's remaning time by the configured
-  /// amount passed in the configuration object.
-  func playIncreaseRemainingTime() {
-    currentPlayer.remainingTime += configuration.playIncrease
   }
   
 }

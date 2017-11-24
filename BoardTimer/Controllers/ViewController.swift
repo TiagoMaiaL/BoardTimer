@@ -59,10 +59,15 @@ class ViewController: UIViewController {
     let timer = TimerManager()
     timer.delegate = self
     
+    let whitePlayer = Player(color: .white,
+                             configuration: TimerConfiguration.getDefaultConfigurations()[3])
+    let blackPlayer = Player(color: .black,
+                             configuration: TimerConfiguration.getDefaultConfigurations()[3])
+    
     playerManager = PlayerManager(configuration: playerConfig,
                                   timer: timer,
-                                  white: Player(color: .white),
-                                  black: Player(color: .black))
+                                  white: whitePlayer,
+                                  black: blackPlayer)
     playerManager.delegate = self
   }
   
@@ -210,7 +215,7 @@ extension ViewController: TimerManagerDelegate {
 extension ViewController: PlayerManagerDelegate {
   
   func playerHasChanged(currentPlayer: Player) {
-    updateLabels()
+    updateLabels() // TODO: Update both labels
     animatePlayerChange()
   }
   
@@ -221,18 +226,6 @@ extension ViewController: PlayerManagerDelegate {
   
   func playerTimeHasDecreased(player: Player) {
     updateLabels()
-  }
-  
-  func playerTimeHasIncreased(player: Player) {
-    let timerView: SingleTimerView!
-    
-    if player.color == .white {
-      timerView = whiteTimerView
-    } else {
-      timerView = blackTimerView
-    }
-    
-    updateLabels(of: timerView)
   }
   
 }

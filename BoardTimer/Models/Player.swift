@@ -19,12 +19,38 @@ class Player {
   
   let uid = UUID().uuidString
   let color: PlayerColor
-  var remainingTime: TimeInterval = 0
+  let configuration: TimerConfiguration
+  
+  private(set) var remainingTime: TimeInterval = 0
+  private(set) var delayTime: TimeInterval = 0
+  
+  var isOver: Bool {
+    return remainingTime == 0
+  }
   
   // MARK: Initializers
   
-  init(color: PlayerColor) {
+  init(color: PlayerColor, configuration: TimerConfiguration) {
     self.color = color
+    self.configuration = configuration
+    
+    remainingTime = configuration.time * 60
+    delayTime = configuration.delay
   }
-
+  
+  // MARK: Imperatives
+  
+  func decreaseTime() {
+    if isOver {
+      return
+    }
+    
+    remainingTime -= 1
+  }
+  
+  func pass() {
+    // TODO: Increase according to the delay type.
+    remainingTime += delayTime
+  }
+  
 }
