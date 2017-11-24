@@ -9,7 +9,7 @@
 import UIKit
 
 class SettingsTableViewController: UITableViewController {
-
+  
   // MARK: Life cycle
   
   override func viewDidLoad() {
@@ -38,30 +38,18 @@ extension SettingsTableViewController {
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 1
+    guard let section = SettingsSection(rawValue: section) else { return 0 }
+    return section.getRowsNumber()
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "timer_cell", for: indexPath)
-   
-    // Configure the cell...
-   
-    return cell
+    guard let section = SettingsSection(rawValue: indexPath.section) else { return UITableViewCell() }
+    return section.getCell(for: indexPath.row, and: tableView)
   }
   
   override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     guard let section = SettingsSection(rawValue: section) else { return nil }
-    
-    switch section {
-    case .timers:
-      return "Common timers"
-    case .custom:
-      return "Custom timers"
-    case .sounds:
-      return "Sounds"
-    case .other:
-      return ""
-    }
+    return section.getTitle()
   }
 
   override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -85,6 +73,82 @@ extension SettingsTableViewController {
     case timers = 0, custom, sounds, other
     
     static var count: Int { return other.hashValue + 1 }
+    
+    static let titles = [
+      timers: "Common timers",
+      custom: "Custom timers",
+      sounds: "Sounds",
+      other: ""
+    ]
+    static let rowsCount = [ // TODO: Return the correct number of rows.
+      timers: 4,
+      custom: 1,
+      sounds: 1,
+      other: 1
+    ]
+    
+    func getTitle() -> String {
+      if let title = SettingsSection.titles[self] {
+        return title
+      } else {
+        return ""
+      }
+    }
+    
+    func getRowsNumber() -> Int {
+      if let count = SettingsSection.rowsCount[self] {
+        return count
+      } else {
+        return 0
+      }
+    }
+    
+    // MARK: Cell factory methods
+    
+    private func getPath(from row: Int) -> IndexPath {
+      return IndexPath(row: row, section: hashValue)
+    }
+    
+    func getCell(for row: Int, and tableView: UITableView) -> UITableViewCell {
+      let cell: UITableViewCell!
+      
+      switch self {
+      case .timers:
+        cell = getTimersCell(for: row, and: tableView)
+      case .custom:
+        cell = getCustomCell(for: row, and: tableView)
+      case .sounds:
+        cell = UITableViewCell()
+      case .other:
+        cell = getOtherCell(for: row, and: tableView)
+      }
+      
+      return cell
+    }
+    
+    func getTimersCell(for row: Int, and tableView: UITableView) -> UITableViewCell {
+      let path = getPath(from: row)
+      let cell = tableView.dequeueReusableCell(withIdentifier: "timer_cell", for: path)
+      
+      cell.textLabel?.text = "Testing title"
+      cell.detailTextLabel?.text = "testing subtitle"
+      
+      return cell
+    }
+    
+    func getCustomCell(for row: Int, and tableView: UITableView) -> UITableViewCell {
+      let path = getPath(from: row)
+      let cell = tableView.dequeueReusableCell(withIdentifier: "common_cell", for: path)
+      
+      cell.textLabel?.text = "Create a custom timer"
+      
+      return cell
+    }
+    
+    func getOtherCell(for row: Int, and tableView: UITableView) -> UITableViewCell {
+      return UITableViewCell()
+    }
+    
   }
-
+  
 }
