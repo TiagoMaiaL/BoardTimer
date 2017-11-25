@@ -46,7 +46,7 @@ class PlayerManager {
   
   /// Toggles the current player between the two handled players.
   func toggleCurrentPlayer() {
-    currentPlayer.pass()
+    currentPlayer.passTurn()
     
     switch currentPlayer.color {
     case .white:
@@ -55,6 +55,7 @@ class PlayerManager {
       currentPlayer = whitePlayer
     }
 
+    currentPlayer.startTurn()
     delegate?.playerHasChanged(currentPlayer: currentPlayer)
   }
   

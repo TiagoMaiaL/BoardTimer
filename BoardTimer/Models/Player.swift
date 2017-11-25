@@ -13,6 +13,8 @@ enum PlayerColor {
   case black
 }
 
+// TODO: Test business logic
+
 class Player {
   
   // MARK: Properties
@@ -45,22 +47,27 @@ class Player {
       return
     }
     
-    if  configuration.mode == .simple ||
-        configuration.mode == .bronstein &&
-        delayTime > 0 {
+    if delayTime > 0 &&
+       configuration.mode == .simple ||
+       configuration.mode == .bronstein {
       delayTime -= 1
     } else {
       remainingTime -= 1
     }
   }
   
-  func pass() {
+  func startTurn() {
+    if configuration.mode == .fischer {
+      remainingTime += delayTime
+    }
+  }
+  
+  func passTurn() {
     if configuration.mode == .bronstein {
       remainingTime += configuration.delay - delayTime
     }
     
     delayTime = configuration.delay
-//    remainingTime += delayTime
   }
   
 }

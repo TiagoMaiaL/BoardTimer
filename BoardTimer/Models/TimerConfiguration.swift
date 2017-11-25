@@ -32,7 +32,7 @@ class TimerConfiguration: NSObject {
     return [
       TimerConfiguration(name: "Quick Play", time: 15, delay: 0, mode: .simple),
       TimerConfiguration(name: "Blitz", time: 5, delay: 0, mode: .simple),
-      TimerConfiguration(name: "Bullet", time: 3, delay: 5, mode: .simple),
+      TimerConfiguration(name: "Bullet", time: 3, delay: 5, mode: .fischer),
       TimerConfiguration(name: "Lightning", time: 1, delay: 0, mode: .simple),
     ]
   }
