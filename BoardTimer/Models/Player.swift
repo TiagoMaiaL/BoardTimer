@@ -45,12 +45,17 @@ class Player {
       return
     }
     
-    remainingTime -= 1
+    if configuration.mode == .simple && delayTime > 0 {
+      delayTime -= 1
+    } else {
+      remainingTime -= 1
+    }
   }
   
   func pass() {
-    // TODO: Increase according to the delay type.
-    remainingTime += delayTime
+    delayTime = configuration.delay
+    
+//    remainingTime += delayTime
   }
   
 }

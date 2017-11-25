@@ -8,8 +8,6 @@
 
 import Foundation
 
-typealias PlayerConfiguration = (timeAmount: TimeInterval, playIncrease: TimeInterval)
-
 protocol PlayerManagerDelegate {
   
   /// Called when the player has changed
@@ -26,7 +24,6 @@ class PlayerManager {
   
   // MARK: Properties
   
-  let configuration: PlayerConfiguration
   let timer: TimerManager
   private(set) var whitePlayer: Player
   private(set) var blackPlayer: Player
@@ -37,8 +34,7 @@ class PlayerManager {
   
   // MARK: Initializers
   
-  init(configuration: PlayerConfiguration, timer: TimerManager, white: Player, black: Player) {
-    self.configuration = configuration
+  init(timer: TimerManager, white: Player, black: Player) {
     self.timer = timer
     whitePlayer = white
     blackPlayer = black
@@ -50,7 +46,6 @@ class PlayerManager {
   
   /// Toggles the current player between the two handled players.
   func toggleCurrentPlayer() {
-    
     currentPlayer.pass()
     
     switch currentPlayer.color {
