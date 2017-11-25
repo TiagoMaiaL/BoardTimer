@@ -25,6 +25,7 @@ class Player {
   
   private(set) var remainingTime: TimeInterval = 0
   private(set) var delayTime: TimeInterval = 0
+  private(set) var moves = 0
   
   var isOver: Bool {
     return remainingTime == 0
@@ -63,6 +64,8 @@ class Player {
   }
   
   func passTurn() {
+    moves += 1
+    
     if configuration.mode == .bronstein {
       remainingTime += configuration.delay - delayTime
     }
