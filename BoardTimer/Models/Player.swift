@@ -45,7 +45,9 @@ class Player {
       return
     }
     
-    if configuration.mode == .simple && delayTime > 0 {
+    if  configuration.mode == .simple ||
+        configuration.mode == .bronstein &&
+        delayTime > 0 {
       delayTime -= 1
     } else {
       remainingTime -= 1
@@ -53,8 +55,11 @@ class Player {
   }
   
   func pass() {
-    delayTime = configuration.delay
+    if configuration.mode == .bronstein {
+      remainingTime += configuration.delay - delayTime
+    }
     
+    delayTime = configuration.delay
 //    remainingTime += delayTime
   }
   
