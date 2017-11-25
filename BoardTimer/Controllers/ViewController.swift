@@ -54,18 +54,17 @@ class ViewController: UIViewController {
   
   // MARK: Setup
   
-  func setupManagers(with playerConfig: PlayerConfiguration = (timeAmount: TimeInterval(60 * 0.5),
-                                                               playIncrease: TimeInterval(12))) {
+  func setupManagers(/*with playerConfig: PlayerConfiguration = (timeAmount: TimeInterval(60 * 0.5),
+                                                               playIncrease: TimeInterval(12))*/) {
     let timer = TimerManager()
     timer.delegate = self
     
     let whitePlayer = Player(color: .white,
-                             configuration: TimerConfiguration.getDefaultConfigurations()[3])
+                             configuration: TimerConfiguration.getDefaultConfigurations()[2])
     let blackPlayer = Player(color: .black,
-                             configuration: TimerConfiguration.getDefaultConfigurations()[3])
+                             configuration: TimerConfiguration.getDefaultConfigurations()[2])
     
-    playerManager = PlayerManager(configuration: playerConfig,
-                                  timer: timer,
+    playerManager = PlayerManager(timer: timer,
                                   white: whitePlayer,
                                   black: blackPlayer)
     playerManager.delegate = self
@@ -133,14 +132,15 @@ class ViewController: UIViewController {
     }
   }
   
-  func restartTimer(with playerConfig: PlayerConfiguration? = nil) {
+  // TODO: Return the correct configuration
+  func restartTimer(/*with playerConfig: PlayerConfiguration? = nil*/) {
     playerManager = nil
     
-    if let config = playerConfig {
-      setupManagers(with: config)
-    } else {
+//    if let config = playerConfig {
+//      setupManagers(with: config)
+//    } else {
       setupManagers()
-    }
+//    }
     
     restartTimerViews()
   }
@@ -183,9 +183,8 @@ extension ViewController {
   }
   
   @objc func newTimerRequested(notification: Notification) {
-    guard let config = notification.userInfo?["player_configuration"] as? PlayerConfiguration else { return }
-    
-    restartTimer(with: config)
+//    guard let config = notification.userInfo?["player_configuration"] as? PlayerConfiguration else { return }
+    restartTimer()
   }
   
 }
