@@ -48,7 +48,6 @@ class ViewController: UIViewController {
     setupManagers()
     setupObservers()
     setupTimerViews()
-    refreshTimerViews()
   }
   
   // MARK: Setup
@@ -91,8 +90,10 @@ class ViewController: UIViewController {
     
     blackTimerView.rotate(angle: CGFloat.pi)
     
-    blackTimerIncreasedHeight = blackTimerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.8)
-    blackTimerDecreasedHeight = blackTimerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2)
+    blackTimerIncreasedHeight = blackTimerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.6)
+    blackTimerDecreasedHeight = blackTimerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4)
+    
+    refreshTimerViews()
   }
   
   // MARK: Imperatives
@@ -110,9 +111,31 @@ class ViewController: UIViewController {
       blackTimerDecreasedHeight.isActive = true
     }
     
-    UIView.animate(withDuration: 0.5) { [unowned self] in
-      self.view.layoutIfNeeded()
+    UIView.animate(withDuration: 0.3,
+                   delay: 0,
+                   usingSpringWithDamping: 0.7,
+                   initialSpringVelocity: 0,
+                   options: .curveEaseInOut,
+                   animations: { [unowned self] in
+                    self.view.layoutIfNeeded()
+    })
+    
+    if currentColor == .black {
+      self.whiteTimerView.animateOut()
+      self.blackTimerView.animateIn()
+    } else {
+      self.blackTimerView.animateOut()
+      self.whiteTimerView.animateIn()
     }
+    
+//    UIView.animate(withDuration: 0.5,
+//                   delay: 0,
+//                   usingSpringWithDamping: 0.7,
+//                   initialSpringVelocity: 0,
+//                   options: .curveEaseInOut,
+//                   animations: { [unowned self] in
+//      self.view.layoutIfNeeded()
+//    })
   }
   
   func getFormattedRemainingTime(for player: Player) -> String {
