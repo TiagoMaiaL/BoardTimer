@@ -10,7 +10,7 @@ import UIKit
 
 enum Theme {
   case white
-  case black
+  case dark
 }
 
 @IBDesignable
@@ -19,7 +19,7 @@ class SingleTimerView: UIView {
   // MARK: Properties
   
   let whiteColor = UIColor(red: 238.0/255.0, green: 238.0/255.0, blue: 238.0/255.0, alpha: 1)
-  let blackColor = UIColor(red: 34.0/255.0, green: 34.0/255.0, blue: 34.0/255.0, alpha: 1)
+  let darkColor = UIColor(red: 0/255.0, green: 31/255.0, blue: 43/255.0, alpha: 1)
   
   @IBOutlet weak var timeLabel: UILabel!
   
@@ -44,19 +44,14 @@ class SingleTimerView: UIView {
   private func apply(theme: Theme = .white) {
     
     func setColors(for theme: Theme) {
-      let bgColor = theme == .white ? whiteColor : blackColor
-      let labelColor = theme == .white ? blackColor : whiteColor
+      let bgColor = theme == .white ? whiteColor : darkColor
+      let labelColor = theme == .white ? darkColor : whiteColor
       
       backgroundColor = bgColor
       timeLabel.textColor = labelColor
     }
     
-    switch theme {
-    case .white:
-      setColors(for: .white)
-    case .black:
-      setColors(for: .black)
-    }
+    setColors(for: theme)
   }
   
   func setText(_ time: String) {

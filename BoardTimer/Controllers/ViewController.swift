@@ -86,7 +86,7 @@ class ViewController: UIViewController {
     blackTimerView = blackWrapperView.contentView as! SingleTimerView
     whiteTimerView = whiteWrapperView.contentView as! SingleTimerView
     
-    blackTimerView.theme = .black
+    blackTimerView.theme = .dark
     whiteTimerView.theme = .white
     
     blackTimerView.rotate(angle: CGFloat.pi)
