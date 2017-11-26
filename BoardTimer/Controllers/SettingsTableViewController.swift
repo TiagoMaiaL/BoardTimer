@@ -70,21 +70,21 @@ extension SettingsTableViewController {
   // MARK: Data source enums
   
   enum SettingsSection: Int {
-    case timers = 0, custom, sounds, other
+    case timers = 0, custom/*, sounds, other*/
     
-    static var count: Int { return other.hashValue + 1 }
+    static var count: Int { return custom.hashValue + 1 }
     
     static let titles = [
       timers: "Common timers",
       custom: "Custom timers",
-      sounds: "Sounds",
-      other: ""
+//      sounds: "Sounds",
+//      other: ""
     ]
     static let rowsCount = [ // TODO: Return the correct number of rows.
       timers: TimerConfiguration.getDefaultConfigurations().count,
       custom: 1,
-      sounds: 1,
-      other: 1
+//      sounds: 1,
+//      other: 1
     ]
     
     func getTitle() -> String {
@@ -117,10 +117,10 @@ extension SettingsTableViewController {
         cell = getTimersCell(for: row, and: tableView)
       case .custom:
         cell = getCustomCell(for: row, and: tableView)
-      case .sounds:
-        cell = UITableViewCell()
-      case .other:
-        cell = getOtherCell(for: row, and: tableView)
+//      case .sounds:
+//        cell = UITableViewCell()
+//      case .other:
+//        cell = getOtherCell(for: row, and: tableView)
       }
       
       return cell

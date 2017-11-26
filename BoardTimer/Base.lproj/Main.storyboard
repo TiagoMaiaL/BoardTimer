@@ -165,6 +165,7 @@
                                         </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="7Ue-yD-Z1s" secondAttribute="trailingMargin" id="J4b-2r-2DQ"/>
                                         <constraint firstItem="7Ue-yD-Z1s" firstAttribute="bottom" secondItem="do6-hH-Pd3" secondAttribute="bottomMargin" id="MHf-cx-exB"/>
                                         <constraint firstItem="7Ue-yD-Z1s" firstAttribute="leading" secondItem="do6-hH-Pd3" secondAttribute="leadingMargin" id="oNK-sa-OkV"/>
                                     </constraints>
@@ -219,7 +220,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Settings" largeTitleDisplayMode="always" id="ZrA-4d-Ffr"/>
                     <connections>
-                        <segue destination="hHC-Hl-OU4" kind="show" id="LfD-pz-Uts"/>
+                        <segue destination="hHC-Hl-OU4" kind="show" identifier="new_timer" id="LfD-pz-Uts"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zoe-n9-1tR" userLabel="First Responder" sceneMemberID="firstResponder"/>

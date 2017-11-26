@@ -157,15 +157,17 @@ extension ViewController {
 //  }
   
   @IBAction func didTapRefresh(_ sender: UIButton) {
-    let alert = UIAlertController(title: "Reset",
-                                  message: "Are you sure you want to reset the current timer?",
-                                  preferredStyle: .alert)
-    alert.addAction(UIAlertAction(title: "reset", style: .destructive, handler: { [unowned self] _ in
-      self.restartTimer()
-    }))
-    alert.addAction(UIAlertAction(title: "cancel", style: .cancel))
+    performSegue(withIdentifier: "show_options", sender: self)
     
-    present(alert, animated: true)
+//    let alert = UIAlertController(title: "Reset",
+//                                  message: "Are you sure you want to reset the current timer?",
+//                                  preferredStyle: .alert)
+//    alert.addAction(UIAlertAction(title: "reset", style: .destructive, handler: { [unowned self] _ in
+//      self.restartTimer()
+//    }))
+//    alert.addAction(UIAlertAction(title: "cancel", style: .cancel))
+//
+//    present(alert, animated: true)
   }
   
   // MARK: Notification Actions
