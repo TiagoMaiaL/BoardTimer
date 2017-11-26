@@ -53,15 +53,17 @@ class ViewController: UIViewController {
   
   // MARK: Setup
   
-  func setupManagers(/*with playerConfig: PlayerConfiguration = (timeAmount: TimeInterval(60 * 0.5),
-                                                               playIncrease: TimeInterval(12))*/) {
+  func setupManagers(with configuration: TimerConfiguration? = nil) {
+    // TODO: Determine the default timer.
+    let configuration = configuration ?? TimerConfiguration.getDefaultConfigurations()[0]
+    
     let timer = TimerManager()
     timer.delegate = self
     
     let whitePlayer = Player(color: .white,
-                             configuration: TimerConfiguration.getDefaultConfigurations()[2])
+                             configuration: configuration)
     let blackPlayer = Player(color: .black,
-                             configuration: TimerConfiguration.getDefaultConfigurations()[2])
+                             configuration: configuration)
     
     playerManager = PlayerManager(timer: timer,
                                   white: whitePlayer,
@@ -127,15 +129,9 @@ class ViewController: UIViewController {
   }
   
   // TODO: Return the correct configuration
-  func restartTimer(/*with playerConfig: PlayerConfiguration? = nil*/) {
+  func restartTimer(with configuration: TimerConfiguration? = nil) {
     playerManager = nil
-    
-    //    if let config = playerConfig {
-    //      setupManagers(with: config)
-    //    } else {
-    setupManagers()
-    //    }
-    
+    setupManagers(with: configuration)
     refreshTimerViews()
   }
 }
