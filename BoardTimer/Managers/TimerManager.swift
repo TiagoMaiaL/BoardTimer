@@ -27,6 +27,11 @@ class TimerManager {
   private(set) var internalTimer: Timer?
   var delegate: TimerManagerDelegate?
   
+  /// Indicates the current state of the timer.
+  var isRunning: Bool {
+    return internalTimer != nil
+  }
+  
   // MARK: Imperatives
   
   /// Starts the internal timer.
@@ -42,17 +47,24 @@ class TimerManager {
   
   /// Pauses the internal timer.
   func pause() {
+    invalidateTimer()
+    delegate?.timerHasStopped(manager: self)
+  }
+  
+  /// Restarts the internal timer
+  func restart() {
+    if isRunning {
+      invalidateTimer()
+    }
+    
+    start()
+  }
+  
+  private func invalidateTimer() {
     if let timer = internalTimer {
       timer.invalidate()
       internalTimer = nil
-      
-      delegate?.timerHasStopped(manager: self)
     }
-  }
-  
-  /// Returns whether the timer is running.
-  func isRunning() -> Bool {
-    return internalTimer != nil
   }
   
 }

@@ -141,7 +141,7 @@ extension ViewController {
   // MARK: Actions
   
   @IBAction func didTap(_ sender: UITapGestureRecognizer) {
-    if !playerManager.timer.isRunning() {
+    if !playerManager.timer.isRunning {
       playerManager.timer.start()
     } else {
       playerManager.toggleCurrentPlayer()
@@ -157,17 +157,15 @@ extension ViewController {
 //  }
   
   @IBAction func didTapRefresh(_ sender: UIButton) {
-    performSegue(withIdentifier: "show_options", sender: self)
-    
-//    let alert = UIAlertController(title: "Reset",
-//                                  message: "Are you sure you want to reset the current timer?",
-//                                  preferredStyle: .alert)
-//    alert.addAction(UIAlertAction(title: "reset", style: .destructive, handler: { [unowned self] _ in
-//      self.restartTimer()
-//    }))
-//    alert.addAction(UIAlertAction(title: "cancel", style: .cancel))
-//
-//    present(alert, animated: true)
+    let alert = UIAlertController(title: "Reset",
+                                  message: "Are you sure you want to reset the current timer?",
+                                  preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: "reset", style: .destructive, handler: { [unowned self] _ in
+      self.restartTimer()
+    }))
+    alert.addAction(UIAlertAction(title: "cancel", style: .cancel))
+
+    present(alert, animated: true)
   }
   
   // MARK: Notification Actions

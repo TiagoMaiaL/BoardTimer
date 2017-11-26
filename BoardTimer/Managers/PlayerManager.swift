@@ -57,6 +57,7 @@ class PlayerManager {
 
     currentPlayer.startTurn()
     delegate?.playerHasChanged(currentPlayer: currentPlayer)
+    timer.restart()
   }
   
   /// Decreases by one the remaining time from the current player.
