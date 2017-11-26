@@ -48,6 +48,7 @@ class ViewController: UIViewController {
     setupManagers()
     setupObservers()
     setupTimerViews()
+    refreshTimerViews()
   }
   
   // MARK: Setup
@@ -94,20 +95,6 @@ class ViewController: UIViewController {
   
   // MARK: Imperatives
   
-  func getFormattedRemainingTime(for player: Player) -> String {
-    let remainingTime = player.remainingTime
-    let minutes = Int(remainingTime / 60)
-    let seconds = Int(remainingTime.truncatingRemainder(dividingBy: 60))
-    
-    return "\(String(format: "%02d", minutes)):\(String(format: "%02d", seconds))"
-  }
-  
-  func updateLabels(of timerView: SingleTimerView? = nil) {
-    let timerView = timerView ?? currentPlayerView
-    let remainingTime = getFormattedRemainingTime(for: playerManager.currentPlayer)
-    timerView.setText(remainingTime)
-  }
-  
   func animatePlayerChange() {
     let currentColor = playerManager.currentPlayer.color
     
@@ -126,22 +113,30 @@ class ViewController: UIViewController {
     }
   }
   
+  func getFormattedRemainingTime(for player: Player) -> String {
+    let remainingTime = player.remainingTime
+    let minutes = Int(remainingTime / 60)
+    let seconds = Int(remainingTime.truncatingRemainder(dividingBy: 60))
+    
+    return "\(String(format: "%02d", minutes)):\(String(format: "%02d", seconds))"
+  }
+  
+  func refreshTimerViews() {
+    whiteTimerView.setText(getFormattedRemainingTime(for: playerManager.whitePlayer))
+    blackTimerView.setText(getFormattedRemainingTime(for: playerManager.blackPlayer))
+  }
+  
   // TODO: Return the correct configuration
   func restartTimer(/*with playerConfig: PlayerConfiguration? = nil*/) {
     playerManager = nil
     
-//    if let config = playerConfig {
-//      setupManagers(with: config)
-//    } else {
-      setupManagers()
-//    }
+    //    if let config = playerConfig {
+    //      setupManagers(with: config)
+    //    } else {
+    setupManagers()
+    //    }
     
-    restartTimerViews()
-  }
-  
-  func restartTimerViews() {
-    updateLabels(of: whiteTimerView)
-    updateLabels(of: blackTimerView)
+    refreshTimerViews()
   }
 }
 
@@ -205,7 +200,6 @@ extension ViewController: TimerManagerDelegate {
 
   func timerHasFired(manager: TimerManager) {
     playerManager.decreaseRemainingTime()
-    updateLabels()
   }
 
 }
@@ -215,7 +209,7 @@ extension ViewController: TimerManagerDelegate {
 extension ViewController: PlayerManagerDelegate {
   
   func playerHasChanged(currentPlayer: Player) {
-    updateLabels() // TODO: Update both labels
+    refreshTimerViews()
     animatePlayerChange()
   }
   
@@ -225,7 +219,7 @@ extension ViewController: PlayerManagerDelegate {
   }
   
   func playerTimeHasDecreased(player: Player) {
-    updateLabels()
+    refreshTimerViews()
   }
   
 }
