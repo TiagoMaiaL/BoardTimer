@@ -37,7 +37,6 @@ class ViewController: UIViewController {
   private var blackTimerIncreasedHeight: NSLayoutConstraint!
   private var blackTimerDecreasedHeight: NSLayoutConstraint!
   
-  @IBOutlet var pauseGesture: UITapGestureRecognizer!
   @IBOutlet var passGesture: UITapGestureRecognizer!
   private var playerManager: PlayerManager!
   
@@ -49,7 +48,6 @@ class ViewController: UIViewController {
     setupManagers()
     setupObservers()
     setupTimerViews()
-    setupGestures()
   }
   
   // MARK: Setup
@@ -92,10 +90,6 @@ class ViewController: UIViewController {
     
     blackTimerIncreasedHeight = blackTimerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.8)
     blackTimerDecreasedHeight = blackTimerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2)
-  }
-
-  func setupGestures() {
-    passGesture.require(toFail: pauseGesture)
   }
   
   // MARK: Imperatives
@@ -163,13 +157,13 @@ extension ViewController {
     }
   }
   
-  @IBAction func didDoubleTap(_ sender: UITapGestureRecognizer) {
-    if playerManager.timer.isRunning() {
-      playerManager.timer.pause()
-    } else {
-      playerManager.timer.start()
-    }
-  }
+//  @IBAction func didDoubleTap(_ sender: UITapGestureRecognizer) {
+//    if playerManager.timer.isRunning() {
+//      playerManager.timer.pause()
+//    } else {
+//      playerManager.timer.start()
+//    }
+//  }
   
   @IBAction func didTapRefresh(_ sender: UIButton) {
     let alert = UIAlertController(title: "Reset",
