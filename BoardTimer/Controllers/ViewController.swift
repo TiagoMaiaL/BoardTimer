@@ -89,7 +89,7 @@ class ViewController: UIViewController {
     blackTimerView.theme = .black
     whiteTimerView.theme = .white
     
-    blackTimerView.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
+    blackTimerView.rotate(angle: CGFloat.pi)
     
     blackTimerIncreasedHeight = blackTimerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.8)
     blackTimerDecreasedHeight = blackTimerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2)

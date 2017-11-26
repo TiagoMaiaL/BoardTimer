@@ -22,7 +22,6 @@ class SingleTimerView: UIView {
   let blackColor = UIColor(red: 34.0/255.0, green: 34.0/255.0, blue: 34.0/255.0, alpha: 1)
   
   @IBOutlet weak var timeLabel: UILabel!
-  @IBOutlet weak var rotatedLabel: UILabel!
   
   var theme: Theme! {
     didSet {
@@ -50,7 +49,6 @@ class SingleTimerView: UIView {
       
       backgroundColor = bgColor
       timeLabel.textColor = labelColor
-      rotatedLabel.textColor = labelColor
     }
     
     switch theme {
@@ -63,7 +61,6 @@ class SingleTimerView: UIView {
   
   func setText(_ time: String) {
     timeLabel.text = time
-    rotatedLabel.text = time
   }
 
 }
