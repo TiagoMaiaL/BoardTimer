@@ -38,14 +38,23 @@
                                     </view>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MiQ-kS-vXd">
+                                <rect key="frame" x="161.5" y="328.5" width="53" height="30"/>
+                                <state key="normal" title="Refresh"/>
+                                <connections>
+                                    <action selector="didTapRefresh:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zL1-W1-nZU"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="ffD-wr-Jkr" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="TNj-Vd-hja"/>
                             <constraint firstItem="ffD-wr-Jkr" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="UUL-CY-5c7"/>
+                            <constraint firstItem="MiQ-kS-vXd" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="Wer-7W-huO"/>
                             <constraint firstItem="GK7-ox-tnL" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.5" id="jNv-oy-Mvv"/>
                             <constraint firstAttribute="bottom" secondItem="ffD-wr-Jkr" secondAttribute="bottom" id="niO-Wk-kX6"/>
+                            <constraint firstItem="MiQ-kS-vXd" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="r18-bW-gKd"/>
                             <constraint firstItem="ffD-wr-Jkr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="sGI-AT-uDc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

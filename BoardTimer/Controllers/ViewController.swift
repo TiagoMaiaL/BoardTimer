@@ -149,12 +149,11 @@ class ViewController: UIViewController {
     updateLabels(of: whiteTimerView)
     updateLabels(of: blackTimerView)
   }
-  
 }
 
-// MARK: Actions
-
 extension ViewController {
+ 
+  // MARK: Actions
   
   @IBAction func didTap(_ sender: UITapGestureRecognizer) {
     if !playerManager.timer.isRunning() {
@@ -171,22 +170,30 @@ extension ViewController {
       playerManager.timer.start()
     }
   }
-
-}
-
-// MARK: Notification Actions
-
-extension ViewController {
+  
+  @IBAction func didTapRefresh(_ sender: UIButton) {
+    let alert = UIAlertController(title: "Reset",
+                                  message: "Are you sure you want to reset the current timer?",
+                                  preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: "reset", style: .destructive, handler: { [unowned self] _ in
+      self.restartTimer()
+    }))
+    alert.addAction(UIAlertAction(title: "cancel", style: .cancel))
+    
+    present(alert, animated: true)
+  }
+  
+  // MARK: Notification Actions
   
   @objc func restartRequested(notification: Notification) {
     restartTimer()
   }
   
   @objc func newTimerRequested(notification: Notification) {
-//    guard let config = notification.userInfo?["player_configuration"] as? PlayerConfiguration else { return }
+    //    guard let config = notification.userInfo?["player_configuration"] as? PlayerConfiguration else { return }
     restartTimer()
   }
-  
+
 }
 
 // MARK: Timer manager delegate
