@@ -67,6 +67,24 @@ extension SettingsTableViewController {
     return 100
   }
   
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    guard let section = SettingsSection(rawValue: indexPath.section) else { return }
+    
+    switch section {
+    case .timers:
+      let selectedConfiguration = TimerConfiguration.getDefaultConfigurations()[indexPath.row]
+      
+      dismiss(animated: true) { [unowned self] in
+        NotificationCenter.default.post(name: NotificationName.newTimer,
+                                        object: self,
+                                        userInfo: ["timer_config": selectedConfiguration])
+      }
+      break
+    case .custom:
+      break
+    }
+  }
+  
   // MARK: Data source enums
   
   enum SettingsSection: Int {

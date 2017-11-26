@@ -177,8 +177,17 @@ extension ViewController {
   }
   
   @objc func newTimerRequested(notification: Notification) {
-    //    guard let config = notification.userInfo?["player_configuration"] as? PlayerConfiguration else { return }
-    restartTimer()
+    guard let configuration = notification.userInfo?["timer_config"] as? TimerConfiguration else { return }
+    
+    let alert = UIAlertController(title: "Reset",
+                                  message: "Are you sure you want to reset the current timer?",
+                                  preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: "reset", style: .destructive, handler: { [unowned self] _ in
+      self.restartTimer(with: configuration)
+    }))
+    alert.addAction(UIAlertAction(title: "cancel", style: .cancel))
+
+    present(alert, animated: true)
   }
 
 }
