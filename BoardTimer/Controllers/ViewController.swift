@@ -39,6 +39,7 @@ class ViewController: UIViewController {
   
   @IBOutlet var passGesture: UITapGestureRecognizer!
   private var playerManager: PlayerManager!
+  private var soundManager: SoundManager!
   
   // MARK: Life Cycle
   
@@ -68,6 +69,8 @@ class ViewController: UIViewController {
                                   white: whitePlayer,
                                   black: blackPlayer)
     playerManager.delegate = self
+    
+    soundManager = SoundManager()
   }
   
   func setupObservers() {
@@ -111,15 +114,6 @@ class ViewController: UIViewController {
       blackTimerDecreasedHeight.isActive = true
     }
     
-    UIView.animate(withDuration: 0.3,
-                   delay: 0,
-                   usingSpringWithDamping: 0.7,
-                   initialSpringVelocity: 0,
-                   options: .curveEaseInOut,
-                   animations: { [unowned self] in
-                    self.view.layoutIfNeeded()
-    })
-    
     if currentColor == .black {
       self.whiteTimerView.animateOut()
       self.blackTimerView.animateIn()
@@ -128,14 +122,14 @@ class ViewController: UIViewController {
       self.whiteTimerView.animateIn()
     }
     
-//    UIView.animate(withDuration: 0.5,
-//                   delay: 0,
-//                   usingSpringWithDamping: 0.7,
-//                   initialSpringVelocity: 0,
-//                   options: .curveEaseInOut,
-//                   animations: { [unowned self] in
-//      self.view.layoutIfNeeded()
-//    })
+    UIView.animate(withDuration: 0.5,
+                   delay: 0,
+                   usingSpringWithDamping: 0.7,
+                   initialSpringVelocity: 0,
+                   options: .curveEaseInOut,
+                   animations: { [unowned self] in
+                    self.view.layoutIfNeeded()
+    })
   }
   
   func getFormattedRemainingTime(for player: Player) -> String {
@@ -219,6 +213,7 @@ extension ViewController: TimerManagerDelegate {
 
   func timerHasStarted(manager: TimerManager) {
     animatePlayerChange()
+    soundManager.play(.pass)
   }
 
   func timerHasStopped(manager: TimerManager) {
@@ -239,6 +234,7 @@ extension ViewController: PlayerManagerDelegate {
   func playerHasChanged(currentPlayer: Player) {
     refreshTimerViews()
     animatePlayerChange()
+    soundManager.play(.pass)
   }
   
   func playerTimeHasRanOver(player: Player) {

@@ -10,6 +10,8 @@
 		473E190E1FBD2CEE00F36715 /* XibView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473E190D1FBD2CEE00F36715 /* XibView.swift */; };
 		4780A2661FC808FB0035126F /* TimerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4780A2651FC808FB0035126F /* TimerConfiguration.swift */; };
 		4780A2681FCB62C10035126F /* UIView+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4780A2671FCB62C10035126F /* UIView+Utils.swift */; };
+		4780A26A1FCBBFA20035126F /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4780A2691FCBBFA20035126F /* SoundManager.swift */; };
+		4780A26C1FCBC4700035126F /* pass.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4780A26B1FCBC4700035126F /* pass.wav */; };
 		4783DE901FC137F900C6A077 /* NewTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4783DE8F1FC137F900C6A077 /* NewTimerViewController.swift */; };
 		4783DE921FC4831D00C6A077 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4783DE911FC4831D00C6A077 /* SettingsTableViewController.swift */; };
 		47AD30371FB6315500A911D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AD30361FB6315500A911D9 /* AppDelegate.swift */; };
@@ -39,6 +41,8 @@
 		473E190D1FBD2CEE00F36715 /* XibView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XibView.swift; sourceTree = "<group>"; };
 		4780A2651FC808FB0035126F /* TimerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerConfiguration.swift; sourceTree = "<group>"; };
 		4780A2671FCB62C10035126F /* UIView+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Utils.swift"; sourceTree = "<group>"; };
+		4780A2691FCBBFA20035126F /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
+		4780A26B1FCBC4700035126F /* pass.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pass.wav; sourceTree = "<group>"; };
 		4783DE8F1FC137F900C6A077 /* NewTimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTimerViewController.swift; sourceTree = "<group>"; };
 		4783DE911FC4831D00C6A077 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		47AD30331FB6315500A911D9 /* BoardTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoardTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,6 +110,7 @@
 				47AD303D1FB6315500A911D9 /* Assets.xcassets */,
 				47AD303F1FB6315500A911D9 /* LaunchScreen.storyboard */,
 				47AD30421FB6315500A911D9 /* Info.plist */,
+				4780A26B1FCBC4700035126F /* pass.wav */,
 			);
 			path = BoardTimer;
 			sourceTree = "<group>";
@@ -124,6 +129,7 @@
 			children = (
 				47AD30581FB635DB00A911D9 /* TimerManager.swift */,
 				47AD305F1FB8C93500A911D9 /* PlayerManager.swift */,
+				4780A2691FCBBFA20035126F /* SoundManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -249,6 +255,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4780A26C1FCBC4700035126F /* pass.wav in Resources */,
 				47AD30411FB6315500A911D9 /* LaunchScreen.storyboard in Resources */,
 				47AD303E1FB6315500A911D9 /* Assets.xcassets in Resources */,
 				47F6B3551FBD2B2B0085AC46 /* SingleTimerView.xib in Resources */,
@@ -275,6 +282,7 @@
 				47AD305B1FB6360200A911D9 /* Player.swift in Sources */,
 				4783DE921FC4831D00C6A077 /* SettingsTableViewController.swift in Sources */,
 				4783DE901FC137F900C6A077 /* NewTimerViewController.swift in Sources */,
+				4780A26A1FCBBFA20035126F /* SoundManager.swift in Sources */,
 				47AD30591FB635DB00A911D9 /* TimerManager.swift in Sources */,
 				4780A2661FC808FB0035126F /* TimerConfiguration.swift in Sources */,
 				47AD30391FB6315500A911D9 /* ViewController.swift in Sources */,
