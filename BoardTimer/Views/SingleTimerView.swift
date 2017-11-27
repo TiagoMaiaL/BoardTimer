@@ -28,6 +28,7 @@ class SingleTimerView: UIView {
   // MARK: Properties
   
   @IBOutlet weak var timeLabel: UILabel!
+  @IBOutlet weak var pauseButton: UIButton!
   
   var theme: Theme! {
     didSet {

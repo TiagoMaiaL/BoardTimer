@@ -21,10 +21,16 @@
                     <color key="textColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E05-56-cU6">
+                    <rect key="frame" x="16" y="251" width="42" height="30"/>
+                    <state key="normal" title="pause"/>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="E05-56-cU6" secondAttribute="bottom" constant="20" id="9yM-p5-NYE"/>
                 <constraint firstItem="3Ah-BI-pAd" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="bHx-lE-I9A"/>
+                <constraint firstItem="E05-56-cU6" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="opA-0J-xcj"/>
                 <constraint firstItem="3Ah-BI-pAd" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="r6R-kM-g71"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
@@ -32,6 +38,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="pauseButton" destination="E05-56-cU6" id="2iH-ug-hkN"/>
                 <outlet property="timeLabel" destination="3Ah-BI-pAd" id="shR-NA-eEc"/>
             </connections>
             <point key="canvasLocation" x="135.5" y="258.5"/>

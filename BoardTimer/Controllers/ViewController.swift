@@ -96,6 +96,10 @@ class ViewController: UIViewController {
     blackTimerIncreasedHeight = blackTimerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.6)
     blackTimerDecreasedHeight = blackTimerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4)
     
+    [blackTimerView, whiteTimerView].forEach { [unowned self] timerView in
+      timerView?.pauseButton.addTarget(self, action: #selector(didTapPause), for: .touchUpInside)
+    }
+    
     refreshTimerViews()
   }
   
@@ -121,6 +125,25 @@ class ViewController: UIViewController {
       self.blackTimerView.animateOut()
       self.whiteTimerView.animateIn()
     }
+    
+    UIView.animate(withDuration: 0.5,
+                   delay: 0,
+                   usingSpringWithDamping: 0.7,
+                   initialSpringVelocity: 0,
+                   options: .curveEaseInOut,
+                   animations: { [unowned self] in
+                    self.view.layoutIfNeeded()
+    })
+  }
+  
+  @objc func animatePausedState() {
+    [whiteTimerView, blackTimerView].forEach { timerView in
+      timerView?.animateOut()
+    }
+    
+    blackTimerIncreasedHeight.isActive = false
+    blackTimerDecreasedHeight.isActive = false
+    blackTimerDefaultHeight.isActive = true
     
     UIView.animate(withDuration: 0.5,
                    delay: 0,
@@ -185,6 +208,10 @@ extension ViewController {
     present(alert, animated: true)
   }
   
+  @objc func didTapPause() {
+    playerManager.timer.pause()
+  }
+  
   // MARK: Notification Actions
   
   @objc func restartRequested(notification: Notification) {
@@ -217,8 +244,7 @@ extension ViewController: TimerManagerDelegate {
   }
 
   func timerHasStopped(manager: TimerManager) {
-    performSegue(withIdentifier: optionsSegueId,
-                 sender: self)
+    animatePausedState()
   }
 
   func timerHasFired(manager: TimerManager) {
