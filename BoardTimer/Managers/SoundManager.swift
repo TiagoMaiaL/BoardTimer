@@ -10,7 +10,7 @@ import UIKit
 import AudioToolbox
 
 enum Sound: String {
-  case pass = "pass"
+  case pass = "pass", over = "over"
   
   static let extensions = [
     pass: "wav"
@@ -26,11 +26,24 @@ class SoundManager: NSObject {
   private var currentSoundId: SystemSoundID = 0
   
   func play(_ sound: Sound) {
-    guard let path = Bundle.main.path(forResource: sound.rawValue, ofType: sound.getExtension()) else { return }
-    let url = URL(fileURLWithPath: path)
-    
-    AudioServicesCreateSystemSoundID(url as CFURL, &currentSoundId)
-    AudioServicesPlaySystemSound(currentSoundId)
+    if let soundId = getSound(sound) {
+      AudioServicesPlaySystemSound(soundId)
+    }
+  }
+  
+  private func getSound(_ sound: Sound) -> SystemSoundID? {
+    switch sound {
+    case .over:
+      return kSystemSoundID_Vibrate
+      
+    default:
+      guard let path = Bundle.main.path(forResource: sound.rawValue,
+                                        ofType: sound.getExtension()) else { return nil }
+      let url = URL(fileURLWithPath: path)
+      AudioServicesCreateSystemSoundID(url as CFURL, &currentSoundId)
+      
+      return currentSoundId
+    }
   }
   
 }

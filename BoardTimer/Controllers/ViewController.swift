@@ -55,7 +55,7 @@ class ViewController: UIViewController {
   
   func setupManagers(with configuration: TimerConfiguration? = nil) {
     // TODO: Determine the default timer.
-    let configuration = configuration ?? TimerConfiguration.getDefaultConfigurations()[0]
+    let configuration = configuration ?? TimerConfiguration.getDefaultConfigurations()[3]
     
     let timer = TimerManager()
     timer.delegate = self
@@ -239,6 +239,7 @@ extension ViewController: PlayerManagerDelegate {
   
   func playerTimeHasRanOver(player: Player) {
     playerManager.timer.pause()
+    soundManager.play(.over)
     performSegue(withIdentifier: optionsSegueId, sender: self)
   }
   
