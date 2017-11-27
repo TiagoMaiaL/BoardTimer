@@ -226,7 +226,14 @@ extension ViewController {
   }
   
   @objc func didTapPause() {
-    playerManager.timer.pause()
+    if (playerManager.timer.isRunning) {
+      playerManager.timer.pause()
+
+      [whiteTimerView, blackTimerView].forEach({ view in
+        view?.pauseButton.setTitle("options", for: .normal)
+      })
+    }
+    
     presentOptions()
   }
   
@@ -257,6 +264,9 @@ extension ViewController {
 extension ViewController: TimerManagerDelegate {
 
   func timerHasStarted(manager: TimerManager) {
+    [whiteTimerView, blackTimerView].forEach { view in
+      view?.pauseButton.setTitle("pause", for: .normal)
+    }
     animatePlayerChange()
     soundManager.play(.pass)
   }
