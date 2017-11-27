@@ -136,7 +136,7 @@ class ViewController: UIViewController {
     })
   }
   
-  @objc func animatePausedState() {
+  func animatePausedState() {
     [whiteTimerView, blackTimerView].forEach { timerView in
       timerView?.animateOut()
     }
@@ -153,6 +153,23 @@ class ViewController: UIViewController {
                    animations: { [unowned self] in
                     self.view.layoutIfNeeded()
     })
+  }
+  
+  func presentOptions() {
+    let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+    actionSheet.addAction(UIAlertAction(title: "settings", style: .default) { [unowned self] _ in
+      self.presentSettings()
+    })
+    actionSheet.addAction(UIAlertAction(title: "restart timer", style: .destructive) { [unowned self] _ in
+      self.didTapRefresh(nil)
+    })
+    actionSheet.addAction(UIAlertAction(title: "cancel", style: .cancel))
+    
+    present(actionSheet, animated: true)
+  }
+  
+  func presentSettings() {
+    performSegue(withIdentifier: optionsSegueId, sender: self)
   }
   
   func getFormattedRemainingTime(for player: Player) -> String {
@@ -196,7 +213,7 @@ extension ViewController {
 //    }
 //  }
   
-  @IBAction func didTapRefresh(_ sender: UIButton) {
+  @IBAction func didTapRefresh(_ sender: UIButton? = nil) {
     let alert = UIAlertController(title: "Reset",
                                   message: "Are you sure you want to reset the current timer?",
                                   preferredStyle: .alert)
@@ -210,6 +227,7 @@ extension ViewController {
   
   @objc func didTapPause() {
     playerManager.timer.pause()
+    presentOptions()
   }
   
   // MARK: Notification Actions
@@ -266,7 +284,7 @@ extension ViewController: PlayerManagerDelegate {
   func playerTimeHasRanOver(player: Player) {
     playerManager.timer.pause()
     soundManager.play(.over)
-    performSegue(withIdentifier: optionsSegueId, sender: self)
+    
   }
   
   func playerTimeHasDecreased(player: Player) {
