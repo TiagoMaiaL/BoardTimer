@@ -46,7 +46,8 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    setupManagers()
+    // TODO: Determine the default configuration.
+    setupManagers(with: TimerConfiguration.getDefaultConfigurations()[3])
     setupObservers()
     setupTimerViews()
   }
@@ -54,30 +55,25 @@ class ViewController: UIViewController {
   // MARK: Setup
   
   func setupManagers(with configuration: TimerConfiguration? = nil) {
-    // TODO: Determine the default timer.
-    let configuration = configuration ?? TimerConfiguration.getDefaultConfigurations()[3]
-    
-    let timer = TimerManager()
-    timer.delegate = self
-    
-    let whitePlayer = Player(color: .white,
-                             configuration: configuration)
-    let blackPlayer = Player(color: .black,
-                             configuration: configuration)
-    
-    playerManager = PlayerManager(timer: timer,
-                                  white: whitePlayer,
-                                  black: blackPlayer)
-    playerManager.delegate = self
-    
-    soundManager = SoundManager()
+    if let configuration = configuration {
+      let timer = TimerManager()
+      timer.delegate = self
+      
+      let whitePlayer = Player(color: .white,
+                               configuration: configuration)
+      let blackPlayer = Player(color: .black,
+                               configuration: configuration)
+      
+      playerManager = PlayerManager(timer: timer,
+                                    white: whitePlayer,
+                                    black: blackPlayer)
+      playerManager.delegate = self
+      
+      soundManager = SoundManager()
+    }
   }
   
   func setupObservers() {
-    NotificationCenter.default.addObserver(self,
-                                           selector: #selector(restartRequested(notification:)),
-                                           name: NotificationName.restartTimer,
-                                           object: nil)
     NotificationCenter.default.addObserver(self,
                                            selector: #selector(newTimerRequested(notification:)),
                                            name: NotificationName.newTimer,
@@ -185,7 +181,6 @@ class ViewController: UIViewController {
     blackTimerView.setText(getFormattedRemainingTime(for: playerManager.blackPlayer))
   }
   
-  // TODO: Return the correct configuration
   func restartTimer(with configuration: TimerConfiguration? = nil) {
     playerManager = nil
     setupManagers(with: configuration)
@@ -210,7 +205,16 @@ extension ViewController {
                                   message: "Are you sure you want to reset the current timer?",
                                   preferredStyle: .alert)
     alert.addAction(UIAlertAction(title: "reset", style: .destructive, handler: { [unowned self] _ in
-      self.restartTimer()
+      let configuration: TimerConfiguration!
+      
+      if self.playerManager != nil {
+        configuration = self.playerManager.whitePlayer.configuration
+      } else {
+        // TODO: Determine the default configuration.
+        configuration = TimerConfiguration.getDefaultConfigurations()[3]
+      }
+      
+      self.restartTimer(with: configuration)
     }))
     alert.addAction(UIAlertAction(title: "cancel", style: .cancel))
 
@@ -230,10 +234,6 @@ extension ViewController {
   }
   
   // MARK: Notification Actions
-  
-  @objc func restartRequested(notification: Notification) {
-    restartTimer()
-  }
   
   @objc func newTimerRequested(notification: Notification) {
     guard let configuration = notification.userInfo?["timer_config"] as? TimerConfiguration else { return }
@@ -286,7 +286,6 @@ extension ViewController: PlayerManagerDelegate {
   func playerTimeHasRanOver(player: Player) {
     playerManager.timer.pause()
     soundManager.play(.over)
-    
   }
   
   func playerTimeHasDecreased(player: Player) {

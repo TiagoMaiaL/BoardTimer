@@ -8,6 +8,14 @@
 
 import UIKit
 
+enum TimerMode: Int {
+  case simple = 0, fischer, bronstein, suddenDeath
+  
+  // TODO: Add the explanation.
+  // TODO: Add the name.
+}
+
+
 class TimerConfiguration: NSObject {
  
   // MARK: Properties
@@ -37,11 +45,3 @@ class TimerConfiguration: NSObject {
     ]
   }
 }
-
-enum TimerMode: Int {
-  case simple = 0, fischer, bronstein, suddenDeath
-  
-  // TODO: Add the explanation.
-  // TODO: Add the name.
-}
-

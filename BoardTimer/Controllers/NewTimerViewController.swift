@@ -14,6 +14,7 @@ class NewTimerViewController: UIViewController {
   
   @IBOutlet weak var minutesTextField: UITextField!
   @IBOutlet weak var increaseTextField: UITextField!
+  @IBOutlet weak var modesSegmentedControl: UISegmentedControl!
   
   // MARK: Life cycle
   
@@ -27,16 +28,20 @@ class NewTimerViewController: UIViewController {
   // MARK: Actions
   
   @IBAction func doneTapped(_ sender: UIButton) {
-    guard let timeAmount = Int(minutesTextField.text ?? "") else { return }
-    guard let increaseAmount = Int(increaseTextField.text ?? "") else { return }
+    guard let timeAmount = TimeInterval(minutesTextField.text ?? "") else { return }
+    guard let delay = TimeInterval(increaseTextField.text ?? "") else { return }
+    guard let mode = TimerMode(rawValue: modesSegmentedControl.selectedSegmentIndex) else { return }
 
-    let config = (timeAmount: TimeInterval(timeAmount * 60),
-                  playIncrease: TimeInterval(increaseAmount))
+    let config = TimerConfiguration(name: "",
+                                    time: timeAmount,
+                                    delay: delay,
+                                    mode: mode)
     
-    NotificationCenter.default.post(name: NotificationName.newTimer,
-                                    object: self,
-                                    userInfo: ["player_configuration" : config])
-    dismiss(animated: true, completion: nil)
+    dismiss(animated: true) {
+      NotificationCenter.default.post(name: NotificationName.newTimer,
+                                      object: self,
+                                      userInfo: ["timer_config" : config])
+    }
   }
   
 }
