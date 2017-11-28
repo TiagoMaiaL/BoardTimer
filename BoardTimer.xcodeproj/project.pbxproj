@@ -11,7 +11,6 @@
 		4780A2661FC808FB0035126F /* TimerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4780A2651FC808FB0035126F /* TimerConfiguration.swift */; };
 		4780A2681FCB62C10035126F /* UIView+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4780A2671FCB62C10035126F /* UIView+Utils.swift */; };
 		4780A26A1FCBBFA20035126F /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4780A2691FCBBFA20035126F /* SoundManager.swift */; };
-		4780A26C1FCBC4700035126F /* pass.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4780A26B1FCBC4700035126F /* pass.wav */; };
 		4783DE901FC137F900C6A077 /* NewTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4783DE8F1FC137F900C6A077 /* NewTimerViewController.swift */; };
 		4783DE921FC4831D00C6A077 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4783DE911FC4831D00C6A077 /* SettingsTableViewController.swift */; };
 		47AD30371FB6315500A911D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AD30361FB6315500A911D9 /* AppDelegate.swift */; };
@@ -24,6 +23,8 @@
 		47AD305B1FB6360200A911D9 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AD305A1FB6360200A911D9 /* Player.swift */; };
 		47AD30601FB8C93500A911D9 /* PlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AD305F1FB8C93500A911D9 /* PlayerManager.swift */; };
 		47AD30671FBD275F00A911D9 /* SingleTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AD30661FBD275F00A911D9 /* SingleTimerView.swift */; };
+		47D4D5341FCE04CE0071B01A /* pass.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 47D4D5331FCE04CE0071B01A /* pass.m4a */; };
+		47D4D5361FCE05900071B01A /* over.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 47D4D5351FCE05900071B01A /* over.m4a */; };
 		47F6B3551FBD2B2B0085AC46 /* SingleTimerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47F6B3541FBD2B2B0085AC46 /* SingleTimerView.xib */; };
 /* End PBXBuildFile section */
 
@@ -42,7 +43,6 @@
 		4780A2651FC808FB0035126F /* TimerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerConfiguration.swift; sourceTree = "<group>"; };
 		4780A2671FCB62C10035126F /* UIView+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Utils.swift"; sourceTree = "<group>"; };
 		4780A2691FCBBFA20035126F /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
-		4780A26B1FCBC4700035126F /* pass.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pass.wav; sourceTree = "<group>"; };
 		4783DE8F1FC137F900C6A077 /* NewTimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTimerViewController.swift; sourceTree = "<group>"; };
 		4783DE911FC4831D00C6A077 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		47AD30331FB6315500A911D9 /* BoardTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoardTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -59,6 +59,8 @@
 		47AD305A1FB6360200A911D9 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		47AD305F1FB8C93500A911D9 /* PlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerManager.swift; sourceTree = "<group>"; };
 		47AD30661FBD275F00A911D9 /* SingleTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleTimerView.swift; sourceTree = "<group>"; };
+		47D4D5331FCE04CE0071B01A /* pass.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = pass.m4a; sourceTree = "<group>"; };
+		47D4D5351FCE05900071B01A /* over.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = over.m4a; sourceTree = "<group>"; };
 		47F6B3541FBD2B2B0085AC46 /* SingleTimerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SingleTimerView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,7 +112,8 @@
 				47AD303D1FB6315500A911D9 /* Assets.xcassets */,
 				47AD303F1FB6315500A911D9 /* LaunchScreen.storyboard */,
 				47AD30421FB6315500A911D9 /* Info.plist */,
-				4780A26B1FCBC4700035126F /* pass.wav */,
+				47D4D5331FCE04CE0071B01A /* pass.m4a */,
+				47D4D5351FCE05900071B01A /* over.m4a */,
 			);
 			path = BoardTimer;
 			sourceTree = "<group>";
@@ -255,10 +258,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4780A26C1FCBC4700035126F /* pass.wav in Resources */,
 				47AD30411FB6315500A911D9 /* LaunchScreen.storyboard in Resources */,
+				47D4D5341FCE04CE0071B01A /* pass.m4a in Resources */,
 				47AD303E1FB6315500A911D9 /* Assets.xcassets in Resources */,
 				47F6B3551FBD2B2B0085AC46 /* SingleTimerView.xib in Resources */,
+				47D4D5361FCE05900071B01A /* over.m4a in Resources */,
 				47AD303C1FB6315500A911D9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

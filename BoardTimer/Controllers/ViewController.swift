@@ -205,14 +205,6 @@ extension ViewController {
     }
   }
   
-//  @IBAction func didDoubleTap(_ sender: UITapGestureRecognizer) {
-//    if playerManager.timer.isRunning() {
-//      playerManager.timer.pause()
-//    } else {
-//      playerManager.timer.start()
-//    }
-//  }
-  
   @IBAction func didTapRefresh(_ sender: UIButton? = nil) {
     let alert = UIAlertController(title: "Reset",
                                   message: "Are you sure you want to reset the current timer?",

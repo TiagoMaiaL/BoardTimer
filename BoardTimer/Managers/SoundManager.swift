@@ -13,7 +13,8 @@ enum Sound: String {
   case pass = "pass", over = "over"
   
   static let extensions = [
-    pass: "wav"
+    pass: "m4a",
+    over: "m4a"
   ]
   
   func getExtension() -> String {
@@ -26,24 +27,23 @@ class SoundManager: NSObject {
   private var currentSoundId: SystemSoundID = 0
   
   func play(_ sound: Sound) {
-    if let soundId = getSound(sound) {
-      AudioServicesPlaySystemSound(soundId)
+    if let soundId = getSoundId(sound) {
+      switch (sound) {
+      case .over:
+        AudioServicesPlayAlertSound(soundId)
+      default:
+        AudioServicesPlaySystemSound(soundId)
+      }
     }
   }
   
-  private func getSound(_ sound: Sound) -> SystemSoundID? {
-    switch sound {
-    case .over:
-      return kSystemSoundID_Vibrate
-      
-    default:
-      guard let path = Bundle.main.path(forResource: sound.rawValue,
-                                        ofType: sound.getExtension()) else { return nil }
-      let url = URL(fileURLWithPath: path)
-      AudioServicesCreateSystemSoundID(url as CFURL, &currentSoundId)
-      
-      return currentSoundId
-    }
+  private func getSoundId(_ sound: Sound) -> SystemSoundID? {
+    guard let path = Bundle.main.path(forResource: sound.rawValue,
+                                      ofType: sound.getExtension()) else { return nil }
+    let url = URL(fileURLWithPath: path)
+    AudioServicesCreateSystemSoundID(url as CFURL, &currentSoundId)
+    
+    return currentSoundId
   }
   
 }
