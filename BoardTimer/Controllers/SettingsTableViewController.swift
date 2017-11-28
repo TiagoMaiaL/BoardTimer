@@ -10,6 +10,10 @@ import UIKit
 
 class SettingsTableViewController: UITableViewController {
   
+  // MARK: Constants
+  
+  let customTimerSegueID = "new_timer"
+  
   // MARK: Life cycle
   
   override func viewDidLoad() {
@@ -80,27 +84,28 @@ extension SettingsTableViewController {
                                         userInfo: ["timer_config": selectedConfiguration])
       }
       break
-//    case .custom:
-//      break
+    case .custom:
+      performSegue(withIdentifier: customTimerSegueID, sender: self)
+      break
     }
   }
   
   // MARK: Data source enums
   
   enum SettingsSection: Int {
-    case timers = 0/*, custom, sounds, other*/
+    case timers = 0, custom/*, sounds, other*/
     
-    static var count: Int { return timers.hashValue + 1 }
+    static var count: Int { return custom.hashValue + 1 }
     
     static let titles = [
       timers: "Common timers",
-//      custom: "Custom timers",
+      custom: "Custom timers",
 //      sounds: "Sounds",
 //      other: ""
     ]
     static let rowsCount = [ // TODO: Return the correct number of rows.
       timers: TimerConfiguration.getDefaultConfigurations().count,
-//      custom: 1,
+      custom: 1,
 //      sounds: 1,
 //      other: 1
     ]
@@ -133,8 +138,8 @@ extension SettingsTableViewController {
       switch self {
       case .timers:
         cell = getTimersCell(for: row, and: tableView)
-//      case .custom:
-//        cell = getCustomCell(for: row, and: tableView)
+      case .custom:
+        cell = getCustomCell(for: row, and: tableView)
 //      case .sounds:
 //        cell = UITableViewCell()
 //      case .other:
@@ -151,7 +156,7 @@ extension SettingsTableViewController {
       let timer = TimerConfiguration.getDefaultConfigurations()[row]
       
       cell.textLabel?.text = timer.name
-      cell.detailTextLabel?.text = "\(timer.time) min"
+      cell.detailTextLabel?.text = "\(Int(timer.time)) min"
       
       return cell
     }

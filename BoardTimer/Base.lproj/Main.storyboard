@@ -82,10 +82,10 @@
             </objects>
             <point key="canvasLocation" x="-84" y="143"/>
         </scene>
-        <!--New Timer View Controller-->
+        <!--New timer-->
         <scene sceneID="KaU-ms-E4Q">
             <objects>
-                <viewController id="hHC-Hl-OU4" customClass="NewTimerViewController" customModule="BoardTimer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="New timer" id="hHC-Hl-OU4" customClass="NewTimerViewController" customModule="BoardTimer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JO0-aE-Nml">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
