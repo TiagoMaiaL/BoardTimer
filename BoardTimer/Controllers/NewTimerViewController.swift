@@ -32,15 +32,45 @@ class NewTimerViewController: UIViewController {
     guard let delay = TimeInterval(increaseTextField.text ?? "") else { return }
     guard let mode = TimerMode(rawValue: modesSegmentedControl.selectedSegmentIndex) else { return }
 
-    let config = TimerConfiguration(name: "",
-                                    time: timeAmount,
+    let config = TimerConfiguration(time: timeAmount,
                                     delay: delay,
-                                    mode: mode)
+                                    mode: mode,
+                                    name: "")
+    store(config)
     
     dismiss(animated: true) {
       NotificationCenter.default.post(name: NotificationName.newTimer,
                                       object: self,
                                       userInfo: ["timer_config" : config])
+    }
+  }
+  
+}
+
+// MARK: Timer configuration storage
+
+extension NewTimerViewController {
+  
+  func store(_ timer: TimerConfiguration) {
+    // TODO: save config into the user defaults
+    var timers: [TimerConfiguration]!
+    
+    let defaults = UserDefaults.standard
+    
+    if let storedData = defaults.object(forKey: "custom_timers") as? Data {
+      let decoder = JSONDecoder()
+      timers = try? decoder.decode([TimerConfiguration].self, from: storedData)
+    }
+    
+    if timers == nil {
+      timers = []
+    }
+    
+    timers.append(timer)
+    
+    let encoder = JSONEncoder()
+    if let encodedTimers = try? encoder.encode(timers) {
+      defaults.set(encodedTimers, forKey: "custom_timers")
     }
   }
   

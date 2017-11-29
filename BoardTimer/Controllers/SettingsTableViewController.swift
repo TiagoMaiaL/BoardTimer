@@ -26,11 +26,37 @@ class SettingsTableViewController: UITableViewController {
                                                         action: #selector(didTapDone))
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    tableView.reloadData()
+  }
+  
   // MARK: Actions
   
   @objc func didTapDone() {
     dismiss(animated: true)
   }
+}
+
+// MARK: - Timer storage methods
+
+extension SettingsTableViewController {
+  
+  // TODO: Move this to another class later on.
+  // TODO: Refactor this.
+  static func getSavedCustomTimers() -> [TimerConfiguration]? {
+    let defaults = UserDefaults.standard
+    
+    var timers: [TimerConfiguration]? = nil
+    
+    if let savedTimers = defaults.object(forKey: "custom_timers") as? Data {
+      let decoder = JSONDecoder()
+      timers = try? decoder.decode([TimerConfiguration].self, from: savedTimers)
+    }
+
+    return timers
+  }
+  
 }
 
 // MARK: - Table view data source
@@ -85,95 +111,109 @@ extension SettingsTableViewController {
       }
       break
     case .custom:
+      // TODO: Check what cell is being tapped.
       performSegue(withIdentifier: customTimerSegueID, sender: self)
       break
     }
   }
+}
+
+// MARK: Data source enums
+
+// TODO: Refactor this enum.
+
+enum SettingsSection: Int {
+  case timers = 0, custom/*, sounds, other*/
   
-  // MARK: Data source enums
+  static var count: Int { return custom.hashValue + 1 }
   
-  enum SettingsSection: Int {
-    case timers = 0, custom/*, sounds, other*/
+  static let titles = [
+    timers: "Common timers",
+    custom: "Custom timers",
+    //      sounds: "Sounds",
+    //      other: ""
+  ]
+  static let rowsCount = [ // TODO: Return the correct number of rows.
+    timers: TimerConfiguration.getDefaultConfigurations().count,
+    custom: (SettingsTableViewController.getSavedCustomTimers()?.count ?? 0) + 1,
+    //      sounds: 1,
+    //      other: 1
+  ]
+  
+  func getTitle() -> String {
+    if let title = SettingsSection.titles[self] {
+      return title
+    } else {
+      return ""
+    }
+  }
+  
+  func getRowsNumber() -> Int {
+    if let count = SettingsSection.rowsCount[self] {
+      return count
+    } else {
+      return 0
+    }
+  }
+  
+  // MARK: Cell factory methods
+  
+  private func getPath(from row: Int) -> IndexPath {
+    return IndexPath(row: row, section: hashValue)
+  }
+  
+  func getCell(for row: Int, and tableView: UITableView) -> UITableViewCell {
+    let cell: UITableViewCell!
     
-    static var count: Int { return custom.hashValue + 1 }
-    
-    static let titles = [
-      timers: "Common timers",
-      custom: "Custom timers",
-//      sounds: "Sounds",
-//      other: ""
-    ]
-    static let rowsCount = [ // TODO: Return the correct number of rows.
-      timers: TimerConfiguration.getDefaultConfigurations().count,
-      custom: 1,
-//      sounds: 1,
-//      other: 1
-    ]
-    
-    func getTitle() -> String {
-      if let title = SettingsSection.titles[self] {
-        return title
-      } else {
-        return ""
-      }
+    switch self {
+    case .timers:
+      cell = getTimersCell(for: row, and: tableView)
+    case .custom:
+      cell = getCustomCell(for: row, and: tableView)
+      //      case .sounds:
+      //        cell = UITableViewCell()
+      //      case .other:
+      //        cell = getOtherCell(for: row, and: tableView)
     }
     
-    func getRowsNumber() -> Int {
-      if let count = SettingsSection.rowsCount[self] {
-        return count
-      } else {
-        return 0
-      }
-    }
+    return cell
+  }
+  
+  func getTimersCell(for row: Int, and tableView: UITableView) -> UITableViewCell {
+    let path = getPath(from: row)
+    let cell = tableView.dequeueReusableCell(withIdentifier: "timer_cell", for: path)
     
-    // MARK: Cell factory methods
+    let timer = TimerConfiguration.getDefaultConfigurations()[row]
     
-    private func getPath(from row: Int) -> IndexPath {
-      return IndexPath(row: row, section: hashValue)
-    }
+    cell.textLabel?.text = timer.name
+    cell.detailTextLabel?.text = "\(Int(timer.time)) min"
     
-    func getCell(for row: Int, and tableView: UITableView) -> UITableViewCell {
-      let cell: UITableViewCell!
-      
-      switch self {
-      case .timers:
-        cell = getTimersCell(for: row, and: tableView)
-      case .custom:
-        cell = getCustomCell(for: row, and: tableView)
-//      case .sounds:
-//        cell = UITableViewCell()
-//      case .other:
-//        cell = getOtherCell(for: row, and: tableView)
-      }
-      
-      return cell
-    }
+    return cell
+  }
+  
+  func getCustomCell(for row: Int, and tableView: UITableView) -> UITableViewCell {
+    let path = getPath(from: row)
+    var cell: UITableViewCell!
     
-    func getTimersCell(for row: Int, and tableView: UITableView) -> UITableViewCell {
-      let path = getPath(from: row)
-      let cell = tableView.dequeueReusableCell(withIdentifier: "timer_cell", for: path)
-      
-      let timer = TimerConfiguration.getDefaultConfigurations()[row]
-      
+    // TODO: Refactor this.
+    let savedTimers = SettingsTableViewController.getSavedCustomTimers() ?? []
+    
+    if row <= savedTimers.count - 1 {
+      let timer = savedTimers[row]
+      cell = tableView.dequeueReusableCell(withIdentifier: "timer_cell", for: path)
       cell.textLabel?.text = timer.name
       cell.detailTextLabel?.text = "\(Int(timer.time)) min"
-      
-      return cell
-    }
-    
-    func getCustomCell(for row: Int, and tableView: UITableView) -> UITableViewCell {
-      let path = getPath(from: row)
-      let cell = tableView.dequeueReusableCell(withIdentifier: "common_cell", for: path)
-      
+    } else {
+      cell = tableView.dequeueReusableCell(withIdentifier: "common_cell", for: path)
       cell.textLabel?.text = "Create a custom timer"
-      
-      return cell
     }
     
-    func getOtherCell(for row: Int, and tableView: UITableView) -> UITableViewCell {
-      return UITableViewCell()
-    }
-    
+    return cell
+  }
+  
+  func getOtherCell(for row: Int, and tableView: UITableView) -> UITableViewCell {
+    return UITableViewCell()
   }
   
 }
+
