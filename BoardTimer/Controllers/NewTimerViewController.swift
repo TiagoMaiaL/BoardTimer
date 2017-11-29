@@ -16,13 +16,13 @@ class NewTimerViewController: UIViewController {
   @IBOutlet weak var increaseTextField: UITextField!
   @IBOutlet weak var modesSegmentedControl: UISegmentedControl!
   
+  let timerStorage = TimerConfigurationStorage()
+  
   // MARK: Life cycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
     navigationItem.largeTitleDisplayMode = .never
-//    navigationItem.title = "New timer"
   }
 
   // MARK: Actions
@@ -36,41 +36,12 @@ class NewTimerViewController: UIViewController {
                                     delay: delay,
                                     mode: mode,
                                     name: "")
-    store(config)
-    
+    timerStorage.store(config)
+
     dismiss(animated: true) {
       NotificationCenter.default.post(name: NotificationName.newTimer,
                                       object: self,
                                       userInfo: ["timer_config" : config])
-    }
-  }
-  
-}
-
-// MARK: Timer configuration storage
-
-extension NewTimerViewController {
-  
-  func store(_ timer: TimerConfiguration) {
-    // TODO: save config into the user defaults
-    var timers: [TimerConfiguration]!
-    
-    let defaults = UserDefaults.standard
-    
-    if let storedData = defaults.object(forKey: "custom_timers") as? Data {
-      let decoder = JSONDecoder()
-      timers = try? decoder.decode([TimerConfiguration].self, from: storedData)
-    }
-    
-    if timers == nil {
-      timers = []
-    }
-    
-    timers.append(timer)
-    
-    let encoder = JSONEncoder()
-    if let encodedTimers = try? encoder.encode(timers) {
-      defaults.set(encodedTimers, forKey: "custom_timers")
     }
   }
   

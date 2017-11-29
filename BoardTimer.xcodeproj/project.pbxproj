@@ -25,6 +25,7 @@
 		47AD30671FBD275F00A911D9 /* SingleTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AD30661FBD275F00A911D9 /* SingleTimerView.swift */; };
 		47D4D5341FCE04CE0071B01A /* pass.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 47D4D5331FCE04CE0071B01A /* pass.m4a */; };
 		47D4D5361FCE05900071B01A /* over.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 47D4D5351FCE05900071B01A /* over.m4a */; };
+		47D4D5391FCE4F160071B01A /* TimerConfigurationStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D4D5381FCE4F160071B01A /* TimerConfigurationStorage.swift */; };
 		47F6B3551FBD2B2B0085AC46 /* SingleTimerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47F6B3541FBD2B2B0085AC46 /* SingleTimerView.xib */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +62,7 @@
 		47AD30661FBD275F00A911D9 /* SingleTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleTimerView.swift; sourceTree = "<group>"; };
 		47D4D5331FCE04CE0071B01A /* pass.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = pass.m4a; sourceTree = "<group>"; };
 		47D4D5351FCE05900071B01A /* over.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = over.m4a; sourceTree = "<group>"; };
+		47D4D5381FCE4F160071B01A /* TimerConfigurationStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerConfigurationStorage.swift; sourceTree = "<group>"; };
 		47F6B3541FBD2B2B0085AC46 /* SingleTimerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SingleTimerView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,6 +108,7 @@
 				47AD30651FBD26FB00A911D9 /* Views */,
 				47AD305E1FB8C8D600A911D9 /* Controllers */,
 				47AD305D1FB8C8C400A911D9 /* Models */,
+				47D4D5371FCE4EA80071B01A /* Storage */,
 				47AD305C1FB8C8BB00A911D9 /* Managers */,
 				47AD30361FB6315500A911D9 /* AppDelegate.swift */,
 				47AD303A1FB6315500A911D9 /* Main.storyboard */,
@@ -164,6 +167,14 @@
 				4780A2671FCB62C10035126F /* UIView+Utils.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		47D4D5371FCE4EA80071B01A /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				47D4D5381FCE4F160071B01A /* TimerConfigurationStorage.swift */,
+			);
+			path = Storage;
 			sourceTree = "<group>";
 		};
 		47F6B3531FBD2AF60085AC46 /* XIB */ = {
@@ -292,6 +303,7 @@
 				47AD30391FB6315500A911D9 /* ViewController.swift in Sources */,
 				473E190E1FBD2CEE00F36715 /* XibView.swift in Sources */,
 				4780A2681FCB62C10035126F /* UIView+Utils.swift in Sources */,
+				47D4D5391FCE4F160071B01A /* TimerConfigurationStorage.swift in Sources */,
 				47AD30371FB6315500A911D9 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
