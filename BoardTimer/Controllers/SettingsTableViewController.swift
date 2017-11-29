@@ -82,11 +82,16 @@ extension SettingsTableViewController {
                                         object: self,
                                         userInfo: ["timer_config": selectedConfiguration])
       }
-      break
     case .custom:
-      // TODO: Check what cell is being tapped.
-      performSegue(withIdentifier: customTimerSegueID, sender: self)
-      break
+      if indexPath.row <= customTimers.count - 1 {
+        dismiss(animated: true) { [unowned self] in
+          NotificationCenter.default.post(name: NotificationName.newTimer,
+                                          object: self,
+                                          userInfo: ["timer_config": self.customTimers[indexPath.row]])
+        }
+      } else {
+        performSegue(withIdentifier: customTimerSegueID, sender: self)
+      }
     }
   }
   
@@ -151,8 +156,6 @@ extension SettingsTableViewController {
 }
 
 // MARK: Data source enums
-
-// TODO: Refactor this enum.
 
 enum SettingsSection: Int {
   case timers = 0, custom/*, sounds, other*/
