@@ -50,11 +50,29 @@ class PlayerTests: XCTestCase {
   }
   
   func testPlayerTurnWithBronsteinMode() {
-    let config = TimerConfiguration(time: 2, delay: 3, mode: .bronstein, name: nil)
+    let delayAmount: Double = 3
+    
+    let config = TimerConfiguration(time: 2, delay: delayAmount, mode: .bronstein, name: nil)
     let player = Player(color: .white, configuration: config)
     
+    player.startTurn()
+    player.decreaseTime()
+    player.passTurn()
     
+    // Checking the remaing time after the bronstrein increment is applied.
+    XCTAssertEqual(player.remainingTime, (2 * 60) + (delayAmount - (delayAmount - 1)))
   }
   
+  func testPlayerTurnWithFiscerMode() {
+    let delayAmount: Double = 4
+    
+    let config = TimerConfiguration(time: 2, delay: delayAmount, mode: .fischer, name: nil)
+    let player = Player(color: .white, configuration: config)
+    
+    player.startTurn()
+    
+    // Checking the remaing time after the fischer increment is applied.
+    XCTAssertEqual(player.remainingTime, (2 * 60) + delayAmount)
+  }
   
 }
