@@ -124,7 +124,7 @@ extension SettingsTableViewController {
     
     return cell
   }
-    
+  
   // MARK: Cell factory methods
   
   func getTimersCell(for path: IndexPath, and tableView: UITableView) -> UITableViewCell {

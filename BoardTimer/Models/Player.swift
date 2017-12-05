@@ -43,7 +43,7 @@ class Player {
   
   // MARK: Imperatives
   
-  func decreaseTime() {
+  public func decreaseTime() {
     if isOver {
       return
     }

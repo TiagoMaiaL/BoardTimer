@@ -9,7 +9,7 @@
 import Foundation
 
 enum TimerMode: Int, Codable {
-  case simple = 0, fischer, bronstein, suddenDeath
+  case none = 0, simple, fischer, bronstein, suddenDeath
   
   // TODO: Add the explanation.
   // TODO: Add the name.
