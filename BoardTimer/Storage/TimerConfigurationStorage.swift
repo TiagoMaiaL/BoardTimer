@@ -14,11 +14,21 @@ class TimerConfigurationStorage: NSObject {
   
   let timersKey = "custom_timers"
   
+  // MARK: Properties
+  
+  var defaults: UserDefaults {
+    get {
+      return UserDefaults.standard
+    }
+  }
+  
   // MARK: Imperatives
   
+  func clear() {
+    defaults.removeObject(forKey: timersKey)
+  }
+  
   func getSavedCustomTimers() -> [TimerConfiguration]? {
-    let defaults = UserDefaults.standard
-    
     var timers: [TimerConfiguration]? = nil
     
     if let savedTimers = defaults.object(forKey: timersKey) as? Data {
@@ -32,12 +42,11 @@ class TimerConfigurationStorage: NSObject {
   func store(_ timer: TimerConfiguration) {
     var timers = getSavedCustomTimers() ?? []
     
-    let defaults = UserDefaults.standard
     timers.append(timer)
     
     let encoder = JSONEncoder()
     if let encodedTimers = try? encoder.encode(timers) {
-      defaults.set(encodedTimers, forKey: "custom_timers")
+      defaults.set(encodedTimers, forKey: timersKey)
     }
   }
 }

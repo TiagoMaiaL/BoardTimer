@@ -13,6 +13,8 @@
 		4780A26A1FCBBFA20035126F /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4780A2691FCBBFA20035126F /* SoundManager.swift */; };
 		4783DE901FC137F900C6A077 /* NewTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4783DE8F1FC137F900C6A077 /* NewTimerViewController.swift */; };
 		4783DE921FC4831D00C6A077 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4783DE911FC4831D00C6A077 /* SettingsTableViewController.swift */; };
+		478498D01FD6DCEE00C01BE1 /* PlayerManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478498CF1FD6DCEE00C01BE1 /* PlayerManagerTests.swift */; };
+		478498D21FD8246300C01BE1 /* TimerConfigurationStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478498D11FD8246300C01BE1 /* TimerConfigurationStorageTests.swift */; };
 		47AD30371FB6315500A911D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AD30361FB6315500A911D9 /* AppDelegate.swift */; };
 		47AD30391FB6315500A911D9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AD30381FB6315500A911D9 /* ViewController.swift */; };
 		47AD303C1FB6315500A911D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47AD303A1FB6315500A911D9 /* Main.storyboard */; };
@@ -47,6 +49,8 @@
 		4780A2691FCBBFA20035126F /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		4783DE8F1FC137F900C6A077 /* NewTimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTimerViewController.swift; sourceTree = "<group>"; };
 		4783DE911FC4831D00C6A077 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		478498CF1FD6DCEE00C01BE1 /* PlayerManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerManagerTests.swift; sourceTree = "<group>"; };
+		478498D11FD8246300C01BE1 /* TimerConfigurationStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerConfigurationStorageTests.swift; sourceTree = "<group>"; };
 		47AD30331FB6315500A911D9 /* BoardTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoardTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47AD30361FB6315500A911D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47AD30381FB6315500A911D9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -126,6 +130,8 @@
 			children = (
 				47AD304B1FB6315600A911D9 /* BoardTimerTests.swift */,
 				47B7F37B1FD6C8810046FBD0 /* PlayerTests.swift */,
+				478498CF1FD6DCEE00C01BE1 /* PlayerManagerTests.swift */,
+				478498D11FD8246300C01BE1 /* TimerConfigurationStorageTests.swift */,
 				47AD304D1FB6315600A911D9 /* Info.plist */,
 			);
 			path = BoardTimerTests;
@@ -323,6 +329,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				478498D21FD8246300C01BE1 /* TimerConfigurationStorageTests.swift in Sources */,
+				478498D01FD6DCEE00C01BE1 /* PlayerManagerTests.swift in Sources */,
 				47B7F37C1FD6C8810046FBD0 /* PlayerTests.swift in Sources */,
 				47AD304C1FB6315600A911D9 /* BoardTimerTests.swift in Sources */,
 			);

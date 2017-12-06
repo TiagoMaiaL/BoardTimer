@@ -25,15 +25,6 @@ struct TimerConfiguration: Codable {
   let mode: TimerMode
   let name: String?
   
-  // MARK: Init
-  
-//  init(name: String, time: TimeInterval, delay: TimeInterval, mode: TimerMode) {
-//    self.name = name
-//    self.time = time
-//    self.delay = delay
-//    self.mode = mode
-//  }
-  
   // MARK: Common timer configurations
   
   static func getDefaultConfigurations() -> [TimerConfiguration] {
