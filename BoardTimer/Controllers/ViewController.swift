@@ -32,6 +32,7 @@ class ViewController: UIViewController {
       }
     }
   }
+  @IBOutlet weak var pauseButton: UIButton!
   
   @IBOutlet private var blackTimerDefaultHeight: NSLayoutConstraint!
   private var blackTimerIncreasedHeight: NSLayoutConstraint!
@@ -92,11 +93,12 @@ class ViewController: UIViewController {
     blackTimerIncreasedHeight = blackTimerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.6)
     blackTimerDecreasedHeight = blackTimerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4)
     
-    [blackTimerView, whiteTimerView].forEach { [unowned self] timerView in
-      timerView?.pauseButton.addTarget(self, action: #selector(didTapPause), for: .touchUpInside)
-    }
-    
     refreshTimerViews()
+    
+    pauseButton.layer.shadowColor = UIColor.black.cgColor
+    pauseButton.layer.shadowOpacity = 0.4
+    pauseButton.layer.shadowOffset = .zero
+    pauseButton.layer.shadowRadius = 15
   }
   
   // MARK: Imperatives
@@ -221,13 +223,9 @@ extension ViewController {
     present(alert, animated: true)
   }
   
-  @objc func didTapPause() {
+  @IBAction func didTapPause(sender: UIButton) {
     if (playerManager.timer.isRunning) {
       playerManager.timer.pause()
-
-      [whiteTimerView, blackTimerView].forEach({ view in
-        view?.pauseButton.setTitle("options", for: .normal)
-      })
     }
     
     presentOptions()
@@ -256,9 +254,6 @@ extension ViewController {
 extension ViewController: TimerManagerDelegate {
 
   func timerHasStarted(manager: TimerManager) {
-    [whiteTimerView, blackTimerView].forEach { view in
-      view?.pauseButton.setTitle("pause", for: .normal)
-    }
     animatePlayerChange()
     soundManager.play(.pass)
   }

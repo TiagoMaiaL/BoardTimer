@@ -13,11 +13,13 @@ enum Theme {
   case dark
   
   static let colors = [
-    white: UIColor(red: 238.0/255.0, green: 238.0/255.0, blue: 238.0/255.0, alpha: 1),
-    dark: UIColor(red: 0/255.0, green: 31/255.0, blue: 43/255.0, alpha: 1)
+    white: (bg: UIColor(red: 236.0/255.0, green: 240.0/255.0, blue: 241.0/255.0, alpha: 1),
+            labels: UIColor(red: 74.0/255.0, green: 74.0/255.0, blue: 74.0/255.0, alpha: 1)),
+    dark: (bg: UIColor(red: 52.0/255.0, green: 73.0/255.0, blue: 94.0/255.0, alpha: 1),
+           labels: UIColor(red: 52.0/255.0, green: 152.0/255.0, blue: 219.0/255.0, alpha: 1) ),
   ]
   
-  func getColor() -> UIColor {
+  func getColor() -> (bg: UIColor, labels: UIColor) {
     return Theme.colors[self]!
   }
 }
@@ -28,7 +30,6 @@ class SingleTimerView: UIView {
   // MARK: Properties
   
   @IBOutlet weak var timeLabel: UILabel!
-  @IBOutlet weak var pauseButton: UIButton!
   
   var theme: Theme! {
     didSet {
@@ -51,12 +52,10 @@ class SingleTimerView: UIView {
   private func apply(theme: Theme = .white) {
     
     func setColors(for theme: Theme) {
-      let bgColor = theme.getColor()
-      // Inverse color for contrast
-      let labelColor = theme == .white ? Theme.colors[.dark] : Theme.colors[.white]
+      let colors = theme.getColor()
       
-      backgroundColor = bgColor
-      timeLabel.textColor = labelColor
+      backgroundColor = colors.bg
+      timeLabel.textColor = colors.labels
     }
     
     setColors(for: theme)

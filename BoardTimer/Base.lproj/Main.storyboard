@@ -38,11 +38,21 @@
                                     </view>
                                 </subviews>
                             </stackView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MiQ-kS-vXd">
-                                <rect key="frame" x="161.5" y="328.5" width="53" height="30"/>
-                                <state key="normal" title="Refresh"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KMp-HJ-xvZ" userLabel="pause_button">
+                                <rect key="frame" x="152.5" y="297" width="70" height="70"/>
+                                <color key="backgroundColor" red="0.84705882352941175" green="0.84705882352941175" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="7pq-PX-mef"/>
+                                    <constraint firstAttribute="width" constant="70" id="hel-eL-44D"/>
+                                </constraints>
+                                <state key="normal" image="ic_pause"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="35"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="didTapRefresh:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zL1-W1-nZU"/>
+                                    <action selector="didTapPauseWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LYW-aO-5jr"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -51,10 +61,10 @@
                         <constraints>
                             <constraint firstItem="ffD-wr-Jkr" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="TNj-Vd-hja"/>
                             <constraint firstItem="ffD-wr-Jkr" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="UUL-CY-5c7"/>
-                            <constraint firstItem="MiQ-kS-vXd" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="Wer-7W-huO"/>
+                            <constraint firstItem="KMp-HJ-xvZ" firstAttribute="baseline" secondItem="GK7-ox-tnL" secondAttribute="baseline" constant="15" id="eq2-tP-Hv3"/>
+                            <constraint firstItem="KMp-HJ-xvZ" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="fbk-Ck-QD4"/>
                             <constraint firstItem="GK7-ox-tnL" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.5" id="jNv-oy-Mvv"/>
                             <constraint firstAttribute="bottom" secondItem="ffD-wr-Jkr" secondAttribute="bottom" id="niO-Wk-kX6"/>
-                            <constraint firstItem="MiQ-kS-vXd" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="r18-bW-gKd"/>
                             <constraint firstItem="ffD-wr-Jkr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="sGI-AT-uDc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -69,6 +79,7 @@
                         <outlet property="blackTimerDefaultHeight" destination="jNv-oy-Mvv" id="wio-Xu-7hh"/>
                         <outlet property="blackWrapperView" destination="GK7-ox-tnL" id="Ghj-O1-oDH"/>
                         <outlet property="passGesture" destination="jc5-vP-CyN" id="yht-YM-TlT"/>
+                        <outlet property="pauseButton" destination="KMp-HJ-xvZ" id="YfD-KS-KY3"/>
                         <outlet property="whiteWrapperView" destination="mln-9Z-0bi" id="Aba-4e-ENf"/>
                         <segue destination="Z38-KR-2lH" kind="show" identifier="show_options" id="ddn-sQ-hLp"/>
                     </connections>
@@ -264,4 +275,7 @@
             <point key="canvasLocation" x="721" y="143"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="ic_pause" width="20" height="33"/>
+    </resources>
 </document>

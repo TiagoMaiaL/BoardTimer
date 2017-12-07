@@ -19,14 +19,14 @@ class TimerConfigurationStorageTests: XCTestCase {
   
   // MARK: Setup/Teardown
   
-    override func setUp() {
-      super.setUp()
-    }
-    
-    override func tearDown() {
-      super.tearDown()
-    }
-    
+  override func setUp() {
+    super.setUp()
+  }
+  
+  override func tearDown() {
+    super.tearDown()
+  }
+  
   // MARK: Tests
   
   func testStorageAndRetrieval() {

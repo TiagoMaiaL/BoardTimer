@@ -20,7 +20,6 @@
 		47AD303C1FB6315500A911D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47AD303A1FB6315500A911D9 /* Main.storyboard */; };
 		47AD303E1FB6315500A911D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47AD303D1FB6315500A911D9 /* Assets.xcassets */; };
 		47AD30411FB6315500A911D9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47AD303F1FB6315500A911D9 /* LaunchScreen.storyboard */; };
-		47AD304C1FB6315600A911D9 /* BoardTimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AD304B1FB6315600A911D9 /* BoardTimerTests.swift */; };
 		47AD30591FB635DB00A911D9 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AD30581FB635DB00A911D9 /* TimerManager.swift */; };
 		47AD305B1FB6360200A911D9 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AD305A1FB6360200A911D9 /* Player.swift */; };
 		47AD30601FB8C93500A911D9 /* PlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AD305F1FB8C93500A911D9 /* PlayerManager.swift */; };
@@ -59,7 +58,6 @@
 		47AD30401FB6315500A911D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		47AD30421FB6315500A911D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		47AD30471FB6315600A911D9 /* BoardTimerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BoardTimerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		47AD304B1FB6315600A911D9 /* BoardTimerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTimerTests.swift; sourceTree = "<group>"; };
 		47AD304D1FB6315600A911D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		47AD30581FB635DB00A911D9 /* TimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
 		47AD305A1FB6360200A911D9 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -128,7 +126,6 @@
 		47AD304A1FB6315600A911D9 /* BoardTimerTests */ = {
 			isa = PBXGroup;
 			children = (
-				47AD304B1FB6315600A911D9 /* BoardTimerTests.swift */,
 				47B7F37B1FD6C8810046FBD0 /* PlayerTests.swift */,
 				478498CF1FD6DCEE00C01BE1 /* PlayerManagerTests.swift */,
 				478498D11FD8246300C01BE1 /* TimerConfigurationStorageTests.swift */,
@@ -332,7 +329,6 @@
 				478498D21FD8246300C01BE1 /* TimerConfigurationStorageTests.swift in Sources */,
 				478498D01FD6DCEE00C01BE1 /* PlayerManagerTests.swift in Sources */,
 				47B7F37C1FD6C8810046FBD0 /* PlayerTests.swift in Sources */,
-				47AD304C1FB6315600A911D9 /* BoardTimerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
