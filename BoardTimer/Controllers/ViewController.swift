@@ -18,7 +18,7 @@ class ViewController: UIViewController {
   // MARK: Properties
   
   let optionsSegueId = "show_options"
-  
+
   @IBOutlet weak var blackWrapperView: XibView!
   @IBOutlet weak var whiteWrapperView: XibView!
   weak var blackTimerView: SingleTimerView!
@@ -33,6 +33,9 @@ class ViewController: UIViewController {
     }
   }
   @IBOutlet weak var pauseButton: UIButton!
+  @IBOutlet weak var settingsButton: UIButton!
+  @IBOutlet weak var restartButton: UIButton!
+  @IBOutlet weak var darkOverlay: UIView!
   
   @IBOutlet private var blackTimerDefaultHeight: NSLayoutConstraint!
   private var blackTimerIncreasedHeight: NSLayoutConstraint!
@@ -95,10 +98,21 @@ class ViewController: UIViewController {
     
     refreshTimerViews()
     
-    pauseButton.layer.shadowColor = UIColor.black.cgColor
-    pauseButton.layer.shadowOpacity = 0.4
-    pauseButton.layer.shadowOffset = .zero
-    pauseButton.layer.shadowRadius = 15
+    setupButtons()
+    setupOverlay()
+  }
+  
+  func setupButtons() {
+    [settingsButton, restartButton, pauseButton].forEach { button in
+      button?.layer.shadowColor = UIColor.black.cgColor
+      button?.layer.shadowOpacity = 0.4
+      button?.layer.shadowOffset = .zero
+      button?.layer.shadowRadius = 15
+    }
+  }
+  
+  func setupOverlay() {
+    darkOverlay.alpha = 0
   }
   
   // MARK: Imperatives
@@ -131,7 +145,10 @@ class ViewController: UIViewController {
                    options: .curveEaseInOut,
                    animations: { [unowned self] in
                     self.view.layoutIfNeeded()
+                    self.darkOverlay.alpha = 0
     })
+    
+    hideControls()
   }
   
   func animatePausedState() {
@@ -143,6 +160,8 @@ class ViewController: UIViewController {
     blackTimerDecreasedHeight.isActive = false
     blackTimerDefaultHeight.isActive = true
     
+    darkOverlay.isHidden = false
+    
     UIView.animate(withDuration: 0.5,
                    delay: 0,
                    usingSpringWithDamping: 0.7,
@@ -150,20 +169,38 @@ class ViewController: UIViewController {
                    options: .curveEaseInOut,
                    animations: { [unowned self] in
                     self.view.layoutIfNeeded()
+                    self.darkOverlay.alpha = 0.3
+    })
+    presentControls()
+  }
+  
+  func presentControls() {
+    UIView.animate(withDuration: 0.5,
+                   delay: 0,
+                   usingSpringWithDamping: 0.7,
+                   initialSpringVelocity: 0,
+                   options: .curveEaseInOut,
+                   animations: { [unowned self] in
+                    [self.settingsButton, self.restartButton].forEach { button in
+                      button?.alpha = 1
+                      button?.transform = CGAffineTransform(scaleX: 1, y: 1)
+                    }
     })
   }
   
-  func presentOptions() {
-    let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-    actionSheet.addAction(UIAlertAction(title: "settings", style: .default) { [unowned self] _ in
-      self.presentSettings()
+  func hideControls() {
+    UIView.animate(withDuration: 0.5,
+                   delay: 0,
+                   usingSpringWithDamping: 0.7,
+                   initialSpringVelocity: 0,
+                   options: .curveEaseInOut,
+                   animations: { [unowned self] in
+                    [self.settingsButton, self.restartButton].forEach { button in
+                      button?.alpha = 0
+                      button?.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+                    }
     })
-    actionSheet.addAction(UIAlertAction(title: "restart timer", style: .destructive) { [unowned self] _ in
-      self.didTapRefresh(nil)
-    })
-    actionSheet.addAction(UIAlertAction(title: "cancel", style: .cancel))
     
-    present(actionSheet, animated: true)
   }
   
   func presentSettings() {
@@ -227,8 +264,10 @@ extension ViewController {
     if (playerManager.timer.isRunning) {
       playerManager.timer.pause()
     }
-    
-    presentOptions()
+  }
+  
+  @IBAction func didTapSettings(sender: UIButton) {
+    presentSettings()
   }
   
   // MARK: Notification Actions

@@ -38,6 +38,28 @@
                                     </view>
                                 </subviews>
                             </stackView>
+                            <view hidden="YES" alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dHz-DJ-W01" userLabel="dark overlay">
+                                <rect key="frame" x="0.0" y="-10" width="375" height="677"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kGb-7f-Tk9" userLabel="restart_button">
+                                <rect key="frame" x="69.5" y="305.5" width="53" height="53"/>
+                                <color key="backgroundColor" red="0.84705882349999995" green="0.84705882349999995" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="53" id="cS6-00-vOW"/>
+                                    <constraint firstAttribute="width" constant="53" id="zuH-gH-EOM"/>
+                                </constraints>
+                                <state key="normal" image="ic_restart"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <real key="value" value="26.5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="didTapPauseWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QSh-a3-mEX"/>
+                                    <action selector="didTapRefresh:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BC3-eq-QuY"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KMp-HJ-xvZ" userLabel="pause_button">
                                 <rect key="frame" x="152.5" y="297" width="70" height="70"/>
                                 <color key="backgroundColor" red="0.84705882352941175" green="0.84705882352941175" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -55,16 +77,41 @@
                                     <action selector="didTapPauseWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LYW-aO-5jr"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xhg-lu-aIw" userLabel="settings_button">
+                                <rect key="frame" x="252.5" y="305.5" width="53" height="53"/>
+                                <color key="backgroundColor" red="0.84705882349999995" green="0.84705882349999995" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="53" id="Rhu-Xy-eCq"/>
+                                    <constraint firstAttribute="height" constant="53" id="Th3-zH-Ir9"/>
+                                </constraints>
+                                <state key="normal" image="ic_settings"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <real key="value" value="26.5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="didTapSettingsWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Yv9-4N-tNy"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="kGb-7f-Tk9" firstAttribute="centerY" secondItem="KMp-HJ-xvZ" secondAttribute="centerY" id="AWW-Vu-K3c"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dHz-DJ-W01" secondAttribute="trailing" id="D3a-cd-Wn9"/>
+                            <constraint firstItem="xhg-lu-aIw" firstAttribute="leading" secondItem="KMp-HJ-xvZ" secondAttribute="trailing" constant="30" id="FIr-GA-28y"/>
+                            <constraint firstItem="KMp-HJ-xvZ" firstAttribute="leading" secondItem="kGb-7f-Tk9" secondAttribute="trailing" constant="30" id="Lpd-KK-kdT"/>
+                            <constraint firstItem="dHz-DJ-W01" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Ozl-rq-RDg"/>
                             <constraint firstItem="ffD-wr-Jkr" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="TNj-Vd-hja"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="dHz-DJ-W01" secondAttribute="bottom" id="UDP-9W-963"/>
                             <constraint firstItem="ffD-wr-Jkr" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="UUL-CY-5c7"/>
+                            <constraint firstItem="dHz-DJ-W01" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="-30" id="b0g-Ub-O4Y"/>
                             <constraint firstItem="KMp-HJ-xvZ" firstAttribute="baseline" secondItem="GK7-ox-tnL" secondAttribute="baseline" constant="15" id="eq2-tP-Hv3"/>
                             <constraint firstItem="KMp-HJ-xvZ" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="fbk-Ck-QD4"/>
                             <constraint firstItem="GK7-ox-tnL" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.5" id="jNv-oy-Mvv"/>
                             <constraint firstAttribute="bottom" secondItem="ffD-wr-Jkr" secondAttribute="bottom" id="niO-Wk-kX6"/>
+                            <constraint firstItem="xhg-lu-aIw" firstAttribute="centerY" secondItem="KMp-HJ-xvZ" secondAttribute="centerY" id="rcN-Fw-rY1"/>
                             <constraint firstItem="ffD-wr-Jkr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="sGI-AT-uDc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -78,8 +125,11 @@
                     <connections>
                         <outlet property="blackTimerDefaultHeight" destination="jNv-oy-Mvv" id="wio-Xu-7hh"/>
                         <outlet property="blackWrapperView" destination="GK7-ox-tnL" id="Ghj-O1-oDH"/>
+                        <outlet property="darkOverlay" destination="dHz-DJ-W01" id="XQb-1f-G2R"/>
                         <outlet property="passGesture" destination="jc5-vP-CyN" id="yht-YM-TlT"/>
                         <outlet property="pauseButton" destination="KMp-HJ-xvZ" id="YfD-KS-KY3"/>
+                        <outlet property="restartButton" destination="kGb-7f-Tk9" id="59z-xQ-HnD"/>
+                        <outlet property="settingsButton" destination="xhg-lu-aIw" id="FMc-nt-V8C"/>
                         <outlet property="whiteWrapperView" destination="mln-9Z-0bi" id="Aba-4e-ENf"/>
                         <segue destination="Z38-KR-2lH" kind="show" identifier="show_options" id="ddn-sQ-hLp"/>
                     </connections>
@@ -199,23 +249,24 @@
                                         <constraint firstItem="7Ue-yD-Z1s" firstAttribute="leading" secondItem="do6-hH-Pd3" secondAttribute="leadingMargin" id="oNK-sa-OkV"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="timer_cell" textLabel="E22-J6-fmW" detailTextLabel="Uuq-FK-nYN" style="IBUITableViewCellStyleSubtitle" id="yX3-33-Xz6">
-                                <rect key="frame" x="0.0" y="120.5" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="timer_cell" textLabel="E22-J6-fmW" detailTextLabel="Uuq-FK-nYN" rowHeight="65" style="IBUITableViewCellStyleSubtitle" id="yX3-33-Xz6">
+                                <rect key="frame" x="0.0" y="120.5" width="375" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yX3-33-Xz6" id="SYc-vG-hWy">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="64.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Blitz" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="E22-J6-fmW">
-                                            <rect key="frame" x="16" y="5" width="33.5" height="20.5"/>
+                                            <rect key="frame" x="16" y="12" width="33.5" height="20.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Information about the timer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Uuq-FK-nYN">
-                                            <rect key="frame" x="16" y="25.5" width="155" height="14.5"/>
+                                            <rect key="frame" x="16" y="35.5" width="155" height="14.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
@@ -225,7 +276,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="common_cell" textLabel="lKx-xH-lUW" style="IBUITableViewCellStyleDefault" id="Miy-la-Psi">
-                                <rect key="frame" x="0.0" y="164.5" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="185.5" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Miy-la-Psi" id="O7m-TD-zdp">
                                     <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
@@ -277,5 +328,7 @@
     </scenes>
     <resources>
         <image name="ic_pause" width="20" height="33"/>
+        <image name="ic_restart" width="29" height="33"/>
+        <image name="ic_settings" width="37" height="37"/>
     </resources>
 </document>
