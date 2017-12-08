@@ -171,6 +171,7 @@ class ViewController: UIViewController {
                     self.view.layoutIfNeeded()
                     self.darkOverlay.alpha = 0.3
     })
+    
     presentControls()
   }
   
@@ -185,6 +186,7 @@ class ViewController: UIViewController {
                       button?.alpha = 1
                       button?.transform = CGAffineTransform(scaleX: 1, y: 1)
                     }
+                    self.pauseButton.alpha = 0
     })
   }
   
@@ -199,6 +201,7 @@ class ViewController: UIViewController {
                       button?.alpha = 0
                       button?.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
                     }
+                    self.pauseButton.alpha = 1
     })
     
   }
