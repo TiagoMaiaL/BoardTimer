@@ -15,9 +15,6 @@ class CircleProgressBar: UIView {
   var tint: UIColor?
   var progress: Int = 0
   
-  // TODO: Correct the radius property
-  // TODO: Add the drawing function.
-  
   // MARK: Life cycle
   
   override func draw(_ rect: CGRect) {
