@@ -19,7 +19,7 @@ enum Theme {
            labels: UIColor(red: 52.0/255.0, green: 152.0/255.0, blue: 219.0/255.0, alpha: 1) ),
   ]
   
-  func getColor() -> (bg: UIColor, labels: UIColor) {
+  func getColors() -> (bg: UIColor, labels: UIColor) {
     return Theme.colors[self]!
   }
 }
@@ -30,6 +30,7 @@ class SingleTimerView: UIView {
   // MARK: Properties
   
   @IBOutlet weak var timeLabel: UILabel!
+  @IBOutlet weak var progressView: CircleProgressBar!
   
   var theme: Theme! {
     didSet {
@@ -52,10 +53,11 @@ class SingleTimerView: UIView {
   private func apply(theme: Theme = .white) {
     
     func setColors(for theme: Theme) {
-      let colors = theme.getColor()
+      let colors = theme.getColors()
       
       backgroundColor = colors.bg
       timeLabel.textColor = colors.labels
+      progressView.tint = theme.getColors().labels
     }
     
     setColors(for: theme)

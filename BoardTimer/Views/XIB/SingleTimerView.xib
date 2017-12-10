@@ -15,6 +15,14 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="301"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eiM-XA-D0H" customClass="CircleProgressBar" customModule="BoardTimer" customModuleProvider="target">
+                    <rect key="frame" x="77" y="40" width="220" height="220"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="220" id="OCP-ky-0ri"/>
+                        <constraint firstAttribute="width" constant="220" id="au2-Z1-Z2b"/>
+                    </constraints>
+                </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="02:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ah-BI-pAd" userLabel="time label">
                     <rect key="frame" x="94.5" y="111.5" width="186" height="78"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="65"/>
@@ -25,13 +33,16 @@
             <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="3Ah-BI-pAd" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="bHx-lE-I9A"/>
+                <constraint firstItem="eiM-XA-D0H" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="nXl-MD-Ukg"/>
                 <constraint firstItem="3Ah-BI-pAd" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="r6R-kM-g71"/>
+                <constraint firstItem="eiM-XA-D0H" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="s2K-YC-txm"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="progressView" destination="eiM-XA-D0H" id="yRQ-16-zCA"/>
                 <outlet property="timeLabel" destination="3Ah-BI-pAd" id="shR-NA-eEc"/>
             </connections>
             <point key="canvasLocation" x="135.5" y="258.5"/>
