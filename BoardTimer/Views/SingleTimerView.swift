@@ -75,6 +75,7 @@ class SingleTimerView: UIView {
                    options: .curveEaseIn,
                    animations: { [unowned self] in
                     self.timeLabel.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+                    self.progressView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
                     self.timeLabel.alpha = 1
     })
   }
@@ -87,6 +88,7 @@ class SingleTimerView: UIView {
                    options: .curveEaseIn,
                    animations: { [unowned self] in
                     self.timeLabel.transform = .identity
+                    self.progressView.transform = .identity
                     self.timeLabel.alpha = 0.5
     })
   }
