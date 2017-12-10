@@ -24,7 +24,7 @@
                         <constraint firstAttribute="width" secondItem="eiM-XA-D0H" secondAttribute="height" multiplier="1:1" id="d02-wz-HhN"/>
                     </constraints>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="02:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="30" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Ah-BI-pAd" userLabel="time label">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="02:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="30" translatesAutoresizingMaskIntoConstraints="NO" id="3Ah-BI-pAd" userLabel="time label">
                     <rect key="frame" x="94" y="111.5" width="187.5" height="78"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="65"/>
                     <color key="textColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
