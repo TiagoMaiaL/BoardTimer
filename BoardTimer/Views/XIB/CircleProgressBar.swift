@@ -14,19 +14,29 @@ class CircleProgressBar: UIView {
   // MARK: Properties
   
   var tint: UIColor?
-  var progress: Int = 0
+  var progress: Float = 0
+  // These properties are stored once, due to scale transform changes.
+  var radius: CGFloat!
+  var permanentCenter: CGPoint!
   
   // MARK: Life cycle
   
   override func draw(_ rect: CGRect) {
     if let color = tint {
-      let radius: CGFloat = (frame.size.width / 2) - 10
-      let center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2)
+      
+      if radius == nil {
+        radius = (frame.size.width / 2) - 10
+      }
+      
+      if permanentCenter == nil {
+        permanentCenter = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2)
+      }
+      
       let startAngle = CGFloat.pi * 1.5
       
       // Base circle
       let baseCirclePath = UIBezierPath()
-      baseCirclePath.addArc(withCenter: center,
+      baseCirclePath.addArc(withCenter: permanentCenter,
                             radius: radius,
                             startAngle: startAngle,
                             endAngle: CGFloat.pi * 4.5,
@@ -37,7 +47,7 @@ class CircleProgressBar: UIView {
       
       // Progress
       let progressCrclePath = UIBezierPath()
-      progressCrclePath.addArc(withCenter: center,
+      progressCrclePath.addArc(withCenter: permanentCenter,
                                radius: radius,
                                startAngle: startAngle,
                                endAngle: CGFloat(progress)/100 * (CGFloat.pi * 2) + startAngle,

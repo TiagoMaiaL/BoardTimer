@@ -27,6 +27,13 @@ class Player {
   private(set) var delayTime: TimeInterval = 0
   private(set) var moves = 0
   
+  var progress: Float {
+    get {
+      // TODO: Fix this.
+      return Float(((configuration.time * 60) - remainingTime) / configuration.time)
+    }
+  }
+  
   var isOver: Bool {
     return remainingTime == 0
   }

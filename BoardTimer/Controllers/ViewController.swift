@@ -219,7 +219,10 @@ class ViewController: UIViewController {
   }
   
   func refreshTimerViews() {
+    whiteTimerView.setProgress(playerManager.whitePlayer.progress)
     whiteTimerView.setText(getFormattedRemainingTime(for: playerManager.whitePlayer))
+    
+    blackTimerView.setProgress(playerManager.blackPlayer.progress)
     blackTimerView.setText(getFormattedRemainingTime(for: playerManager.blackPlayer))
   }
   

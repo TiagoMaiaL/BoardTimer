@@ -67,6 +67,11 @@ class SingleTimerView: UIView {
     timeLabel.text = time
   }
   
+  func setProgress(_ progress: Float) {
+    progressView.progress = progress
+    progressView.setNeedsDisplay()
+  }
+  
   func animateIn() {
     UIView.animate(withDuration: 0.3,
                    delay: 0,
