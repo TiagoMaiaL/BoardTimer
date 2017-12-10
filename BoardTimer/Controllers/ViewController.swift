@@ -218,12 +218,22 @@ class ViewController: UIViewController {
     return "\(String(format: "%02d", minutes)):\(String(format: "%02d", seconds))"
   }
   
+  func getMovesText(for player: Player) -> String {
+    if (player.moves == 0) {
+      return ""
+    } else {
+      return "\(player.moves) \(player.moves > 1 ? "moves" : "move")"
+    }
+  }
+  
   func refreshTimerViews() {
     whiteTimerView.setProgress(playerManager.whitePlayer.progress)
     whiteTimerView.setText(getFormattedRemainingTime(for: playerManager.whitePlayer))
+    whiteTimerView.movesLabel.text = getMovesText(for: playerManager.whitePlayer)
     
     blackTimerView.setProgress(playerManager.blackPlayer.progress)
     blackTimerView.setText(getFormattedRemainingTime(for: playerManager.blackPlayer))
+    blackTimerView.movesLabel.text = getMovesText(for: playerManager.blackPlayer)
   }
   
   func restartTimer(with configuration: TimerConfiguration? = nil) {

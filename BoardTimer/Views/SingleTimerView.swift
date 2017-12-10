@@ -31,6 +31,7 @@ class SingleTimerView: UIView {
   
   @IBOutlet weak var timeLabel: UILabel!
   @IBOutlet weak var progressView: CircleProgressBar!
+  @IBOutlet weak var movesLabel: UILabel!
   
   var theme: Theme! {
     didSet {
@@ -57,7 +58,8 @@ class SingleTimerView: UIView {
       
       backgroundColor = colors.bg
       timeLabel.textColor = colors.labels
-      progressView.tint = theme.getColors().labels
+      progressView.tint = colors.labels
+      movesLabel.textColor = colors.labels.faded(by: 0.3)
     }
     
     setColors(for: theme)
@@ -82,6 +84,7 @@ class SingleTimerView: UIView {
                     self.timeLabel.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
                     self.progressView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
                     self.timeLabel.alpha = 1
+                    self.movesLabel.alpha = 1
     })
   }
   
@@ -95,6 +98,7 @@ class SingleTimerView: UIView {
                     self.timeLabel.transform = .identity
                     self.progressView.transform = .identity
                     self.timeLabel.alpha = 0.5
+                    self.movesLabel.alpha = 0.5
     })
   }
 
