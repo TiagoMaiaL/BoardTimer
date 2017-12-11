@@ -32,6 +32,12 @@ class PlayerManager {
   
   var delegate: PlayerManagerDelegate?
   
+  var isTimerOver: Bool {
+    get {
+      return whitePlayer.isOver || blackPlayer.isOver
+    }
+  }
+  
   // MARK: Initializers
   
   init(timer: TimerManager, white: Player, black: Player) {

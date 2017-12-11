@@ -203,7 +203,6 @@ class ViewController: UIViewController {
                     }
                     self.pauseButton.alpha = 1
     })
-    
   }
   
   func presentSettings() {
@@ -248,6 +247,10 @@ extension ViewController {
   // MARK: Actions
   
   @IBAction func didTap(_ sender: UITapGestureRecognizer) {
+    if playerManager.isTimerOver {
+      return
+    }
+    
     if !playerManager.timer.isRunning {
       playerManager.timer.start()
     } else {
