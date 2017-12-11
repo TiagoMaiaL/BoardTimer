@@ -157,7 +157,7 @@ class ViewController: UIViewController {
   
   func animatePausedState() {
     [whiteTimerView, blackTimerView].forEach { timerView in
-      timerView?.animateOut()
+      timerView?.animateInitial()
     }
     
     blackTimerIncreasedHeight.isActive = false

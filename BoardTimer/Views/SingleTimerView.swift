@@ -95,11 +95,26 @@ class SingleTimerView: UIView {
                    initialSpringVelocity: 0,
                    options: .curveEaseIn,
                    animations: { [unowned self] in
-                    self.timeLabel.transform = .identity
-                    self.progressView.transform = .identity
+                    self.timeLabel.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
+                    self.progressView.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
                     self.timeLabel.alpha = 0.5
                     self.movesLabel.alpha = 0.5
     })
+  }
+  
+  func animateInitial() {
+    UIView.animate(withDuration: 0.3,
+                   delay: 0,
+                   usingSpringWithDamping: 0.7,
+                   initialSpringVelocity: 0,
+                   options: .curveEaseIn,
+                   animations: { [unowned self] in
+                    self.timeLabel.transform = .identity
+                    self.progressView.transform = .identity
+                    self.timeLabel.alpha = 1
+                    self.movesLabel.alpha = 1
+    })
+
   }
 
 }
