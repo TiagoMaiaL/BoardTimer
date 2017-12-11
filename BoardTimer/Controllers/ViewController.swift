@@ -45,6 +45,10 @@ class ViewController: UIViewController {
   private var playerManager: PlayerManager!
   private var soundManager: SoundManager!
   
+  override var prefersStatusBarHidden: Bool {
+    return true
+  }
+  
   // MARK: Life Cycle
   
   override func viewDidLoad() {
