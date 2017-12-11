@@ -30,7 +30,7 @@ class Player {
   var progress: Float {
     get {
       // TODO: Fix this.
-      return Float(((configuration.time * 60) - remainingTime) / configuration.time)
+      return Float(((configuration.time * 60) - remainingTime) / (configuration.time * 60))
     }
   }
   

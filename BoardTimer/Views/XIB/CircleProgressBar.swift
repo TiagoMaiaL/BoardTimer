@@ -50,7 +50,7 @@ class CircleProgressBar: UIView {
       progressCrclePath.addArc(withCenter: permanentCenter,
                                radius: radius,
                                startAngle: startAngle,
-                               endAngle: CGFloat(progress)/100 * (CGFloat.pi * 2) + startAngle,
+                               endAngle: CGFloat(progress) * (CGFloat.pi * 2) + startAngle,
                                clockwise: true)
       progressCrclePath.lineWidth = 6
       progressCrclePath.lineCapStyle = .round
