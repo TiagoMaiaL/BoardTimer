@@ -36,16 +36,29 @@ class TimerConfigurationStorageTests: XCTestCase {
     storage.clear()
     storage.store(configuration)
     
-    // TODO: Use equatable in the timer configuration struct.
-    
     guard let storedConfiguration = storage.getSavedCustomTimers()?.first else {
       XCTFail("No timer configuration could be retrieved from the storage")
       return
     }
     
+    // TODO: Use equatable in the timer configuration struct.
     XCTAssertEqual(configuration.name, storedConfiguration.name)
     XCTAssertEqual(configuration.time, storedConfiguration.time)
     XCTAssertEqual(configuration.mode, storedConfiguration.mode)
     XCTAssertEqual(configuration.delay, storedConfiguration.delay)
+  }
+  
+  func testStorageLastUsed() {
+    let configuration = TimerConfiguration(time: 2, delay: 2, mode: .none, name: "testing default config.")
+    let storage = getTimerConfigurationStorage()
+    
+    storage.storeDefaultConfiguration(configuration)
+    
+    guard let defaultConfiguration = storage.getDefaultConfiguration() else {
+      XCTFail("No default configuration could be retrieved from the storage")
+      return
+    }
+    
+    XCTAssertEqual(configuration.name, defaultConfiguration.name)
   }
 }

@@ -13,6 +13,7 @@ class TimerConfigurationStorage: NSObject {
   // MARK: Constants
   
   let timersKey = "custom_timers"
+  let defaultTimerKey = "default_timer"
   
   // MARK: Properties
   
@@ -48,5 +49,24 @@ class TimerConfigurationStorage: NSObject {
     if let encodedTimers = try? encoder.encode(timers) {
       defaults.set(encodedTimers, forKey: timersKey)
     }
+  }
+  
+  func storeDefaultConfiguration(_ configuration: TimerConfiguration) {
+    let encoder = JSONEncoder()
+    
+    if let encodedTimer = try? encoder.encode(configuration) {
+      defaults.set(encodedTimer, forKey: defaultTimerKey)
+    }
+  }
+
+  func getDefaultConfiguration() -> TimerConfiguration? {
+    var defaultTimer: TimerConfiguration?
+    
+    if let defaultTimerData = defaults.object(forKey: defaultTimerKey) as? Data {
+      let decoder = JSONDecoder()
+      defaultTimer = try? decoder.decode(TimerConfiguration.self, from: defaultTimerData)
+    }
+    
+    return defaultTimer
   }
 }
