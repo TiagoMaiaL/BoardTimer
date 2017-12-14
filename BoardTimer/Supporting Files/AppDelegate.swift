@@ -11,9 +11,21 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+  // MARK: Types
+  
+  enum ShortcutType: String {
+    case Quick = "Quick"
+    case Blitz = "Blitz"
+    case Bullet = "Bullet"
+    case Lightning = "Lightning"
+  }
+  
+  // MARK: Properties
+  
   var window: UIWindow?
-
-
+  
+  // MARK: Delegate methods
+  
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
     return true
@@ -40,7 +52,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func applicationWillTerminate(_ application: UIApplication) {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
   }
-
+  
+  // MARK: Shortcuts
+  
+  func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) { 
+    handleShortcut(shortcutItem)
+    completionHandler(false)
+  }
+  
+  private func handleShortcut(_ item: UIApplicationShortcutItem) {
+    guard let rawType = item.type.components(separatedBy: ".").last else { return }
+    guard let type = ShortcutType(rawValue: rawType) else { return }
+    
+    var selectedConfiguration: TimerConfiguration?
+    
+    switch type {
+    case .Quick:
+      selectedConfiguration = TimerConfiguration.getDefaultConfigurations()[0]
+    case .Blitz:
+      selectedConfiguration = TimerConfiguration.getDefaultConfigurations()[1]
+    case .Bullet:
+      selectedConfiguration = TimerConfiguration.getDefaultConfigurations()[2]
+    case .Lightning:
+      selectedConfiguration = TimerConfiguration.getDefaultConfigurations()[3]
+    }
+    
+    if let configuration = selectedConfiguration {
+      if let timerController = window?.rootViewController as? ViewController {
+        timerController.setupManagers(with: configuration)
+      }
+    }
+    
+  }
 
 }
 

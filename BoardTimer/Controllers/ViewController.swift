@@ -19,6 +19,9 @@ class ViewController: UIViewController {
   
   let optionsSegueId = "show_options"
 
+  private var playerManager: PlayerManager!
+  private var soundManager: SoundManager!
+  
   @IBOutlet weak var blackWrapperView: XibView!
   @IBOutlet weak var whiteWrapperView: XibView!
   weak var blackTimerView: SingleTimerView!
@@ -42,8 +45,6 @@ class ViewController: UIViewController {
   private var blackTimerDecreasedHeight: NSLayoutConstraint!
   
   @IBOutlet var passGesture: UITapGestureRecognizer!
-  private var playerManager: PlayerManager!
-  private var soundManager: SoundManager!
   
   override var prefersStatusBarHidden: Bool {
     return true
@@ -57,7 +58,6 @@ class ViewController: UIViewController {
     // TODO: Determine the default configuration.
     setupManagers(with: TimerConfiguration.getDefaultConfigurations()[3])
     setupObservers()
-    setupTimerViews()
   }
   
   // MARK: Setup
@@ -78,6 +78,8 @@ class ViewController: UIViewController {
       playerManager.delegate = self
       
       soundManager = SoundManager()
+      
+      setupTimerViews()
     }
   }
   
