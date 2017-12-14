@@ -18,7 +18,9 @@ class ViewController: UIViewController {
   // MARK: Properties
   
   let optionsSegueId = "show_options"
+  private let timerStorage = TimerConfigurationStorage()
 
+  
   private var playerManager: PlayerManager!
   private var soundManager: SoundManager!
   
@@ -54,9 +56,9 @@ class ViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    // TODO: Determine the default configuration.
-    setupManagers(with: TimerConfiguration.getDefaultConfigurations()[3])
+
+    let defaultConfiguration = timerStorage.getDefaultConfiguration() ?? TimerConfiguration.getDefaultConfigurations()[0]
+    setupManagers(with: defaultConfiguration)
     setupObservers()
   }
   
@@ -64,6 +66,8 @@ class ViewController: UIViewController {
   
   func setupManagers(with configuration: TimerConfiguration? = nil) {
     if let configuration = configuration {
+      timerStorage.storeDefaultConfiguration(configuration)
+      
       let timer = TimerManager()
       timer.delegate = self
       
