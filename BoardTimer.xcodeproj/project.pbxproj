@@ -17,6 +17,7 @@
 		4783DE921FC4831D00C6A077 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4783DE911FC4831D00C6A077 /* SettingsTableViewController.swift */; };
 		478498D01FD6DCEE00C01BE1 /* PlayerManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478498CF1FD6DCEE00C01BE1 /* PlayerManagerTests.swift */; };
 		478498D21FD8246300C01BE1 /* TimerConfigurationStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478498D11FD8246300C01BE1 /* TimerConfigurationStorageTests.swift */; };
+		47983D691FE469DF00CFD692 /* Eureka.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47983D681FE469DF00CFD692 /* Eureka.framework */; };
 		47AD30371FB6315500A911D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AD30361FB6315500A911D9 /* AppDelegate.swift */; };
 		47AD30391FB6315500A911D9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AD30381FB6315500A911D9 /* ViewController.swift */; };
 		47AD303C1FB6315500A911D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47AD303A1FB6315500A911D9 /* Main.storyboard */; };
@@ -54,6 +55,7 @@
 		4783DE911FC4831D00C6A077 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		478498CF1FD6DCEE00C01BE1 /* PlayerManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerManagerTests.swift; sourceTree = "<group>"; };
 		478498D11FD8246300C01BE1 /* TimerConfigurationStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerConfigurationStorageTests.swift; sourceTree = "<group>"; };
+		47983D681FE469DF00CFD692 /* Eureka.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Eureka.framework; path = Carthage/Build/iOS/Eureka.framework; sourceTree = "<group>"; };
 		47AD30331FB6315500A911D9 /* BoardTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoardTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47AD30361FB6315500A911D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47AD30381FB6315500A911D9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47983D691FE469DF00CFD692 /* Eureka.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,12 +103,21 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		47983D671FE469DF00CFD692 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				47983D681FE469DF00CFD692 /* Eureka.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		47AD302A1FB6315500A911D9 = {
 			isa = PBXGroup;
 			children = (
 				47AD30351FB6315500A911D9 /* BoardTimer */,
 				47AD304A1FB6315600A911D9 /* BoardTimerTests */,
 				47AD30341FB6315500A911D9 /* Products */,
+				47983D671FE469DF00CFD692 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -224,6 +236,7 @@
 				47AD302F1FB6315500A911D9 /* Sources */,
 				47AD30301FB6315500A911D9 /* Frameworks */,
 				47AD30311FB6315500A911D9 /* Resources */,
+				47983D6A1FE46D9E00CFD692 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -314,6 +327,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		47983D6A1FE46D9E00CFD692 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Eureka.framework",
+			);
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Eureka.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		47AD302F1FB6315500A911D9 /* Sources */ = {
@@ -491,6 +522,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 79964U8894;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = BoardTimer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -507,6 +542,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 79964U8894;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = BoardTimer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
