@@ -23,6 +23,7 @@ class Player {
   let color: PlayerColor
   let configuration: TimerConfiguration
   
+  private(set) var lastIncreasedRemainingTime: TimeInterval = 0
   private(set) var remainingTime: TimeInterval = 0
   private(set) var delayTime: TimeInterval = 0
   private(set) var moves = 0
@@ -30,7 +31,11 @@ class Player {
   var progress: Float {
     get {
       // TODO: Fix this.
-      return Float(((configuration.time * 60) - remainingTime) / (configuration.time * 60))
+      let configuredTime = configuration.time * 60
+      let baseTime = max(configuredTime, remainingTime, lastIncreasedRemainingTime)
+      let progress = Float((baseTime - remainingTime) / baseTime)
+      
+      return progress
     }
   }
   
@@ -67,6 +72,7 @@ class Player {
   func startTurn() {
     if configuration.mode == .fischer {
       remainingTime += delayTime
+      lastIncreasedRemainingTime = remainingTime
     }
   }
   
@@ -75,6 +81,7 @@ class Player {
     
     if configuration.mode == .bronstein {
       remainingTime += configuration.delay - delayTime
+      lastIncreasedRemainingTime = remainingTime
     }
     
     delayTime = configuration.delay
