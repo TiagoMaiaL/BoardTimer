@@ -55,21 +55,6 @@ extension SettingsTableViewController {
     return section.getTitle()
   }
 
-  override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    guard let cell = tableView.dequeueReusableCell(withIdentifier: "header_cell") else { return nil }
-    
-    let titleTag = 1
-    let titleLabel = cell.viewWithTag(titleTag) as? UILabel
-    
-    titleLabel?.text = self.tableView(tableView, titleForHeaderInSection: section)
-    
-    return cell
-  }
-  
-  override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    return 100
-  }
-  
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     guard let section = SettingsSection(rawValue: indexPath.section) else { return }
     
@@ -158,15 +143,13 @@ extension SettingsTableViewController {
 // MARK: Data source enums
 
 enum SettingsSection: Int {
-  case timers = 0, custom/*, sounds, other*/
+  case timers = 0, custom
   
   static var count: Int { return custom.hashValue + 1 }
   
   static let titles = [
     timers: "Common timers",
     custom: "Custom timers",
-    //      sounds: "Sounds",
-    //      other: ""
   ]
   
   func getTitle() -> String {
