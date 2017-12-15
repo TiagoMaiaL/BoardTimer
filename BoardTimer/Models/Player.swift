@@ -13,8 +13,6 @@ enum PlayerColor {
   case black
 }
 
-// TODO: Test business logic
-
 class Player {
   
   // MARK: Properties
@@ -40,7 +38,7 @@ class Player {
   }
   
   var isOver: Bool {
-    return remainingTime == 0
+    return remainingTime <= 0
   }
   
   // MARK: Initializers
