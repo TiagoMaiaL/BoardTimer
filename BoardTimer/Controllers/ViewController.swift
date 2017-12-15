@@ -109,7 +109,6 @@ class ViewController: UIViewController {
     refreshTimerViews()
     
     setupButtons()
-    setupOverlay()
   }
   
   func setupButtons() {
