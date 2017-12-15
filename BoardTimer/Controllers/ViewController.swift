@@ -60,6 +60,8 @@ class ViewController: UIViewController {
     let defaultConfiguration = timerStorage.getDefaultConfiguration() ?? TimerConfiguration.getDefaultConfigurations()[0]
     setupManagers(with: defaultConfiguration)
     setupObservers()
+    
+    self.pauseButton.alpha = 0;
   }
   
   // MARK: Setup
@@ -323,6 +325,14 @@ extension ViewController: TimerManagerDelegate {
   func timerHasStarted(manager: TimerManager) {
     animatePlayerChange()
     soundManager.play(.pass)
+    
+    // If in initial state.
+    if pauseButton.isHidden {
+      pauseButton.isHidden = false
+      UIView.animate(withDuration: 0.3) { [unowned self] in
+        self.pauseButton.alpha = 1
+      }
+    }
   }
 
   func timerHasStopped(manager: TimerManager) {

@@ -59,7 +59,7 @@
                                     <action selector="didTapRefresh:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BC3-eq-QuY"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KMp-HJ-xvZ" userLabel="pause_button">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KMp-HJ-xvZ" userLabel="pause_button">
                                 <rect key="frame" x="152.5" y="297" width="70" height="70"/>
                                 <color key="backgroundColor" red="0.84705882352941175" green="0.84705882352941175" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
