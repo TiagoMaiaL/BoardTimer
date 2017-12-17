@@ -21,20 +21,33 @@ class NewTimerViewController: FormViewController {
     super.viewDidLoad()
     navigationItem.largeTitleDisplayMode = .never
     
-    form +++ Section("Section1")
-      <<< TextRow(){ row in
-        row.title = "Text Row"
-        row.placeholder = "Enter text here"
+    form +++ Section("General")
+      <<< NameRow() {
+        $0.title = "Name"
+        $0.placeholder = "Enter the timer name"
+        $0.add(rule: RuleRequired())
       }
-      <<< PhoneRow(){
-        $0.title = "Phone Row"
-        $0.placeholder = "And numbers here"
+      <<< CountDownRow() {
+        $0.title = "Time for each player"
+        $0.add(rule: RuleRequired())
+        $0.minuteInterval = 60
       }
-      +++ Section("Section2")
-      <<< DateRow(){
-        $0.title = "Date Row"
-        $0.value = Date(timeIntervalSinceReferenceDate: 0)
-    }
+      +++ Section("Delays")
+      <<< SwitchRow(){
+        $0.title = "Use delays"
+        $0.value = false
+      }
+      <<< SegmentedRow() {
+        $0.options = ["Fischer", "test", "test"]
+      }
+      // TODO: Add the details row here.
+      <<< StepperRow() {
+        $0.title = "Delay amount in seconds"
+        $0.value = 0
+        $0.displayValueFor = { value in
+          "\(Int(value ?? 0))"
+        }
+      }
   }
 
   // MARK: Actions
