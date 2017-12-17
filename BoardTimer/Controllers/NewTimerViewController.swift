@@ -11,6 +11,14 @@ import Eureka
 
 class NewTimerViewController: FormViewController {
 
+  // MARK: Constants
+  
+  let useDelayTag = "useDelayTag"
+  let nameTag = "nameTag"
+  let timeTag = "timeTag"
+  let delayTypeTag = "delayTypeTag"
+  let delayAmountTag = "delayAmountTag"
+  
   // MARK: Properties
   
   let timerStorage = TimerConfigurationStorage()
@@ -20,32 +28,62 @@ class NewTimerViewController: FormViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     navigationItem.largeTitleDisplayMode = .never
-    
+    setupForm()
+  }
+  
+  // MARK: Setup form
+  
+  func setupForm() {
     form +++ Section("General")
-      <<< NameRow() {
+      <<< NameRow(nameTag) {
         $0.title = "Name"
         $0.placeholder = "Enter the timer name"
         $0.add(rule: RuleRequired())
       }
-      <<< CountDownRow() {
+      <<< CountDownRow(timeTag) {
         $0.title = "Time for each player"
         $0.add(rule: RuleRequired())
         $0.minuteInterval = 60
       }
-      +++ Section("Delays")
-      <<< SwitchRow(){
-        $0.title = "Use delays"
+      +++ Section("Delay")
+      <<< SwitchRow(useDelayTag) {
+        $0.title = "Use delay"
         $0.value = false
       }
-      <<< SegmentedRow() {
+      <<< SegmentedRow<String>(delayTypeTag) {
         $0.options = ["Fischer", "test", "test"]
+        $0.value = "Fischer"
+        $0.hidden = "$useDelayTag == false"
+        $0.add(rule: RuleRequired())
       }
-      // TODO: Add the details row here.
-      <<< StepperRow() {
-        $0.title = "Delay amount in seconds"
-        $0.value = 0
+      <<< LabelRow() {
+        $0.title = "A short description of the type."
+        $0.hidden = "$useDelayTag == false"
+      }
+      <<< StepperRow(delayAmountTag) {
+        $0.title = "Amount"
+        $0.value = 2
         $0.displayValueFor = { value in
           "\(Int(value ?? 0))"
+        }
+        $0.add(rule: RuleRequired())
+        $0.hidden = "$useDelayTag == false"
+      }
+      +++ Section()
+      <<< ButtonRow() {
+        $0.title = "Create timer"
+        
+        let tagsToUse = [nameTag, timeTag, useDelayTag, delayTypeTag, delayAmountTag]
+        $0.disabled = Condition.function(tagsToUse) { [unowned self] form -> Bool in
+          let nameRow = form.rowBy(tag: self.nameTag) as? NameRow,
+              timeRow = form.rowBy(tag: self.timeTag) as? CountDownRow,
+              useDelayRow = form.rowBy(tag: self.useDelayTag) as? SwitchRow,
+              delayTypeRow = form.rowBy(tag: self.delayTypeTag) as? SegmentedRow<String>,
+              delayAmountRow = form.rowBy(tag: self.delayAmountTag) as? StepperRow
+
+          return (nameRow?.value == nil || timeRow?.value == nil) ||
+                 (useDelayRow?.value == true &&
+                  (delayTypeRow?.value == nil || delayAmountRow?.value == 0))
         }
       }
   }
