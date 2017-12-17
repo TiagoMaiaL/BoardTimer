@@ -13,8 +13,11 @@ enum TimerMode: Int, Codable {
   
   // TODO: Add the explanation.
   // TODO: Add the name.
+  
+  static func get(from modeName: String) -> TimerMode {
+    return TimerMode(rawValue: 0)!
+  }
 }
-
 
 struct TimerConfiguration: Codable {
  

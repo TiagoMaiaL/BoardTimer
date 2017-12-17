@@ -62,9 +62,9 @@ class NewTimerViewController: FormViewController {
       }
       <<< StepperRow(delayAmountTag) {
         $0.title = "Amount"
-        $0.value = 2
+        $0.value = 0
         $0.displayValueFor = { value in
-          "\(Int(value ?? 0))"
+          "\(Int(value ?? 0)) seconds"
         }
         $0.add(rule: RuleRequired())
         $0.hidden = "$useDelayTag == false"
@@ -74,6 +74,7 @@ class NewTimerViewController: FormViewController {
         $0.title = "Create timer"
         
         let tagsToUse = [nameTag, timeTag, useDelayTag, delayTypeTag, delayAmountTag]
+        // TODO: Refactor this. Change it to use only strings.
         $0.disabled = Condition.function(tagsToUse) { [unowned self] form -> Bool in
           let nameRow = form.rowBy(tag: self.nameTag) as? NameRow,
               timeRow = form.rowBy(tag: self.timeTag) as? CountDownRow,
@@ -84,6 +85,23 @@ class NewTimerViewController: FormViewController {
           return (nameRow?.value == nil || timeRow?.value == nil) ||
                  (useDelayRow?.value == true &&
                   (delayTypeRow?.value == nil || delayAmountRow?.value == 0))
+        }
+        
+        $0.onCellSelection { [unowned self] (_, buttonRow) in
+          let nameRow = self.form.rowBy(tag: self.nameTag) as! NameRow,
+              timeRow = self.form.rowBy(tag: self.timeTag) as! CountDownRow,
+              delayTypeRow = self.form.rowBy(tag: self.delayTypeTag) as! SegmentedRow<String>,
+              delayAmountRow = self.form.rowBy(tag: self.delayAmountTag) as! StepperRow
+          
+          let delayType = TimerMode.get(from: delayTypeRow.value!)
+          
+          let timer = TimerConfiguration(time: timeRow.value!.timeIntervalSinceNow,
+                                         delay: delayAmountRow.value!,
+                                         mode: delayType,
+                                         name: nameRow.value!)
+          self.timerStorage.store(timer)
+          
+          self.navigationController?.popViewController(animated: true)
         }
       }
   }
