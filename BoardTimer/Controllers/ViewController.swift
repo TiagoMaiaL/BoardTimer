@@ -64,6 +64,16 @@ class ViewController: UIViewController {
     self.pauseButton.alpha = 0;
   }
   
+  // MARK: Navigation
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == optionsSegueId {
+      let runningConfig = self.playerManager.whitePlayer.configuration
+      let settingsController = (segue.destination as! UINavigationController).viewControllers.first as! SettingsTableViewController
+      settingsController.runningConfiguration = runningConfig
+    }
+  }
+  
   // MARK: Setup
   
   func setupManagers(with configuration: TimerConfiguration? = nil) {

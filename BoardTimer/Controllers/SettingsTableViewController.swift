@@ -22,6 +22,8 @@ class SettingsTableViewController: UITableViewController {
     }
   }
   
+  var runningConfiguration: TimerConfiguration?
+  
   // MARK: Life cycle
   
   override func viewDidLoad() {
@@ -115,10 +117,14 @@ extension SettingsTableViewController {
   func getTimersCell(for path: IndexPath, and tableView: UITableView) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "timer_cell", for: path)
     
-    let timer = TimerConfiguration.getDefaultConfigurations()[path.row]
+    let cellConfiguration = TimerConfiguration.getDefaultConfigurations()[path.row]
     
-    cell.textLabel?.text = timer.name
-    cell.detailTextLabel?.text = "\(Int(timer.time.minutes)) min"
+    cell.textLabel?.text = cellConfiguration.name
+    cell.detailTextLabel?.text = "\(Int(cellConfiguration.time.minutes)) min"
+    
+    if self.runningConfiguration != nil {
+      cell.accessoryType = cellConfiguration == self.runningConfiguration ? .checkmark : .none
+    }
     
     return cell
   }
@@ -131,6 +137,10 @@ extension SettingsTableViewController {
       cell = tableView.dequeueReusableCell(withIdentifier: "timer_cell", for: path)
       cell.textLabel?.text = timer.name
       cell.detailTextLabel?.text = "\(Int(timer.time.minutes)) min" // TODO: This should present the hours and seconds as well.
+      
+      if self.runningConfiguration != nil {
+        cell.accessoryType = timer == self.runningConfiguration ? .checkmark : .none
+      }
     } else {
       cell = tableView.dequeueReusableCell(withIdentifier: "common_cell", for: path)
       cell.textLabel?.text = "Create a custom timer"
