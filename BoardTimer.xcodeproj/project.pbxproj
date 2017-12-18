@@ -18,6 +18,9 @@
 		478498D01FD6DCEE00C01BE1 /* PlayerManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478498CF1FD6DCEE00C01BE1 /* PlayerManagerTests.swift */; };
 		478498D21FD8246300C01BE1 /* TimerConfigurationStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478498D11FD8246300C01BE1 /* TimerConfigurationStorageTests.swift */; };
 		47983D691FE469DF00CFD692 /* Eureka.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47983D681FE469DF00CFD692 /* Eureka.framework */; };
+		47983D701FE80D6300CFD692 /* CountDownTimerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47983D6F1FE80D6300CFD692 /* CountDownTimerCell.xib */; };
+		47983D721FE80D9600CFD692 /* CountDownTimerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47983D711FE80D9600CFD692 /* CountDownTimerCell.swift */; };
+		47983D741FE80DAE00CFD692 /* CountDownTimerRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47983D731FE80DAE00CFD692 /* CountDownTimerRow.swift */; };
 		47AD30371FB6315500A911D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AD30361FB6315500A911D9 /* AppDelegate.swift */; };
 		47AD30391FB6315500A911D9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AD30381FB6315500A911D9 /* ViewController.swift */; };
 		47AD303C1FB6315500A911D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47AD303A1FB6315500A911D9 /* Main.storyboard */; };
@@ -56,6 +59,9 @@
 		478498CF1FD6DCEE00C01BE1 /* PlayerManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerManagerTests.swift; sourceTree = "<group>"; };
 		478498D11FD8246300C01BE1 /* TimerConfigurationStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerConfigurationStorageTests.swift; sourceTree = "<group>"; };
 		47983D681FE469DF00CFD692 /* Eureka.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Eureka.framework; path = Carthage/Build/iOS/Eureka.framework; sourceTree = "<group>"; };
+		47983D6F1FE80D6300CFD692 /* CountDownTimerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountDownTimerCell.xib; sourceTree = "<group>"; };
+		47983D711FE80D9600CFD692 /* CountDownTimerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownTimerCell.swift; sourceTree = "<group>"; };
+		47983D731FE80DAE00CFD692 /* CountDownTimerRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownTimerRow.swift; sourceTree = "<group>"; };
 		47AD30331FB6315500A911D9 /* BoardTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoardTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47AD30361FB6315500A911D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47AD30381FB6315500A911D9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -109,6 +115,33 @@
 				47983D681FE469DF00CFD692 /* Eureka.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		47983D6C1FE80CC400CFD692 /* CircleProgressBar */ = {
+			isa = PBXGroup;
+			children = (
+				4751B3BB1FDDB32C00793697 /* CircleProgressBar.swift */,
+			);
+			path = CircleProgressBar;
+			sourceTree = "<group>";
+		};
+		47983D6D1FE80CD800CFD692 /* SingleTimerView */ = {
+			isa = PBXGroup;
+			children = (
+				47F6B3541FBD2B2B0085AC46 /* SingleTimerView.xib */,
+				47AD30661FBD275F00A911D9 /* SingleTimerView.swift */,
+			);
+			path = SingleTimerView;
+			sourceTree = "<group>";
+		};
+		47983D6E1FE80D1500CFD692 /* CountDownTimerRow */ = {
+			isa = PBXGroup;
+			children = (
+				47983D6F1FE80D6300CFD692 /* CountDownTimerCell.xib */,
+				47983D711FE80D9600CFD692 /* CountDownTimerCell.swift */,
+				47983D731FE80DAE00CFD692 /* CountDownTimerRow.swift */,
+			);
+			path = CountDownTimerRow;
 			sourceTree = "<group>";
 		};
 		47AD302A1FB6315500A911D9 = {
@@ -191,9 +224,11 @@
 		47AD30651FBD26FB00A911D9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				47F6B3531FBD2AF60085AC46 /* XIB */,
-				47AD30661FBD275F00A911D9 /* SingleTimerView.swift */,
+				47983D6E1FE80D1500CFD692 /* CountDownTimerRow */,
+				47983D6D1FE80CD800CFD692 /* SingleTimerView */,
+				47983D6C1FE80CC400CFD692 /* CircleProgressBar */,
 				4780A2671FCB62C10035126F /* UIView+Utils.swift */,
+				473E190D1FBD2CEE00F36715 /* XibView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -214,16 +249,6 @@
 				47D4D5381FCE4F160071B01A /* TimerConfigurationStorage.swift */,
 			);
 			path = Storage;
-			sourceTree = "<group>";
-		};
-		47F6B3531FBD2AF60085AC46 /* XIB */ = {
-			isa = PBXGroup;
-			children = (
-				473E190D1FBD2CEE00F36715 /* XibView.swift */,
-				4751B3BB1FDDB32C00793697 /* CircleProgressBar.swift */,
-				47F6B3541FBD2B2B0085AC46 /* SingleTimerView.xib */,
-			);
-			path = XIB;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -316,6 +341,7 @@
 				47F6B3551FBD2B2B0085AC46 /* SingleTimerView.xib in Resources */,
 				47D4D5361FCE05900071B01A /* over.m4a in Resources */,
 				47AD303C1FB6315500A911D9 /* Main.storyboard in Resources */,
+				47983D701FE80D6300CFD692 /* CountDownTimerCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,7 +381,9 @@
 				47AD30601FB8C93500A911D9 /* PlayerManager.swift in Sources */,
 				47AD30671FBD275F00A911D9 /* SingleTimerView.swift in Sources */,
 				4751B3BC1FDDB32C00793697 /* CircleProgressBar.swift in Sources */,
+				47983D741FE80DAE00CFD692 /* CountDownTimerRow.swift in Sources */,
 				47AD305B1FB6360200A911D9 /* Player.swift in Sources */,
+				47983D721FE80D9600CFD692 /* CountDownTimerCell.swift in Sources */,
 				4783DE921FC4831D00C6A077 /* SettingsTableViewController.swift in Sources */,
 				4783DE901FC137F900C6A077 /* NewTimerViewController.swift in Sources */,
 				4780A26A1FCBBFA20035126F /* SoundManager.swift in Sources */,

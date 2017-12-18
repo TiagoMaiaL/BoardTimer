@@ -13,6 +13,25 @@ enum PlayerColor {
   case black
 }
 
+struct PlayerTime: Equatable {
+  let hours: Int
+  let minutes: Int
+  let seconds: Int
+  
+  var timeInterval: TimeInterval {
+    get {
+      return TimeInterval((hours * 60 * 60) + (minutes * 60) + seconds)
+    }
+  }
+  
+  public static func ==(lhs: PlayerTime, rhs: PlayerTime) -> Bool {
+    return lhs.hours == rhs.hours &&
+           lhs.minutes == rhs.minutes &&
+           lhs.seconds == rhs.seconds
+  }
+  
+}
+
 class Player {
   
   // MARK: Properties

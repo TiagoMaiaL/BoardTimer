@@ -17,6 +17,7 @@ class NewTimerViewController: FormViewController {
   let nameTag = "nameTag"
   let timeTag = "timeTag"
   let delayTypeTag = "delayTypeTag"
+  let delayLabelTag = "delayLabelTag"
   let delayAmountTag = "delayAmountTag"
   
   // MARK: Properties
@@ -40,10 +41,16 @@ class NewTimerViewController: FormViewController {
         $0.placeholder = "Enter the timer name"
         $0.add(rule: RuleRequired())
       }
-      <<< CountDownRow(timeTag) {
+      <<< CountDownTimerRow(timeTag) {
         $0.title = "Time for each player"
         $0.add(rule: RuleRequired())
-        $0.minuteInterval = 60
+        $0.displayValueFor = { value in
+          
+          if value != nil {
+            return "\(value!.hours) hrs, \(value!.minutes) min, \(value!.seconds) sec"
+          }
+          return nil
+        }
       }
       +++ Section("Delay")
       <<< SwitchRow(useDelayTag) {
@@ -51,14 +58,23 @@ class NewTimerViewController: FormViewController {
         $0.value = false
       }
       <<< SegmentedRow<String>(delayTypeTag) {
-        $0.options = ["Fischer", "test", "test"]
+        $0.options = Array(TimerMode.names.values)
         $0.value = "Fischer"
         $0.hidden = "$useDelayTag == false"
         $0.add(rule: RuleRequired())
+        $0.onChange { [unowned self] row in
+          let labelRow = self.form.rowBy(tag: self.delayLabelTag) as! LabelRow
+          labelRow.title = TimerMode.get(from: row.value!).getDescription()
+          labelRow.reload()
+        }
       }
-      <<< LabelRow() {
-        $0.title = "A short description of the type."
+      <<< LabelRow(delayLabelTag) {
+        $0.title = TimerMode.fischer.getDescription()
         $0.hidden = "$useDelayTag == false"
+        $0.cellSetup { (cell, _) in
+          cell.height = {100}
+          cell.textLabel?.numberOfLines = 0
+        }
       }
       <<< StepperRow(delayAmountTag) {
         $0.title = "Amount"
@@ -77,7 +93,7 @@ class NewTimerViewController: FormViewController {
         // TODO: Refactor this. Change it to use only strings.
         $0.disabled = Condition.function(tagsToUse) { [unowned self] form -> Bool in
           let nameRow = form.rowBy(tag: self.nameTag) as? NameRow,
-              timeRow = form.rowBy(tag: self.timeTag) as? CountDownRow,
+              timeRow = form.rowBy(tag: self.timeTag) as? CountDownTimerRow,
               useDelayRow = form.rowBy(tag: self.useDelayTag) as? SwitchRow,
               delayTypeRow = form.rowBy(tag: self.delayTypeTag) as? SegmentedRow<String>,
               delayAmountRow = form.rowBy(tag: self.delayAmountTag) as? StepperRow
@@ -89,13 +105,12 @@ class NewTimerViewController: FormViewController {
         
         $0.onCellSelection { [unowned self] (_, buttonRow) in
           let nameRow = self.form.rowBy(tag: self.nameTag) as! NameRow,
-              timeRow = self.form.rowBy(tag: self.timeTag) as! CountDownRow,
+              timeRow = self.form.rowBy(tag: self.timeTag) as! CountDownTimerRow,
               delayTypeRow = self.form.rowBy(tag: self.delayTypeTag) as! SegmentedRow<String>,
               delayAmountRow = self.form.rowBy(tag: self.delayAmountTag) as! StepperRow
           
           let delayType = TimerMode.get(from: delayTypeRow.value!)
-          
-          let timer = TimerConfiguration(time: timeRow.value!.timeIntervalSinceNow,
+          let timer = TimerConfiguration(time: timeRow.value!.timeInterval,
                                          delay: delayAmountRow.value!,
                                          mode: delayType,
                                          name: nameRow.value!)
@@ -105,25 +120,4 @@ class NewTimerViewController: FormViewController {
         }
       }
   }
-
-  // MARK: Actions
-  
-//  @IBAction func doneTapped(_ sender: UIButton) {
-//    guard let timeAmount = TimeInterval(minutesTextField.text ?? "") else { return }
-//    guard let delay = TimeInterval(increaseTextField.text ?? "") else { return }
-//    guard let mode = TimerMode(rawValue: modesSegmentedControl.selectedSegmentIndex) else { return }
-//
-//    let config = TimerConfiguration(time: timeAmount,
-//                                    delay: delay,
-//                                    mode: mode,
-//                                    name: "")
-//    timerStorage.store(config)
-//
-//    dismiss(animated: true) {
-//      NotificationCenter.default.post(name: NotificationName.newTimer,
-//                                      object: self,
-//                                      userInfo: ["timer_config" : config])
-//    }
-//  }
-  
 }

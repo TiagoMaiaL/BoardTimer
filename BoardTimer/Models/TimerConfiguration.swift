@@ -9,13 +9,36 @@
 import Foundation
 
 enum TimerMode: Int, Codable {
-  case none = 0, simple, fischer, bronstein, suddenDeath
+  case none = 0, simple, fischer, bronstein
   
-  // TODO: Add the explanation.
-  // TODO: Add the name.
+  func getDescription() -> String {
+    return TimerMode.description[self] ?? ""
+  }
+  
+  static let names = [
+    simple: "Simple",
+    fischer: "Fischer",
+    bronstein: "Bronstein"
+  ]
+  
+  static let description = [
+    // TODO: Put the correct description.
+    simple: "The clock expends the delay period before subtracting from the remaining time.",
+    fischer: "A specified increment is added to the clock before the player move.",
+    bronstein: "The increment is always added after the player move. ..."
+  ]
   
   static func get(from modeName: String) -> TimerMode {
-    return TimerMode(rawValue: 0)!
+    switch modeName {
+    case names[.simple]!:
+      return .simple
+    case names[.fischer]!:
+      return .fischer
+    case names[.bronstein]!:
+      return .bronstein
+    default:
+      return .none
+    }
   }
 }
 
