@@ -118,7 +118,7 @@ extension SettingsTableViewController {
     let timer = TimerConfiguration.getDefaultConfigurations()[path.row]
     
     cell.textLabel?.text = timer.name
-    cell.detailTextLabel?.text = "\(Int(timer.time)) min"
+    cell.detailTextLabel?.text = "\(Int(timer.time.minutes)) min"
     
     return cell
   }
@@ -130,7 +130,7 @@ extension SettingsTableViewController {
       let timer = customTimers[path.row]
       cell = tableView.dequeueReusableCell(withIdentifier: "timer_cell", for: path)
       cell.textLabel?.text = timer.name
-      cell.detailTextLabel?.text = "\(Int(timer.time)) min"
+      cell.detailTextLabel?.text = "\(Int(timer.time.minutes)) min" // TODO: This should present the hours and seconds as well.
     } else {
       cell = tableView.dequeueReusableCell(withIdentifier: "common_cell", for: path)
       cell.textLabel?.text = "Create a custom timer"

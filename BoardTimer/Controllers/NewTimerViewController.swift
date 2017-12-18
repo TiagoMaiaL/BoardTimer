@@ -110,7 +110,7 @@ class NewTimerViewController: FormViewController {
               delayAmountRow = self.form.rowBy(tag: self.delayAmountTag) as! StepperRow
           
           let delayType = TimerMode.get(from: delayTypeRow.value!)
-          let timer = TimerConfiguration(time: timeRow.value!.timeInterval,
+          let timer = TimerConfiguration(time: timeRow.value!,
                                          delay: delayAmountRow.value!,
                                          mode: delayType,
                                          name: nameRow.value!)

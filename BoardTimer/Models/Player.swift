@@ -13,7 +13,7 @@ enum PlayerColor {
   case black
 }
 
-struct PlayerTime: Equatable {
+struct PlayerTime: Equatable, Codable {
   let hours: Int
   let minutes: Int
   let seconds: Int
@@ -48,7 +48,7 @@ class Player {
   var progress: Float {
     get {
       // TODO: Fix this.
-      let configuredTime = configuration.time * 60
+      let configuredTime = configuration.time.timeInterval
       let baseTime = max(configuredTime, remainingTime, lastIncreasedRemainingTime)
       let progress = Float((baseTime - remainingTime) / baseTime)
       
@@ -66,7 +66,7 @@ class Player {
     self.color = color
     self.configuration = configuration
     
-    remainingTime = configuration.time * 60
+    remainingTime = configuration.time.timeInterval
     delayTime = configuration.delay
   }
   

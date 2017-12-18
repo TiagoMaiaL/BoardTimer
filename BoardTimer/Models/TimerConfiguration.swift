@@ -42,11 +42,12 @@ enum TimerMode: Int, Codable {
   }
 }
 
-struct TimerConfiguration: Codable {
+struct TimerConfiguration: Codable, Equatable {
  
   // MARK: Properties
   
-  let time: TimeInterval
+  let uid = NSUUID().uuidString
+  let time: PlayerTime
   let delay: TimeInterval
   let mode: TimerMode
   let name: String?
@@ -55,10 +56,27 @@ struct TimerConfiguration: Codable {
   
   static func getDefaultConfigurations() -> [TimerConfiguration] {
     return [
-      TimerConfiguration(time: 15, delay: 0, mode: .simple, name: "Quick Play"),
-      TimerConfiguration(time: 5, delay: 0, mode: .simple, name: "Blitz"),
-      TimerConfiguration(time: 3, delay: 5, mode: .fischer, name: "Bullet"),
-      TimerConfiguration(time: 1, delay: 0, mode: .simple, name: "Lightning"),
+      TimerConfiguration(time: PlayerTime(hours: 0, minutes: 15, seconds: 0),
+                         delay: 0,
+                         mode: .simple,
+                         name: "Quick Play"),
+      TimerConfiguration(time: PlayerTime(hours: 0, minutes: 5, seconds: 0),
+                         delay: 0,
+                         mode: .simple,
+                         name: "Blitz"),
+      TimerConfiguration(time: PlayerTime(hours: 0, minutes: 3, seconds: 0),
+                         delay: 5,
+                         mode: .fischer,
+                         name: "Bullet"),
+      TimerConfiguration(time: PlayerTime(hours: 0, minutes: 1, seconds: 0),
+                         delay: 0,
+                         mode: .simple,
+                         name: "Lightning"),
     ]
+  }
+  
+  public static func ==(lhs: TimerConfiguration, rhs: TimerConfiguration) -> Bool {
+    return lhs.uid == rhs.uid ||
+           lhs.name == rhs.name
   }
 }
