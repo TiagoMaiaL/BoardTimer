@@ -97,6 +97,23 @@ extension SettingsTableViewController {
     }
   }
   
+  override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    guard let section = SettingsSection(rawValue: indexPath.section), section == .custom else { return [] }
+    guard indexPath.row < self.customTimers.count else { return [] }
+    
+//    let edit = UITableViewRowAction(style: .normal, title: "Edit") { [unowned self] (action, path) in
+//      // TODO:
+//
+//    }
+    
+    let delete = UITableViewRowAction(style: .destructive, title: "Delete") { [unowned self] (action, path) in
+      // TODO:
+      self.tableView.deleteRows(at: [path], with: .right)
+    }
+    
+    return [delete]//, edit]
+  }
+
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let section = SettingsSection(rawValue: indexPath.section) else { return UITableViewCell() }
     
