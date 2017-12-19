@@ -13,6 +13,7 @@ class SettingsTableViewController: UITableViewController {
   // MARK: Constants
   
   let customTimerSegueID = "new_timer"
+  let storage = TimerConfigurationStorage()
   
   // MARK: Properties
   
@@ -21,7 +22,6 @@ class SettingsTableViewController: UITableViewController {
       return TimerConfigurationStorage().getSavedCustomTimers() ?? []
     }
   }
-  
   var runningConfiguration: TimerConfiguration?
   
   // MARK: Life cycle
@@ -107,7 +107,8 @@ extension SettingsTableViewController {
 //    }
     
     let delete = UITableViewRowAction(style: .destructive, title: "Delete") { [unowned self] (action, path) in
-      // TODO:
+      let timerToDelete = self.customTimers[path.row]
+      self.storage.remove(timerToDelete)
       self.tableView.deleteRows(at: [path], with: .right)
     }
     
