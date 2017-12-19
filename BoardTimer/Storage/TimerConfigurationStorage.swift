@@ -45,12 +45,25 @@ class TimerConfigurationStorage: NSObject {
     
     timers.append(timer)
     
+    store(timers)
+  }
+  
+  private func store(_ timers: [TimerConfiguration]) {
     let encoder = JSONEncoder()
     if let encodedTimers = try? encoder.encode(timers) {
       defaults.set(encodedTimers, forKey: timersKey)
     }
   }
   
+  func remove(_ timer: TimerConfiguration) {
+    guard var timers = getSavedCustomTimers() else { return }
+    
+    if let index = timers.index(of: timer) {
+      timers.remove(at: index)
+      store(timers)
+    }
+  }
+
   func storeDefaultConfiguration(_ configuration: TimerConfiguration) {
     let encoder = JSONEncoder()
     

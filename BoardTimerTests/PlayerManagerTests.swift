@@ -13,7 +13,10 @@ class PlayerManagerTests: XCTestCase, PlayerManagerDelegate {
   
   // MARK: Properties
   
-  let config = TimerConfiguration(time: 2, delay: 2, mode: .none, name: nil)
+  let config = TimerConfiguration(time: PlayerTime(hours: 0, minutes: 0, seconds: 2),
+                                  delay: 2,
+                                  mode: .none,
+                                  name: nil)
   var delegateExpectation: XCTestExpectation?
   
   // MARK: Factory methods
@@ -65,7 +68,7 @@ class PlayerManagerTests: XCTestCase, PlayerManagerDelegate {
     
     waitForExpectations(timeout: 1)
     
-    XCTAssertLessThan(manager.currentPlayer.remainingTime, config.time * 60)
+    XCTAssertLessThan(manager.currentPlayer.remainingTime, config.time.timeInterval)
   }
   
   func testPlayerTimeIsOver() {

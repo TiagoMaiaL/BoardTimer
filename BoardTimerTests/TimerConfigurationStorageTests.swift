@@ -30,7 +30,10 @@ class TimerConfigurationStorageTests: XCTestCase {
   // MARK: Tests
   
   func testStorageAndRetrieval() {
-    let configuration = TimerConfiguration(time: 2, delay: 2, mode: .none, name: "testing")
+    let configuration = TimerConfiguration(time: PlayerTime(hours: 0, minutes: 2, seconds: 0),
+                                           delay: 2,
+                                           mode: .none,
+                                           name: "testing")
     let storage = getTimerConfigurationStorage()
     
     storage.clear()
@@ -49,7 +52,10 @@ class TimerConfigurationStorageTests: XCTestCase {
   }
   
   func testStorageLastUsed() {
-    let configuration = TimerConfiguration(time: 2, delay: 2, mode: .none, name: "testing default config.")
+    let configuration = TimerConfiguration(time: PlayerTime(hours: 0, minutes: 2, seconds: 0),
+                                           delay: 2,
+                                           mode: .none,
+                                           name: "testing default config.")
     let storage = getTimerConfigurationStorage()
     
     storage.storeDefaultConfiguration(configuration)
@@ -60,5 +66,24 @@ class TimerConfigurationStorageTests: XCTestCase {
     }
     
     XCTAssertEqual(configuration.name, defaultConfiguration.name)
+  }
+  
+  func testStorageRemoval() {
+    let configuration = TimerConfiguration(time: PlayerTime(hours: 0, minutes: 2, seconds: 0),
+                                           delay: 2,
+                                           mode: .none,
+                                           name: "testing")
+    let storage = getTimerConfigurationStorage()
+    
+    storage.clear()
+    storage.store(configuration)
+    
+    XCTAssert(storage.getSavedCustomTimers()?.count == 1)
+    
+    storage.remove(configuration)
+    
+    if let timers = storage.getSavedCustomTimers() {
+      XCTAssert(timers.isEmpty)
+    }
   }
 }

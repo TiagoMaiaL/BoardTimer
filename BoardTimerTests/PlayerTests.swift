@@ -22,7 +22,10 @@ class PlayerTests: XCTestCase {
   }
   
   func testPlayerDescreaseTime() {
-    let config = TimerConfiguration(time: 2, delay: 3, mode: .none, name: nil)
+    let config = TimerConfiguration(time: PlayerTime(hours: 0, minutes: 2, seconds: 0),
+                                    delay: 3,
+                                    mode: .none,
+                                    name: nil)
     let player = Player(color: .white, configuration: config)
     
     player.startTurn()
@@ -31,7 +34,10 @@ class PlayerTests: XCTestCase {
   }
   
   func testPlayerDescreaseTimeWithSimpleMode() {
-    let config = TimerConfiguration(time: 2, delay: 3, mode: .simple, name: nil)
+    let config = TimerConfiguration(time: PlayerTime(hours: 0, minutes: 2, seconds: 0),
+                                    delay: 3,
+                                    mode: .simple,
+                                    name: nil)
     let player = Player(color: .white, configuration: config)
     
     // Checking the delay amount. Simple mode.
@@ -52,7 +58,10 @@ class PlayerTests: XCTestCase {
   func testPlayerTurnWithBronsteinMode() {
     let delayAmount: Double = 3
     
-    let config = TimerConfiguration(time: 2, delay: delayAmount, mode: .bronstein, name: nil)
+    let config = TimerConfiguration(time: PlayerTime(hours: 0, minutes: 2, seconds: 0),
+                                    delay: delayAmount,
+                                    mode: .bronstein,
+                                    name: nil)
     let player = Player(color: .white, configuration: config)
     
     player.startTurn()
@@ -66,7 +75,10 @@ class PlayerTests: XCTestCase {
   func testPlayerTurnWithFiscerMode() {
     let delayAmount: Double = 4
     
-    let config = TimerConfiguration(time: 2, delay: delayAmount, mode: .fischer, name: nil)
+    let config = TimerConfiguration(time: PlayerTime(hours: 0, minutes: 2, seconds: 0),
+                                    delay: delayAmount,
+                                    mode: .fischer,
+                                    name: nil)
     let player = Player(color: .white, configuration: config)
     
     player.startTurn()
