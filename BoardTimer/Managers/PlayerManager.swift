@@ -75,6 +75,10 @@ class PlayerManager {
       return
     }
     
+//    if currentPlayer.isNearFinish {
+      // TODO: Call the delegate.
+//    }
+    
     currentPlayer.decreaseTime()
     delegate?.playerTimeHasDecreased(player: currentPlayer)
   }

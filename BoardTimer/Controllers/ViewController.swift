@@ -237,12 +237,25 @@ class ViewController: UIViewController {
     
     let hours = Int(remainingTime / (60 * 60))
     let minutes = Int(remainingTime.truncatingRemainder(dividingBy: 60 * 60) / 60)
-    let seconds = Int(remainingTime.truncatingRemainder(dividingBy: 60))
+    let seconds = remainingTime.truncatingRemainder(dividingBy: 60)
     
     if hours > 0 {
       formattedText += "\(String(format: "%02d", hours)):"
     }
-    formattedText += "\(String(format: "%02d", minutes)):\(String(format: "%02d", seconds))"
+    
+    if minutes > 0 {
+      formattedText += "\(String(format: "%02d", minutes)):"
+    }
+    
+    if player.isNearFinish {
+      if player.remainingTime <= 0 {
+        formattedText += "0.0"
+      } else {
+        formattedText += "\(String(format: "%.1f", abs(seconds)))"
+      }
+    } else {
+      formattedText += "\(String(format: "%02d", Int(seconds)))"
+    }
     
     return formattedText
   }

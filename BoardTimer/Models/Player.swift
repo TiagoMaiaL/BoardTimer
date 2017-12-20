@@ -60,6 +60,10 @@ class Player {
     return remainingTime <= 0
   }
   
+  var isNearFinish: Bool {
+    return remainingTime <= 20
+  }
+  
   // MARK: Initializers
   
   init(color: PlayerColor, configuration: TimerConfiguration) {
