@@ -12,18 +12,20 @@ class SettingsTableViewController: UITableViewController {
   
   // MARK: Constants
   
-  let customTimerSegueID = "new_timer"
-  let storage = TimerConfigurationStorage()
+  private let customTimerSegueID = "new_timer"
+  private let storage = TimerConfigurationStorage()
   
   // MARK: Properties
   
-  var customTimers = TimerConfigurationStorage().getSavedCustomTimers() ?? []
+  private var customTimers: [TimerConfiguration]!
   var runningConfiguration: TimerConfiguration?
   
   // MARK: Life cycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    customTimers = storage.getSavedCustomTimers()
     
     title = "Settings"
     navigationController?.navigationBar.prefersLargeTitles = true
@@ -111,18 +113,14 @@ extension SettingsTableViewController {
     guard let section = SettingsSection(rawValue: indexPath.section), section == .custom else { return [] }
     guard indexPath.row < self.customTimers.count else { return [] }
     
-//    let edit = UITableViewRowAction(style: .normal, title: "Edit") { [unowned self] (action, path) in
-//      // TODO:
-//
-//    }
-    
     let delete = UITableViewRowAction(style: .destructive, title: "Delete") { [unowned self] (action, path) in
       let timerToDelete = self.customTimers[path.row]
       self.storage.remove(timerToDelete)
+      self.customTimers = self.storage.getSavedCustomTimers()
       self.tableView.deleteRows(at: [path], with: .right)
     }
     
-    return [delete]//, edit]
+    return [delete]
   }
 
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -164,7 +162,7 @@ extension SettingsTableViewController {
       let timer = customTimers[path.row]
       cell = tableView.dequeueReusableCell(withIdentifier: "timer_cell", for: path)
       cell.textLabel?.text = timer.name
-      cell.detailTextLabel?.text = "\(Int(timer.time.minutes)) min" // TODO: This should present the hours and seconds as well.
+      cell.detailTextLabel?.text = timer.description
       
       if self.runningConfiguration != nil {
         cell.accessoryType = timer == self.runningConfiguration ? .checkmark : .none

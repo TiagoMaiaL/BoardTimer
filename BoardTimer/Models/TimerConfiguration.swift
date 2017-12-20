@@ -11,6 +11,10 @@ import Foundation
 enum TimerMode: Int, Codable {
   case none = 0, simple, fischer, bronstein
   
+  func getName() -> String {
+    return TimerMode.names[self] ?? ""
+  }
+  
   func getDescription() -> String {
     return TimerMode.description[self] ?? ""
   }
@@ -51,6 +55,36 @@ struct TimerConfiguration: Codable, Equatable {
   let delay: TimeInterval
   let mode: TimerMode
   let name: String?
+  
+  var description: String {
+    get {
+      var description = ""
+      
+      let hours = time.hours
+      let minutes = time.minutes
+      let seconds = time.seconds
+      
+      if hours > 0 {
+        description += "\(hours) hrs"
+      }
+      
+      if minutes > 0 {
+        description += hours > 0 ? ", " : ""
+        description += "\(minutes) mins"
+      }
+      
+      if seconds > 0 {
+        description += minutes > 0 ? ", " : ""
+        description += "\(seconds) secs"
+      }
+      
+      if mode != .none && delay > 0 {
+        description += " | \(mode.getName()) \(Int(delay)) secs"
+      }
+      
+      return description
+    }
+  }
   
   // MARK: Common timer configurations
   
