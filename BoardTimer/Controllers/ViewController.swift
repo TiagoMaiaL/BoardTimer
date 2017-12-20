@@ -231,11 +231,20 @@ class ViewController: UIViewController {
   }
   
   func getFormattedRemainingTime(for player: Player) -> String {
+    var formattedText = ""
+    
     let remainingTime = player.remainingTime
-    let minutes = Int(remainingTime / 60)
+    
+    let hours = Int(remainingTime / (60 * 60))
+    let minutes = Int(remainingTime.truncatingRemainder(dividingBy: 60 * 60) / 60)
     let seconds = Int(remainingTime.truncatingRemainder(dividingBy: 60))
     
-    return "\(String(format: "%02d", minutes)):\(String(format: "%02d", seconds))"
+    if hours > 0 {
+      formattedText += "\(String(format: "%02d", hours)):"
+    }
+    formattedText += "\(String(format: "%02d", minutes)):\(String(format: "%02d", seconds))"
+    
+    return formattedText
   }
   
   func getMovesText(for player: Player) -> String {
