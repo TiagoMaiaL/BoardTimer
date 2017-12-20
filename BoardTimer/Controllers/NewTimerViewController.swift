@@ -115,9 +115,8 @@ class NewTimerViewController: FormViewController {
                                          mode: delayType,
                                          name: nameRow.value!)
           self.timerStorage.store(timer)
-          
           self.navigationController?.popViewController(animated: true)
-        }
+        } 
       }
   }
 }

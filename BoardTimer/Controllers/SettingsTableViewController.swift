@@ -17,11 +17,7 @@ class SettingsTableViewController: UITableViewController {
   
   // MARK: Properties
   
-  var customTimers: [TimerConfiguration] {
-    get {
-      return TimerConfigurationStorage().getSavedCustomTimers() ?? []
-    }
-  }
+  var customTimers = TimerConfigurationStorage().getSavedCustomTimers() ?? []
   var runningConfiguration: TimerConfiguration?
   
   // MARK: Life cycle
@@ -36,15 +32,29 @@ class SettingsTableViewController: UITableViewController {
                                                         action: #selector(didTapDone))
   }
   
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    tableView.reloadData()
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    refreshCustomSection()
   }
   
   // MARK: Actions
   
   @objc func didTapDone() {
     dismiss(animated: true)
+  }
+  
+  // MARK: Imperatives
+  
+  private func refreshCustomSection() {
+    if let updatedCustomTimers = TimerConfigurationStorage().getSavedCustomTimers() {
+      if updatedCustomTimers.count > customTimers.count {
+        let customSection = SettingsSection.custom
+        let path = IndexPath(row: updatedCustomTimers.count - 1, section: customSection.rawValue)
+        
+        customTimers = updatedCustomTimers
+        tableView.insertRows(at: [path], with: .automatic)
+      }
+    }
   }
 }
 
