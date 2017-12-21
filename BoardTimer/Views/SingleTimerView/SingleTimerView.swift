@@ -80,7 +80,9 @@ class SingleTimerView: UIView {
   }
   
   func animateWarningState() {
-    self.progressView.tint = Theme.warningColor
+    guard timeLabel.textColor != Theme.warningColor else { return }
+    
+    progressView.tint = Theme.warningColor
     
     UIView.transition(with: timeLabel, duration: 0.3, options: .transitionCrossDissolve, animations: { [unowned self] in
       self.timeLabel.textColor = Theme.warningColor
@@ -88,6 +90,8 @@ class SingleTimerView: UIView {
   }
   
   func animateDefaultState() {
+    guard timeLabel.textColor != theme.getColors().labels else { return }
+    
     UIView.animate(withDuration: 0.3) { [unowned self] in
       self.apply(theme: self.theme)
     }
