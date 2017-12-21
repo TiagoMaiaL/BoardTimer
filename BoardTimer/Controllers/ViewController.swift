@@ -269,13 +269,19 @@ class ViewController: UIViewController {
   }
   
   func refreshTimerViews() {
-    whiteTimerView.setProgress(playerManager.whitePlayer.progress)
-    whiteTimerView.setText(getFormattedRemainingTime(for: playerManager.whitePlayer))
-    whiteTimerView.movesLabel.text = getMovesText(for: playerManager.whitePlayer)
-    
-    blackTimerView.setProgress(playerManager.blackPlayer.progress)
-    blackTimerView.setText(getFormattedRemainingTime(for: playerManager.blackPlayer))
-    blackTimerView.movesLabel.text = getMovesText(for: playerManager.blackPlayer)
+    [(whiteTimerView, playerManager.whitePlayer),
+     (blackTimerView, playerManager.blackPlayer)].forEach { [unowned self] timerView, player in
+      
+      timerView.setProgress(player.progress)
+      timerView.setText(self.getFormattedRemainingTime(for: player))
+      timerView.movesLabel.text = self.getMovesText(for: player)
+      
+      if player.isNearFinish {
+        timerView.animateWarningState()
+      } else {
+        timerView.animateDefaultState()
+      }
+    }
   }
   
   func restartTimer(with configuration: TimerConfiguration? = nil) {
