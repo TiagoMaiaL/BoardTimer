@@ -37,8 +37,8 @@
                                     </view>
                                 </subviews>
                             </stackView>
-                            <view hidden="YES" alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dHz-DJ-W01" userLabel="dark overlay">
-                                <rect key="frame" x="0.0" y="-10" width="375" height="677"/>
+                            <view hidden="YES" alpha="0.59999999999999998" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dHz-DJ-W01" userLabel="dark overlay">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kGb-7f-Tk9" userLabel="restart_button">
@@ -97,21 +97,21 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="dHz-DJ-W01" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="7Gd-cq-h9P"/>
                             <constraint firstItem="kGb-7f-Tk9" firstAttribute="centerY" secondItem="KMp-HJ-xvZ" secondAttribute="centerY" id="AWW-Vu-K3c"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dHz-DJ-W01" secondAttribute="trailing" id="D3a-cd-Wn9"/>
-                            <constraint firstItem="dHz-DJ-W01" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Ozl-rq-RDg"/>
                             <constraint firstItem="ffD-wr-Jkr" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="TNj-Vd-hja"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="dHz-DJ-W01" secondAttribute="bottom" id="UDP-9W-963"/>
                             <constraint firstItem="ffD-wr-Jkr" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="UUL-CY-5c7"/>
-                            <constraint firstItem="dHz-DJ-W01" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="-30" id="b0g-Ub-O4Y"/>
+                            <constraint firstAttribute="bottom" secondItem="dHz-DJ-W01" secondAttribute="bottom" id="UsE-jn-Jii"/>
                             <constraint firstItem="KMp-HJ-xvZ" firstAttribute="baseline" secondItem="GK7-ox-tnL" secondAttribute="baseline" constant="15" id="eq2-tP-Hv3"/>
                             <constraint firstItem="KMp-HJ-xvZ" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="fbk-Ck-QD4"/>
                             <constraint firstItem="kGb-7f-Tk9" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" constant="-50" id="fqS-5o-Ohs"/>
                             <constraint firstItem="GK7-ox-tnL" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.5" id="jNv-oy-Mvv"/>
                             <constraint firstItem="xhg-lu-aIw" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" constant="50" id="mQr-rI-d1i"/>
                             <constraint firstAttribute="bottom" secondItem="ffD-wr-Jkr" secondAttribute="bottom" id="niO-Wk-kX6"/>
+                            <constraint firstItem="dHz-DJ-W01" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="oFf-7A-OS0"/>
                             <constraint firstItem="xhg-lu-aIw" firstAttribute="centerY" secondItem="KMp-HJ-xvZ" secondAttribute="centerY" id="rcN-Fw-rY1"/>
                             <constraint firstItem="ffD-wr-Jkr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="sGI-AT-uDc"/>
+                            <constraint firstItem="dHz-DJ-W01" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="xgE-tq-UfV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <connections>
