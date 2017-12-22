@@ -13,16 +13,19 @@ class PlayerManagerTests: XCTestCase, PlayerManagerDelegate {
   
   // MARK: Properties
   
-  let config = TimerConfiguration(time: PlayerTime(hours: 0, minutes: 0, seconds: 2),
-                                  delay: 2,
-                                  mode: .none,
-                                  name: nil)
+  let defaultConfig = TimerConfiguration(time: PlayerTime(hours: 0, minutes: 0, seconds: 2),
+                                         delay: 2,
+                                         mode: .none,
+                                         name: nil)
   
-  var delegateExpectation: XCTestExpectation?
+  var changeExpectation: XCTestExpectation?
+  var timeOutExpectation: XCTestExpectation?
+  var decreaseExpectation: XCTestExpectation?
+  var nearFinishExpectation: XCTestExpectation?
   
   // MARK: Factory methods
   
-  func getManager() -> PlayerManager {
+  func getManager(with config: TimerConfiguration) -> PlayerManager {
     let timerManager = TimerManager()
     let whitePlayer = Player(color: .white, configuration: config)
     let blackPlayer = Player(color: .black, configuration: config)
@@ -39,21 +42,28 @@ class PlayerManagerTests: XCTestCase, PlayerManagerDelegate {
   
   override func setUp() {
     super.setUp()
+    TimerManager.fireDelay = .test
   }
   
   override func tearDown() {
-    delegateExpectation = nil
+    changeExpectation = nil
+    timeOutExpectation = nil
+    decreaseExpectation = nil
+    nearFinishExpectation = nil
+    
+    TimerManager.fireDelay = .normal
+    
     super.tearDown()
   }
   
   // MARK: Tests
   
   func testTogglePlayer() {
-    let manager = getManager()
+    let manager = getManager(with: defaultConfig)
     
     XCTAssertEqual(manager.currentPlayer.color, .white)
     
-    delegateExpectation = expectation(description: "Player change delegate call")
+    changeExpectation = expectation(description: "Player change delegate call")
     manager.toggleCurrentPlayer()
     
     waitForExpectations(timeout: 1)
@@ -62,47 +72,48 @@ class PlayerManagerTests: XCTestCase, PlayerManagerDelegate {
   }
   
   func testDecreaseFromCurrentPlayer() {
-    let manager = getManager()
+    let manager = getManager(with: defaultConfig)
     
-    delegateExpectation = expectation(description: "Decrease remaining time delegate call")
+    decreaseExpectation = expectation(description: "Decrease remaining time delegate call")
     manager.decreaseRemainingTime()
     
     waitForExpectations(timeout: 1)
     
-    XCTAssertLessThan(manager.currentPlayer.remainingTime, config.time.timeInterval)
+    XCTAssertLessThan(manager.currentPlayer.remainingTime, defaultConfig.time.timeInterval)
   }
   
   func testPlayerTimeIsOver() {
-    // TODO: Refactor timerConfiguration to receive number of seconds instead of number of minutes
-//    let timerManager = timerManager()
-//    let configuration = TimerConfiguration(
-//    let whitePlayer = Player(color: .white, configuration: config)
-//    let blackPlayer = Player(color: .black, configuration: config)
-//
-//    let manager = PlayerManager(timer: timerManager,
-//                                white: whitePlayer,
-//                                black: blackPlayer)
-//
-//    delegateExpectation = expectation(description: "Timer is over delegate call")
-//    manager.decreaseRemainingTime()
+    let config = TimerConfiguration(time: PlayerTime(hours: 0, minutes: 0, seconds: 1),
+                                    delay: 0,
+                                    mode: .none,
+                                    name: nil)
+    
+    let manager = getManager(with: config)
+    
+    timeOutExpectation = expectation(description: "Timer is over delegate call")
+    
+    manager.decreaseRemainingTime()
+    manager.decreaseRemainingTime()
+    
+    waitForExpectations(timeout: 1)
   }
   
   // MARK: PlayerManager delegate methods
   
   func playerHasChanged(currentPlayer: Player) {
-    delegateExpectation?.fulfill()
+    changeExpectation?.fulfill()
   }
   
   func playerTimeHasRanOver(player: Player) {
-//    delegateExpectation?.fulfill()
+    timeOutExpectation?.fulfill()
   }
   
   func playerTimeHasDecreased(player: Player) {
-    delegateExpectation?.fulfill()
+    decreaseExpectation?.fulfill()
   }
   
   func playerTimeIsNearFinish(player: Player) {
-//    delegateExpectation?.fulfill()
+    nearFinishExpectation?.fulfill()
   }
   
 }
