@@ -20,13 +20,15 @@ protocol TimerManagerDelegate {
   func timerHasFired(manager: TimerManager)
 }
 
+enum FireDelay: TimeInterval {
+  case normal = 0.1, test = 1
+}
+
 class TimerManager {
-  
-  // MARK: Constants
-  
-  static let fireDelay: TimeInterval = 0.1
-  
+ 
   // MARK: Properties
+  
+  static var fireDelay = FireDelay.normal
   
   private(set) var internalTimer: Timer?
   var delegate: TimerManagerDelegate?
@@ -42,7 +44,7 @@ class TimerManager {
   func start() {
     guard internalTimer == nil else { return }
     
-    internalTimer = Timer.scheduledTimer(withTimeInterval: TimerManager.fireDelay, repeats: true) { [unowned self] _ in
+    internalTimer = Timer.scheduledTimer(withTimeInterval: TimerManager.fireDelay.rawValue, repeats: true) { [unowned self] _ in
       self.delegate?.timerHasFired(manager: self)
     }
     

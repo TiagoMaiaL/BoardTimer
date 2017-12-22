@@ -111,6 +111,16 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		478995B31FED730D00B77725 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				47D4D5331FCE04CE0071B01A /* pass.m4a */,
+				47D4D5351FCE05900071B01A /* over.m4a */,
+				478995B01FED325800B77725 /* warning.m4a */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		47983D671FE469DF00CFD692 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -174,12 +184,10 @@
 				47D4D5371FCE4EA80071B01A /* Storage */,
 				47AD305C1FB8C8BB00A911D9 /* Managers */,
 				4751B3BD1FDDD9A000793697 /* Extensions */,
+				478995B31FED730D00B77725 /* Resources */,
 				47B7F37A1FD2A5C70046FBD0 /* Supporting Files */,
 				47AD303A1FB6315500A911D9 /* Main.storyboard */,
 				47AD30421FB6315500A911D9 /* Info.plist */,
-				47D4D5331FCE04CE0071B01A /* pass.m4a */,
-				47D4D5351FCE05900071B01A /* over.m4a */,
-				478995B01FED325800B77725 /* warning.m4a */,
 			);
 			path = BoardTimer;
 			sourceTree = "<group>";

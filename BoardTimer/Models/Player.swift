@@ -84,9 +84,9 @@ class Player {
     if delayTime > 0 &&
        configuration.mode == .simple ||
        configuration.mode == .bronstein {
-      delayTime -= TimerManager.fireDelay
+      delayTime -= TimerManager.fireDelay.rawValue
     } else {
-      remainingTime -= TimerManager.fireDelay
+      remainingTime -= TimerManager.fireDelay.rawValue
     }
   }
   

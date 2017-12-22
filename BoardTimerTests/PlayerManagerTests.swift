@@ -17,6 +17,7 @@ class PlayerManagerTests: XCTestCase, PlayerManagerDelegate {
                                   delay: 2,
                                   mode: .none,
                                   name: nil)
+  
   var delegateExpectation: XCTestExpectation?
   
   // MARK: Factory methods
@@ -93,11 +94,15 @@ class PlayerManagerTests: XCTestCase, PlayerManagerDelegate {
   }
   
   func playerTimeHasRanOver(player: Player) {
-    delegateExpectation?.fulfill()
+//    delegateExpectation?.fulfill()
   }
   
   func playerTimeHasDecreased(player: Player) {
     delegateExpectation?.fulfill()
+  }
+  
+  func playerTimeIsNearFinish(player: Player) {
+//    delegateExpectation?.fulfill()
   }
   
 }
