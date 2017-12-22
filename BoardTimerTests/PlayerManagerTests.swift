@@ -98,6 +98,26 @@ class PlayerManagerTests: XCTestCase, PlayerManagerDelegate {
     waitForExpectations(timeout: 1)
   }
   
+  func testPlayerTimerWarning() {
+    // The warning must be thrown when the player's
+    // remaining time is less than 20 seconds.
+    
+    let config = TimerConfiguration(time: PlayerTime(hours: 0, minutes: 0, seconds: 21),
+                                    delay: 0,
+                                    mode: .none,
+                                    name: nil)
+    
+    let manager = getManager(with: config)
+    
+    nearFinishExpectation = expectation(description: "Timer warning delegate call")
+    
+    for _ in 0...1 {
+      manager.decreaseRemainingTime()
+    }
+    
+    waitForExpectations(timeout: 1)
+  }
+  
   // MARK: PlayerManager delegate methods
   
   func playerHasChanged(currentPlayer: Player) {
