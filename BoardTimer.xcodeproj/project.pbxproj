@@ -17,6 +17,7 @@
 		4783DE921FC4831D00C6A077 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4783DE911FC4831D00C6A077 /* SettingsTableViewController.swift */; };
 		478498D01FD6DCEE00C01BE1 /* PlayerManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478498CF1FD6DCEE00C01BE1 /* PlayerManagerTests.swift */; };
 		478498D21FD8246300C01BE1 /* TimerConfigurationStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478498D11FD8246300C01BE1 /* TimerConfigurationStorageTests.swift */; };
+		478995B11FED325900B77725 /* warning.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 478995B01FED325800B77725 /* warning.m4a */; };
 		47983D691FE469DF00CFD692 /* Eureka.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47983D681FE469DF00CFD692 /* Eureka.framework */; };
 		47983D701FE80D6300CFD692 /* CountDownTimerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47983D6F1FE80D6300CFD692 /* CountDownTimerCell.xib */; };
 		47983D721FE80D9600CFD692 /* CountDownTimerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47983D711FE80D9600CFD692 /* CountDownTimerCell.swift */; };
@@ -58,6 +59,7 @@
 		4783DE911FC4831D00C6A077 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		478498CF1FD6DCEE00C01BE1 /* PlayerManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerManagerTests.swift; sourceTree = "<group>"; };
 		478498D11FD8246300C01BE1 /* TimerConfigurationStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerConfigurationStorageTests.swift; sourceTree = "<group>"; };
+		478995B01FED325800B77725 /* warning.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = warning.m4a; sourceTree = "<group>"; };
 		47983D681FE469DF00CFD692 /* Eureka.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Eureka.framework; path = Carthage/Build/iOS/Eureka.framework; sourceTree = "<group>"; };
 		47983D6F1FE80D6300CFD692 /* CountDownTimerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountDownTimerCell.xib; sourceTree = "<group>"; };
 		47983D711FE80D9600CFD692 /* CountDownTimerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownTimerCell.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 				47AD30421FB6315500A911D9 /* Info.plist */,
 				47D4D5331FCE04CE0071B01A /* pass.m4a */,
 				47D4D5351FCE05900071B01A /* over.m4a */,
+				478995B01FED325800B77725 /* warning.m4a */,
 			);
 			path = BoardTimer;
 			sourceTree = "<group>";
@@ -335,6 +338,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				478995B11FED325900B77725 /* warning.m4a in Resources */,
 				47AD30411FB6315500A911D9 /* LaunchScreen.storyboard in Resources */,
 				47D4D5341FCE04CE0071B01A /* pass.m4a in Resources */,
 				47AD303E1FB6315500A911D9 /* Assets.xcassets in Resources */,

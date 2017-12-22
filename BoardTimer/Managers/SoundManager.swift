@@ -10,11 +10,12 @@ import UIKit
 import AudioToolbox
 
 enum Sound: String {
-  case pass = "pass", over = "over"
+  case pass = "pass", over = "over", warning = "warning"
   
   static let extensions = [
     pass: "m4a",
-    over: "m4a"
+    over: "m4a",
+    warning: "m4a"
   ]
   
   func getExtension() -> String {

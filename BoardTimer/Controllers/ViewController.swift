@@ -275,12 +275,6 @@ class ViewController: UIViewController {
       timerView.setProgress(player.progress)
       timerView.setText(self.getFormattedRemainingTime(for: player))
       timerView.movesLabel.text = self.getMovesText(for: player)
-      
-      if player.isNearFinish {
-        timerView.animateWarningState()
-      } else {
-        timerView.animateDefaultState()
-      }
     }
   }
   
@@ -288,6 +282,10 @@ class ViewController: UIViewController {
     playerManager = nil
     setupManagers(with: configuration)
     refreshTimerViews()
+    
+    [whiteTimerView, blackTimerView].forEach { timer in
+      timer?.animateDefaultState()
+    }
   }
 }
 
@@ -400,6 +398,17 @@ extension ViewController: PlayerManagerDelegate {
   
   func playerTimeHasDecreased(player: Player) {
     refreshTimerViews()
+  }
+  
+  func playerTimeIsNearFinish(player: Player) {
+    switch player.color {
+    case .white:
+      whiteTimerView.animateWarningState()
+    case .black:
+      blackTimerView.animateWarningState()
+    }
+    
+    soundManager.play(.warning)
   }
   
 }

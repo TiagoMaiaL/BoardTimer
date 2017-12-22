@@ -18,6 +18,9 @@ protocol PlayerManagerDelegate {
   
   /// Called when the player's remaining time has been decreased.
   func playerTimeHasDecreased(player: Player)
+  
+  /// Called when the player's remainig time is now under 20 secs.
+  func playerTimeIsNearFinish(player: Player)
 }
 
 class PlayerManager {
@@ -37,6 +40,12 @@ class PlayerManager {
       return whitePlayer.isOver || blackPlayer.isOver
     }
   }
+  
+  /// Variable used to ensure the delegate warning method is going to be called only once.
+  private var didWarnPlayer = [
+    PlayerColor.white : false,
+    PlayerColor.black : false,
+  ]
   
   // MARK: Initializers
   
@@ -75,9 +84,10 @@ class PlayerManager {
       return
     }
     
-//    if currentPlayer.isNearFinish {
-      // TODO: Call the delegate.
-//    }
+    if currentPlayer.isNearFinish && didWarnPlayer[currentPlayer.color]! == false {
+      delegate?.playerTimeIsNearFinish(player: currentPlayer)
+      didWarnPlayer[currentPlayer.color] = true
+    }
     
     currentPlayer.decreaseTime()
     delegate?.playerTimeHasDecreased(player: currentPlayer)
