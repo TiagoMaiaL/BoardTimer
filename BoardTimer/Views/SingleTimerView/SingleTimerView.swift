@@ -137,7 +137,6 @@ class SingleTimerView: UIView {
                     self.timeLabel.alpha = 1
                     self.movesLabel.alpha = 1
     })
-
   }
 
 }
