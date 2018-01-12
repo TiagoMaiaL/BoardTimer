@@ -11,6 +11,7 @@ import UIKit
 struct NotificationName {
   static let restartTimer = Notification.Name("restart_timer")
   static let newTimer = Notification.Name("new_timer")
+  static let pauseTimer = Notification.Name("pause_timer")
 }
 
 class ViewController: UIViewController {
@@ -64,6 +65,11 @@ class ViewController: UIViewController {
     self.pauseButton.alpha = 1;
   }
   
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    self.playerManager.timer.pause()
+  }
+  
   // MARK: Navigation
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -103,6 +109,10 @@ class ViewController: UIViewController {
     NotificationCenter.default.addObserver(self,
                                            selector: #selector(newTimerRequested(notification:)),
                                            name: NotificationName.newTimer,
+                                           object: nil)
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(pauseRequested(Notification:)),
+                                           name: NotificationName.pauseTimer,
                                            object: nil)
   }
   
@@ -352,6 +362,12 @@ extension ViewController {
     alert.addAction(UIAlertAction(title: "cancel", style: .cancel))
 
     present(alert, animated: true)
+  }
+  
+  @objc func pauseRequested(Notification: Notification) {
+    if playerManager.timer.isRunning {
+      playerManager.timer.pause()
+    }
   }
 
 }
