@@ -25,7 +25,7 @@ class SettingsTableViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    customTimers = storage.getSavedCustomTimers()
+    customTimers = storage.getSavedCustomTimers() ?? []
     
     title = "Settings"
     navigationController?.navigationBar.prefersLargeTitles = true
