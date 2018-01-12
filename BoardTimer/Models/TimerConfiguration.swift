@@ -26,10 +26,9 @@ enum TimerMode: Int, Codable {
   ]
   
   static let description = [
-    // TODO: Put the correct description.
-    simple: "The clock expends the delay period before subtracting from the remaining time.",
-    fischer: "A specified increment is added to the clock before the player move.",
-    bronstein: "The increment is always added after the player move. ..."
+    simple: "The clock expends the delay period before subtracting from the remaining time. No time from the delay is accumulated.",
+    fischer: "The specified increment is added to the clock before the player move.",
+    bronstein: "The increment is always added after the player move. Only the amount of delay used by the player is accumulated."
   ]
   
   static func get(from modeName: String) -> TimerMode {
