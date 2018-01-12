@@ -61,7 +61,7 @@ class ViewController: UIViewController {
     setupManagers(with: defaultConfiguration)
     setupObservers()
     
-    self.pauseButton.alpha = 0;
+    self.pauseButton.alpha = 1;
   }
   
   // MARK: Navigation
@@ -329,6 +329,8 @@ extension ViewController {
   @IBAction func didTapPause(sender: UIButton) {
     if (playerManager.timer.isRunning) {
       playerManager.timer.pause()
+    } else {
+      presentSettings()
     }
   }
   
@@ -361,14 +363,7 @@ extension ViewController: TimerManagerDelegate {
   func timerHasStarted(manager: TimerManager) {
     animatePlayerChange()
     soundManager.play(.pass)
-    
-    // If in initial state.
-    if pauseButton.isHidden {
-      pauseButton.isHidden = false
-      UIView.animate(withDuration: 0.3) { [unowned self] in
-        self.pauseButton.alpha = 1
-      }
-    }
+    self.pauseButton.setImage(UIImage(named: "ic_pause"), for: .normal)
   }
 
   func timerHasStopped(manager: TimerManager) {

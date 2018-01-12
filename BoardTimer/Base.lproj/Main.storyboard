@@ -42,7 +42,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kGb-7f-Tk9" userLabel="restart_button">
-                                <rect key="frame" x="111" y="305.5" width="53" height="53"/>
+                                <rect key="frame" x="111" y="303.5" width="53" height="53"/>
                                 <color key="backgroundColor" red="0.84705882349999995" green="0.84705882349999995" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="53" id="cS6-00-vOW"/>
@@ -55,18 +55,17 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="didTapPauseWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QSh-a3-mEX"/>
                                     <action selector="didTapRefresh:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BC3-eq-QuY"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KMp-HJ-xvZ" userLabel="pause_button">
-                                <rect key="frame" x="152.5" y="297" width="70" height="70"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KMp-HJ-xvZ" userLabel="pause_button">
+                                <rect key="frame" x="152.5" y="295" width="70" height="70"/>
                                 <color key="backgroundColor" red="0.84705882352941175" green="0.84705882352941175" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="7pq-PX-mef"/>
                                     <constraint firstAttribute="width" constant="70" id="hel-eL-44D"/>
                                 </constraints>
-                                <state key="normal" image="ic_pause"/>
+                                <state key="normal" image="ic_settings"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="35"/>
@@ -77,7 +76,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xhg-lu-aIw" userLabel="settings_button">
-                                <rect key="frame" x="211" y="305.5" width="53" height="53"/>
+                                <rect key="frame" x="211" y="303.5" width="53" height="53"/>
                                 <color key="backgroundColor" red="0.84705882349999995" green="0.84705882349999995" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="53" id="Rhu-Xy-eCq"/>
@@ -242,7 +241,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ic_pause" width="20" height="33"/>
         <image name="ic_restart" width="29" height="33"/>
         <image name="ic_settings" width="37" height="37"/>
     </resources>
