@@ -109,11 +109,16 @@ class NewTimerViewController: FormViewController {
               delayTypeRow = self.form.rowBy(tag: self.delayTypeTag) as! SegmentedRow<String>,
               delayAmountRow = self.form.rowBy(tag: self.delayAmountTag) as! StepperRow
           
-          let delayType = TimerMode.get(from: delayTypeRow.value!)
-          let timer = TimerConfiguration(time: timeRow.value!,
-                                         delay: delayAmountRow.value!,
-                                         mode: delayType,
-                                         name: nameRow.value!)
+          guard let time = timeRow.value else { return }
+          guard let delay = delayAmountRow.value else { return }
+          guard let delayType = delayTypeRow.value else { return }
+          guard let name = nameRow.value else { return }
+          
+          let timerMode = TimerMode.get(from: delayType)
+          let timer = TimerConfiguration(time: time,
+                                         delay: delay,
+                                         mode: timerMode,
+                                         name: name)
           self.timerStorage.store(timer)
           self.navigationController?.popViewController(animated: true)
         } 
