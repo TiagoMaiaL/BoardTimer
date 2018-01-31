@@ -27,7 +27,7 @@ class SettingsTableViewController: UITableViewController {
     
     customTimers = storage.getSavedCustomTimers() ?? []
     
-    title = "Settings"
+    title = NSLocalizedString("Settings", comment: "Settings: Controller title")
     navigationController?.navigationBar.prefersLargeTitles = true
     navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
                                                         target: self,
@@ -113,7 +113,8 @@ extension SettingsTableViewController {
     guard let section = SettingsSection(rawValue: indexPath.section), section == .custom else { return [] }
     guard indexPath.row < self.customTimers.count else { return [] }
     
-    let delete = UITableViewRowAction(style: .destructive, title: "Delete") { [unowned self] (action, path) in
+    let delete = UITableViewRowAction(style: .destructive,
+                                      title: NSLocalizedString("Delete", comment: "Settings: Delete cell action title")) { [unowned self] (action, path) in
       let timerToDelete = self.customTimers[path.row]
       self.storage.remove(timerToDelete)
       self.customTimers = self.storage.getSavedCustomTimers()
@@ -146,7 +147,11 @@ extension SettingsTableViewController {
     let cellConfiguration = TimerConfiguration.getDefaultConfigurations()[path.row]
     
     cell.textLabel?.text = cellConfiguration.name
-    cell.detailTextLabel?.text = "\(Int(cellConfiguration.time.minutes)) min"
+    
+    cell.detailTextLabel?.text = String.localizedStringWithFormat(
+      NSLocalizedString("%d mins", comment: "Settings: Number of minutes of each timer"),
+      cellConfiguration.time.minutes
+    )
     
     if self.runningConfiguration != nil {
       cell.accessoryType = cellConfiguration == self.runningConfiguration ? .checkmark : .none
@@ -169,7 +174,7 @@ extension SettingsTableViewController {
       }
     } else {
       cell = tableView.dequeueReusableCell(withIdentifier: "common_cell", for: path)
-      cell.textLabel?.text = "Create a custom timer"
+      cell.textLabel?.text = NSLocalizedString("Create a custom timer", comment: "Settings: Custom timer creation cell title")
     }
     
     return cell
@@ -184,8 +189,8 @@ enum SettingsSection: Int {
   static var count: Int { return custom.hashValue + 1 }
   
   static let titles = [
-    timers: "Common timers",
-    custom: "Custom timers",
+    timers: NSLocalizedString("Common timers", comment: "Settings: Default timers section title"),
+    custom: NSLocalizedString("Custom timers", comment: "Settings: Custom timers section title"),
   ]
   
   func getTitle() -> String {

@@ -271,11 +271,9 @@ class ViewController: UIViewController {
   }
   
   func getMovesText(for player: Player) -> String {
-    if (player.moves == 0) {
-      return ""
-    } else {
-      return "\(player.moves) \(player.moves > 1 ? "moves" : "move")"
-    }
+    return String.localizedStringWithFormat(NSLocalizedString("%d moves",
+                                                              comment: "Timer Controller: Moves label text"),
+                                            player.moves)
   }
   
   func refreshTimerViews() {
@@ -316,22 +314,28 @@ extension ViewController {
   }
   
   @IBAction func didTapRefresh(_ sender: UIButton? = nil) {
-    let alert = UIAlertController(title: "Reset",
-                                  message: "Are you sure you want to reset the current timer?",
+    // TODO: Refactor this duplicated warning code.
+    
+    let alert = UIAlertController(title:  NSLocalizedString("Reset", comment: "Timer Controller: Title of the reset dialog"),
+                                  message: NSLocalizedString("Are you sure you want to reset the current timer?", comment: "Timer Controller: Reset dialog message"),
                                   preferredStyle: .alert)
-    alert.addAction(UIAlertAction(title: "reset", style: .destructive, handler: { [unowned self] _ in
-      let configuration: TimerConfiguration!
-      
-      if self.playerManager != nil {
-        configuration = self.playerManager.whitePlayer.configuration
-      } else {
-        // TODO: Determine the default configuration.
-        configuration = TimerConfiguration.getDefaultConfigurations()[3]
-      }
-      
-      self.restartTimer(with: configuration)
-    }))
-    alert.addAction(UIAlertAction(title: "cancel", style: .cancel))
+    
+    alert.addAction(UIAlertAction(title: NSLocalizedString("reset", comment: "Timer Controller: dialog reset button title"),
+                                  style: .destructive,
+                                  handler: { [unowned self] _ in
+                                    let configuration: TimerConfiguration!
+                                    
+                                    if self.playerManager != nil {
+                                      configuration = self.playerManager.whitePlayer.configuration
+                                    } else {
+                                      // TODO: Determine the default configuration.
+                                      configuration = TimerConfiguration.getDefaultConfigurations()[3]
+                                    }
+                                    
+                                    self.restartTimer(with: configuration)
+                                  }))
+    alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "Timer Controller: dialog cancel button title"),
+                                  style: .cancel))
 
     present(alert, animated: true)
   }
@@ -351,15 +355,19 @@ extension ViewController {
   // MARK: Notification Actions
   
   @objc func newTimerRequested(notification: Notification) {
+    // TODO: Refactor this duplicated warning code.
     guard let configuration = notification.userInfo?["timer_config"] as? TimerConfiguration else { return }
     
-    let alert = UIAlertController(title: "Reset",
-                                  message: "Are you sure you want to reset the current timer?",
+    let alert = UIAlertController(title:  NSLocalizedString("Reset", comment: "Timer Controller: Title of the reset dialog"),
+                                  message: NSLocalizedString("Are you sure you want to reset the current timer?", comment: "Timer Controller: Reset dialog message"),
                                   preferredStyle: .alert)
-    alert.addAction(UIAlertAction(title: "reset", style: .destructive, handler: { [unowned self] _ in
-      self.restartTimer(with: configuration)
-    }))
-    alert.addAction(UIAlertAction(title: "cancel", style: .cancel))
+    alert.addAction(UIAlertAction(title: NSLocalizedString("reset", comment: "Timer Controller: dialog reset button title"),
+                                  style: .destructive,
+                                  handler: { [unowned self] _ in
+                                    self.restartTimer(with: configuration)
+                                  }))
+    alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "Timer Controller: dialog cancel button title"),
+                                  style: .cancel))
 
     present(alert, animated: true)
   }

@@ -28,6 +28,9 @@ class NewTimerViewController: FormViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    title = NSLocalizedString("New Timer", comment: "New Timer: controller title")
+    
     navigationItem.largeTitleDisplayMode = .never
     setupForm()
   }
@@ -35,26 +38,42 @@ class NewTimerViewController: FormViewController {
   // MARK: Setup form
   
   func setupForm() {
-    form +++ Section("General")
+    form +++ Section(NSLocalizedString("General", comment: "New Timer: general section title"))
       <<< NameRow(nameTag) {
-        $0.title = "Name"
-        $0.placeholder = "Enter the timer name"
+        $0.title = NSLocalizedString("Name", comment: "New Timer: timer name form title")
+        $0.placeholder = NSLocalizedString("Enter the timer name", comment: "New Timer: timer name form placeholder")
         $0.add(rule: RuleRequired())
       }
       <<< CountDownTimerRow(timeTag) {
-        $0.title = "Time for each player"
+        $0.title = NSLocalizedString("Time for each player", comment: "New Timer: player time form title")
         $0.add(rule: RuleRequired())
         $0.displayValueFor = { value in
           
+          let hoursText = String.localizedStringWithFormat(
+            NSLocalizedString("%d hrs", comment: "New Timer: Amount of hours of the player timer"),
+            value!.hours
+          )
+          
+          let minutesText = String.localizedStringWithFormat(
+            NSLocalizedString("%d mins", comment: "New Timer: Amount of minutes of the player timer"),
+            value!.minutes
+          )
+          
+          let secondsText = String.localizedStringWithFormat(
+            NSLocalizedString("%d secs", comment: "New Timer: Amount of seconds of the player timer"),
+            value!.seconds
+          )
+          
           if value != nil {
-            return "\(value!.hours) hrs, \(value!.minutes) min, \(value!.seconds) sec"
+            return "\(hoursText), \(minutesText), \(secondsText)"
+          } else {
+            return nil
           }
-          return nil
         }
       }
-      +++ Section("Delay")
+      +++ Section(NSLocalizedString("Delay", comment: "New Timer: Delay section title"))
       <<< SwitchRow(useDelayTag) {
-        $0.title = "Use delay"
+        $0.title = NSLocalizedString("Use delay", comment: "New Timer: Delay usage form title")
         $0.value = false
       }
       <<< SegmentedRow<String>(delayTypeTag) {
@@ -77,17 +96,19 @@ class NewTimerViewController: FormViewController {
         }
       }
       <<< StepperRow(delayAmountTag) {
-        $0.title = "Amount"
+        $0.title = NSLocalizedString("Amount", comment: "New Timer: Amount form title")
         $0.value = 0
         $0.displayValueFor = { value in
-          "\(Int(value ?? 0)) seconds"
+          String.localizedStringWithFormat(NSLocalizedString("%d seconds",
+                                                             comment: "New Timer: Amount of secs display text"),
+                                           Int(value ?? 0))
         }
         $0.add(rule: RuleRequired())
         $0.hidden = "$useDelayTag == false"
       }
       +++ Section()
       <<< ButtonRow() {
-        $0.title = "Create timer"
+        $0.title = NSLocalizedString("Create timer", comment: "New Timer: Form button title")
         
         let tagsToUse = [nameTag, timeTag, useDelayTag, delayTypeTag, delayAmountTag]
         // TODO: Refactor this. Change it to use only strings.
