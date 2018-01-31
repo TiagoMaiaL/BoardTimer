@@ -271,7 +271,7 @@ class ViewController: UIViewController {
   }
   
   func getMovesText(for player: Player) -> String {
-    return String.localizedStringWithFormat(NSLocalizedString("%d moves",
+    return String.localizedStringWithFormat(NSLocalizedString("%d move(s)",
                                                               comment: "Timer Controller: Moves label text"),
                                             player.moves)
   }

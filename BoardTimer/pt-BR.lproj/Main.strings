@@ -1,0 +1,15 @@
+
+/* Class = "UILabel"; text = "Blitz"; ObjectID = "E22-J6-fmW"; */
+"E22-J6-fmW.text" = "Blitz";
+
+/* Class = "UILabel"; text = "Information about the timer"; ObjectID = "Uuq-FK-nYN"; */
+"Uuq-FK-nYN.text" = "Information about the timer";
+
+/* Class = "UINavigationItem"; title = "Settings"; ObjectID = "ZrA-4d-Ffr"; */
+"ZrA-4d-Ffr.title" = "Settings";
+
+/* Class = "UIViewController"; title = "New timer"; ObjectID = "hHC-Hl-OU4"; */
+"hHC-Hl-OU4.title" = "New timer";
+
+/* Class = "UILabel"; text = "New custom timer"; ObjectID = "lKx-xH-lUW"; */
+"lKx-xH-lUW.text" = "New custom timer";
