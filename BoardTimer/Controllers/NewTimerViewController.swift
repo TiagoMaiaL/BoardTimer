@@ -50,17 +50,17 @@ class NewTimerViewController: FormViewController {
         $0.displayValueFor = { value in
           
           let hoursText = String.localizedStringWithFormat(
-            NSLocalizedString("%d hrs", comment: "New Timer: Amount of hours of the player timer"),
+            NSLocalizedString("%d hr(s)", comment: "New Timer: Amount of hours of the player timer"),
             value!.hours
           )
           
           let minutesText = String.localizedStringWithFormat(
-            NSLocalizedString("%d mins", comment: "New Timer: Amount of minutes of the player timer"),
+            NSLocalizedString("%d min(s)", comment: "New Timer: Amount of minutes of the player timer"),
             value!.minutes
           )
           
           let secondsText = String.localizedStringWithFormat(
-            NSLocalizedString("%d secs", comment: "New Timer: Amount of seconds of the player timer"),
+            NSLocalizedString("%d sec(s)", comment: "New Timer: Amount of seconds of the player timer"),
             value!.seconds
           )
           
@@ -99,7 +99,7 @@ class NewTimerViewController: FormViewController {
         $0.title = NSLocalizedString("Amount", comment: "New Timer: Amount form title")
         $0.value = 0
         $0.displayValueFor = { value in
-          String.localizedStringWithFormat(NSLocalizedString("%d seconds",
+          String.localizedStringWithFormat(NSLocalizedString("%d second(s)",
                                                              comment: "New Timer: Amount of secs display text"),
                                            Int(value ?? 0))
         }

@@ -114,7 +114,8 @@ extension SettingsTableViewController {
     guard indexPath.row < self.customTimers.count else { return [] }
     
     let delete = UITableViewRowAction(style: .destructive,
-                                      title: NSLocalizedString("Delete", comment: "Settings: Delete cell action title")) { [unowned self] (action, path) in
+                                      title: NSLocalizedString("Delete", 
+                                                               comment: "Settings: Delete cell action title")) { [unowned self] (action, path) in
       let timerToDelete = self.customTimers[path.row]
       self.storage.remove(timerToDelete)
       self.customTimers = self.storage.getSavedCustomTimers()
@@ -149,7 +150,7 @@ extension SettingsTableViewController {
     cell.textLabel?.text = cellConfiguration.name
     
     cell.detailTextLabel?.text = String.localizedStringWithFormat(
-      NSLocalizedString("%d mins", comment: "Settings: Number of minutes of each timer"),
+      NSLocalizedString("%d min(s)", comment: "Settings: Number of minutes of each timer"),
       cellConfiguration.time.minutes
     )
     

@@ -20,15 +20,15 @@ enum TimerMode: Int, Codable {
   }
   
   static let names = [
-    simple: "Simple",
-    fischer: "Fischer",
-    bronstein: "Bronstein"
+    simple: NSLocalizedString("Simple", comment: "Timer Configuration: Simple mode name"),
+    fischer: NSLocalizedString("Fischer", comment: "Timer Configuration: Fischer mode name"),
+    bronstein: NSLocalizedString("Bronstein", comment: "Timer Configuration: Bronstein mode name")
   ]
   
   static let description = [
-    simple: "The clock expends the delay period before subtracting from the remaining time. No time from the delay is accumulated.",
-    fischer: "The specified increment is added to the clock before the player move.",
-    bronstein: "The increment is always added after the player move. Only the amount of delay used by the player is accumulated."
+    simple: NSLocalizedString("The clock expends the delay period before subtracting from the remaining time. No time from the delay is accumulated.", comment: "Timer Configuration: Simple mode description."),
+    fischer: NSLocalizedString("The specified increment is added to the clock before the player move.", comment: "Timer Configuration: Fischer mode description."),
+    bronstein: NSLocalizedString("The increment is always added after the player move. Only the amount of delay used by the player is accumulated.", comment: "Timer Configuration: Bronstein mode description.")
   ]
   
   static func get(from modeName: String) -> TimerMode {
@@ -64,21 +64,33 @@ struct TimerConfiguration: Codable, Equatable {
       let seconds = time.seconds
       
       if hours > 0 {
-        description += "\(hours) hrs"
+        description += String.localizedStringWithFormat(
+          NSLocalizedString("%d hr(s)", comment: "Timer Configuration: Amount of hours in the timer configuration"),
+          hours
+        )
       }
       
       if minutes > 0 {
         description += hours > 0 ? ", " : ""
-        description += "\(minutes) mins"
+        description += String.localizedStringWithFormat(
+          NSLocalizedString("%d min(s)", comment: "Timer Configuration: Amount of minutes in the timer configuration"),
+          minutes
+        )
       }
       
       if seconds > 0 {
         description += minutes > 0 ? ", " : ""
-        description += "\(seconds) secs"
+        description += String.localizedStringWithFormat(
+          NSLocalizedString("%d sec(s)", comment: "Timer Configuration: Amount of seconds in the timer configuration"),
+          seconds
+        )
       }
       
       if mode != .none && delay > 0 {
-        description += " | \(mode.getName()) \(Int(delay)) secs"
+        description += " | \(mode.getName()) " + String.localizedStringWithFormat(
+          NSLocalizedString("%d sec(s)", comment: "Timer Configuration: Amount of seconds in the timer configuration"),
+          Int(delay)
+        )
       }
       
       return description
@@ -92,19 +104,19 @@ struct TimerConfiguration: Codable, Equatable {
       TimerConfiguration(time: PlayerTime(hours: 0, minutes: 15, seconds: 0),
                          delay: 0,
                          mode: .none,
-                         name: "Quick Play"),
+                         name: NSLocalizedString("Quick Play", comment: "Timer Configuration: Quick Play configuration name.")),
       TimerConfiguration(time: PlayerTime(hours: 0, minutes: 5, seconds: 0),
                          delay: 0,
                          mode: .none,
-                         name: "Blitz"),
+                         name: NSLocalizedString("Blitz", comment: "Timer Configuration: Blitz configuration name.")),
       TimerConfiguration(time: PlayerTime(hours: 0, minutes: 3, seconds: 0),
                          delay: 0,
                          mode: .none,
-                         name: "Bullet"),
+                         name: NSLocalizedString("Bullet", comment: "Timer Configuration: Bullet configuration name.")),
       TimerConfiguration(time: PlayerTime(hours: 0, minutes: 1, seconds: 0),
                          delay: 0,
                          mode: .none,
-                         name: "Lightning"),
+                         name: NSLocalizedString("Lightning", comment: "Timer Configuration: Lightning configuration name.")),
     ]
   }
   
