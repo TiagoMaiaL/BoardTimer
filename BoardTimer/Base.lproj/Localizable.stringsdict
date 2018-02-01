@@ -2,6 +2,42 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>%d second(s)</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@seconds@</string>
+		<key>seconds</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>%d seconds</string>
+			<key>one</key>
+			<string>%d second</string>
+			<key>other</key>
+			<string>%d seconds</string>
+		</dict>
+	</dict>
+	<key>%d hr(s)</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@hrs@</string>
+		<key>hrs</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>%d hrs</string>
+			<key>one</key>
+			<string>%d hr</string>
+			<key>other</key>
+			<string>%d hrs</string>
+		</dict>
+	</dict>
 	<key>%d min(s)</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -10,8 +46,32 @@
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>%d mins</string>
+			<key>one</key>
+			<string>%d min</string>
 			<key>other</key>
-			<string></string>
+			<string>%d mins</string>
+		</dict>
+	</dict>
+	<key>%d sec(s)</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@secs@</string>
+		<key>secs</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>%d secs</string>
+			<key>one</key>
+			<string>%d sec</string>
+			<key>other</key>
+			<string>%d secs</string>
 		</dict>
 	</dict>
 	<key>%d move(s)</key>
