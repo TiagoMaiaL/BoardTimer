@@ -40,12 +40,12 @@ class NewTimerViewController: FormViewController {
   func setupForm() {
     form +++ Section(NSLocalizedString("General", comment: "New Timer: general section title"))
       <<< NameRow(nameTag) {
-        $0.title = NSLocalizedString("Name", comment: "New Timer: timer name form title")
+        $0.title = NSLocalizedString("Name:", comment: "New Timer: timer name form title")
         $0.placeholder = NSLocalizedString("Enter the timer name", comment: "New Timer: timer name form placeholder")
         $0.add(rule: RuleRequired())
       }
       <<< CountDownTimerRow(timeTag) {
-        $0.title = NSLocalizedString("Time for each player", comment: "New Timer: player time form title")
+        $0.title = NSLocalizedString("Time for each player:", comment: "New Timer: player time form title")
         $0.add(rule: RuleRequired())
         $0.displayValueFor = { value in
           
@@ -96,7 +96,7 @@ class NewTimerViewController: FormViewController {
         }
       }
       <<< StepperRow(delayAmountTag) {
-        $0.title = NSLocalizedString("Amount", comment: "New Timer: Amount form title")
+        $0.title = NSLocalizedString("Amount:", comment: "New Timer: Amount form title")
         $0.value = 0
         $0.displayValueFor = { value in
           String.localizedStringWithFormat(NSLocalizedString("%d second(s)",

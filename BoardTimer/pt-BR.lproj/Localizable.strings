@@ -18,7 +18,7 @@
 "%d second(s)" = "%d segundo(s)";
 
 /* New Timer: Amount form title */
-"Amount" = "Quantidade";
+"Amount:" = "Quantidade:";
 
 /* Timer Controller: Reset dialog message */
 "Are you sure you want to reset the current timer?" = "Tem certeza de que deseja reiniciar o relógio atual?";
@@ -51,7 +51,7 @@
 "Delete" = "Remover";
 
 /* New Timer: timer name form placeholder */
-"Enter the timer name" = "Nome do relógio:";
+"Enter the timer name" = "Nome do relógio";
 
 /* Timer Configuration: Fischer mode name */
 "Fischer" = "Fischer";
@@ -69,7 +69,7 @@
 "Min" = "Min";
 
 /* New Timer: timer name form title */
-"Name" = "Nome";
+"Name:" = "Nome:";
 
 /* New Timer: controller title */
 "New Timer" = "Novo relógio";
@@ -99,7 +99,7 @@
 "The specified increment is added to the clock before the player move." = "O atraso é adicionado antes de cada jogada.";
 
 /* New Timer: player time form title */
-"Time for each player" = "Tempo de cada jogador";
+"Time for each player:" = "Tempo:";
 
 /* New Timer: Delay usage form title */
 "Use delay" = "Usar atraso";
