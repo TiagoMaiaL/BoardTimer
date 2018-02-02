@@ -2,28 +2,94 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>StringKey</key>
+	<key>%d second(s)</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@VARIABLE@</string>
-		<key>Variable</key>
+		<string>%#@seconds@</string>
+		<key>seconds</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
-			<string></string>
+			<string>d</string>
 			<key>zero</key>
-			<string></string>
+			<string>%d segundos</string>
 			<key>one</key>
-			<string></string>
-			<key>two</key>
-			<string></string>
-			<key>few</key>
-			<string></string>
-			<key>many</key>
-			<string></string>
+			<string>%d segundo</string>
 			<key>other</key>
-			<string></string>
+			<string>%d segundos</string>
+		</dict>
+	</dict>
+	<key>%d hr(s)</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@hrs@</string>
+		<key>hrs</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>%dh</string>
+			<key>one</key>
+			<string>%dh</string>
+			<key>other</key>
+			<string>%dh</string>
+		</dict>
+	</dict>
+	<key>%d min(s)</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@mins@</string>
+		<key>mins</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>%dmin</string>
+			<key>one</key>
+			<string>%dmin</string>
+			<key>other</key>
+			<string>%dmin</string>
+		</dict>
+	</dict>
+	<key>%d sec(s)</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@secs@</string>
+		<key>secs</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>%ds</string>
+			<key>one</key>
+			<string>%ds</string>
+			<key>other</key>
+			<string>%ds</string>
+		</dict>
+	</dict>
+	<key>%d move(s)</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@moves@</string>
+		<key>moves</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>0 jogadas</string>
+			<key>one</key>
+			<string>%d jogada</string>
+			<key>other</key>
+			<string>%d jogadas</string>
 		</dict>
 	</dict>
 </dict>

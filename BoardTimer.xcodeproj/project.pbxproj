@@ -33,6 +33,8 @@
 		47AD30601FB8C93500A911D9 /* PlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AD305F1FB8C93500A911D9 /* PlayerManager.swift */; };
 		47AD30671FBD275F00A911D9 /* SingleTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AD30661FBD275F00A911D9 /* SingleTimerView.swift */; };
 		47B7F37C1FD6C8810046FBD0 /* PlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B7F37B1FD6C8810046FBD0 /* PlayerTests.swift */; };
+		47CA350320244E1B008D0E8F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 47CA350520244E1B008D0E8F /* InfoPlist.strings */; };
+		47CA350820244E20008D0E8F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 47CA350A20244E20008D0E8F /* Localizable.strings */; };
 		47D4D5341FCE04CE0071B01A /* pass.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 47D4D5331FCE04CE0071B01A /* pass.m4a */; };
 		47D4D5361FCE05900071B01A /* over.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 47D4D5351FCE05900071B01A /* over.m4a */; };
 		47D4D5391FCE4F160071B01A /* TimerConfigurationStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D4D5381FCE4F160071B01A /* TimerConfigurationStorage.swift */; };
@@ -83,6 +85,8 @@
 		47AD305F1FB8C93500A911D9 /* PlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerManager.swift; sourceTree = "<group>"; };
 		47AD30661FBD275F00A911D9 /* SingleTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleTimerView.swift; sourceTree = "<group>"; };
 		47B7F37B1FD6C8810046FBD0 /* PlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTests.swift; sourceTree = "<group>"; };
+		47CA350420244E1B008D0E8F /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		47CA350920244E20008D0E8F /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		47D4D5331FCE04CE0071B01A /* pass.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = pass.m4a; sourceTree = "<group>"; };
 		47D4D5351FCE05900071B01A /* over.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = over.m4a; sourceTree = "<group>"; };
 		47D4D5381FCE4F160071B01A /* TimerConfigurationStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerConfigurationStorage.swift; sourceTree = "<group>"; };
@@ -183,6 +187,8 @@
 		47AD30351FB6315500A911D9 /* BoardTimer */ = {
 			isa = PBXGroup;
 			children = (
+				47CA350A20244E20008D0E8F /* Localizable.strings */,
+				47CA350520244E1B008D0E8F /* InfoPlist.strings */,
 				47AD30651FBD26FB00A911D9 /* Views */,
 				47AD305E1FB8C8D600A911D9 /* Controllers */,
 				47AD305D1FB8C8C400A911D9 /* Models */,
@@ -355,6 +361,7 @@
 			files = (
 				478995B11FED325900B77725 /* warning.m4a in Resources */,
 				47AD30411FB6315500A911D9 /* LaunchScreen.storyboard in Resources */,
+				47CA350820244E20008D0E8F /* Localizable.strings in Resources */,
 				4729066B2021F2E200F91B4F /* Localizable.stringsdict in Resources */,
 				47D4D5341FCE04CE0071B01A /* pass.m4a in Resources */,
 				47AD303E1FB6315500A911D9 /* Assets.xcassets in Resources */,
@@ -362,6 +369,7 @@
 				47D4D5361FCE05900071B01A /* over.m4a in Resources */,
 				47AD303C1FB6315500A911D9 /* Main.storyboard in Resources */,
 				47983D701FE80D6300CFD692 /* CountDownTimerCell.xib in Resources */,
+				47CA350320244E1B008D0E8F /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,6 +471,22 @@
 				472906612021EA6400F91B4F /* pt-BR */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		47CA350520244E1B008D0E8F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				47CA350420244E1B008D0E8F /* pt-BR */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		47CA350A20244E20008D0E8F /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				47CA350920244E20008D0E8F /* pt-BR */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

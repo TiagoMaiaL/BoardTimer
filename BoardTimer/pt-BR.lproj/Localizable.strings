@@ -1,0 +1,112 @@
+/* New Timer: Amount of hours of the player timer
+   Timer Configuration: Amount of hours in the timer configuration */
+"%d hr(s)" = "%dh";
+
+/* New Timer: Amount of minutes of the player timer
+   Settings: Number of minutes of each timer
+   Timer Configuration: Amount of minutes in the timer configuration */
+"%d min(s)" = "%dmin";
+
+/* Timer Controller: Moves label text */
+"%d move(s)" = "%d jogada(s)";
+
+/* New Timer: Amount of seconds of the player timer
+   Timer Configuration: Amount of seconds in the timer configuration */
+"%d sec(s)" = "%ds";
+
+/* New Timer: Amount of secs display text */
+"%d second(s)" = "%d segundo(s)";
+
+/* New Timer: Amount form title */
+"Amount" = "Quantidade";
+
+/* Timer Controller: Reset dialog message */
+"Are you sure you want to reset the current timer?" = "Tem certeza de que deseja reiniciar o relógio atual?";
+
+/* Timer Configuration: Blitz configuration name. */
+"Blitz" = "Blitz";
+
+/* Timer Configuration: Bronstein mode name */
+"Bronstein" = "Bronstein";
+
+/* Timer Configuration: Bullet configuration name. */
+"Bullet" = "Bullet";
+
+/* Settings: Default timers section title */
+"Common timers" = "Relógios comuns";
+
+/* Settings: Custom timer creation cell title */
+"Create a custom timer" = "Crie um relógio customizado";
+
+/* New Timer: Form button title */
+"Create timer" = "Criar relógio";
+
+/* Settings: Custom timers section title */
+"Custom timers" = "Relógios customizados";
+
+/* New Timer: Delay section title */
+"Delay" = "Atraso";
+
+/* Settings: Delete cell action title */
+"Delete" = "Remover";
+
+/* New Timer: timer name form placeholder */
+"Enter the timer name" = "Nome do relógio:";
+
+/* Timer Configuration: Fischer mode name */
+"Fischer" = "Fischer";
+
+/* New Timer: general section title */
+"General" = "Geral";
+
+/* New Timer: Selection component label. */
+"Hrs" = "H";
+
+/* Timer Configuration: Lightning configuration name. */
+"Lightning" = "Relâmpago";
+
+/* New Timer: Selection component label. */
+"Min" = "Min";
+
+/* New Timer: timer name form title */
+"Name" = "Nome";
+
+/* New Timer: controller title */
+"New Timer" = "Novo relógio";
+
+/* Timer Configuration: Quick Play configuration name. */
+"Quick Play" = "Partida rápida";
+
+/* Timer Controller: Title of the reset dialog */
+"Reset" = "Reiniciar";
+
+/* New Timer: Selection component label. */
+"Sec" = "S";
+
+/* Settings: Controller title */
+"Settings" = "Configurações";
+
+/* Timer Configuration: Simple mode name */
+"Simple" = "Simples";
+
+/* Timer Configuration: Simple mode description. */
+"The clock expends the delay period before subtracting from the remaining time. No time from the delay is accumulated." = "O Relógio gasta o tempo de atraso antes de gastar o tempo restante do jogador. O tempo de atraso não é acumulável.";
+
+/* Timer Configuration: Bronstein mode description. */
+"The increment is always added after the player move. Only the amount of delay used by the player is accumulated." = "O incremento sempre é adicionado depois de cada jogada. Somente a quantidade de tempo de atraso gasto é adicionada.";
+
+/* Timer Configuration: Fischer mode description. */
+"The specified increment is added to the clock before the player move." = "O atraso é adicionado antes de cada jogada.";
+
+/* New Timer: player time form title */
+"Time for each player" = "Tempo de cada jogador";
+
+/* New Timer: Delay usage form title */
+"Use delay" = "Usar atraso";
+
+/* Timer Controller: dialog cancel button title */
+"cancel" = "cancelar";
+
+/* Timer Controller: dialog reset button title */
+"reset" = "reiniciar";
+

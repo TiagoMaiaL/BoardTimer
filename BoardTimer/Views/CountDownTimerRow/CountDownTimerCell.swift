@@ -19,9 +19,9 @@ final class CountDownTimerCell: Cell<PlayerTime>, CellType, UIPickerViewDelegate
     static var count: Int { return PickerComponent.Second.rawValue + 1 }
     
     static let names = [
-      Hour: "Hrs",
-      Minute: "Min",
-      Second: "Sec",
+      Hour: NSLocalizedString("Hrs", "New Timer: Selection component label."),
+      Minute: NSLocalizedString("Min", comment: "New Timer: Selection component label."),
+      Second: NSLocalizedString("Sec", comment: "New Timer: Selection component label."),
     ]
     
     func getName() -> String {
