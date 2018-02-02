@@ -1,1 +1,7 @@
-/* No Localized Strings */
+
+// App 3D touch static shortcuts.
+
+SHORTCUT_TITLE_QUICK = "Rápida 15min";
+SHORTCUT_TITLE_BLITZ = "Blitz 5min";
+SHORTCUT_TITLE_BULLET = "Bullet 3min";
+SHORTCUT_TITLE_LIGHTNING = "Relâmpago 1min";

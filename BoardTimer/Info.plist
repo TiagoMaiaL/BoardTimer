@@ -26,25 +26,25 @@
 	<array>
 		<dict>
 			<key>UIApplicationShortcutItemTitle</key>
-			<string>Quick 15 min</string>
+			<string>SHORTCUT_TITLE_QUICK</string>
 			<key>UIApplicationShortcutItemType</key>
 			<string>$(PRODUCT_BUNDLE_IDENTIFIER).Quick</string>
 		</dict>
 		<dict>
 			<key>UIApplicationShortcutItemTitle</key>
-			<string>Blitz 5 min</string>
+			<string>SHORTCUT_TITLE_BLITZ</string>
 			<key>UIApplicationShortcutItemType</key>
 			<string>$(PRODUCT_BUNDLE_IDENTIFIER).Blitz</string>
 		</dict>
 		<dict>
 			<key>UIApplicationShortcutItemTitle</key>
-			<string>Bullet 3 min</string>
+			<string>SHORTCUT_TITLE_BULLET</string>
 			<key>UIApplicationShortcutItemType</key>
 			<string>$(PRODUCT_BUNDLE_IDENTIFIER).Bullet</string>
 		</dict>
 		<dict>
 			<key>UIApplicationShortcutItemTitle</key>
-			<string>Lightning 1 min</string>
+			<string>SHORTCUT_TITLE_LIGHTNING</string>
 			<key>UIApplicationShortcutItemType</key>
 			<string>$(PRODUCT_BUNDLE_IDENTIFIER).Lightning</string>
 		</dict>

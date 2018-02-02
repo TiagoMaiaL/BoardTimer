@@ -1,0 +1,7 @@
+
+// App 3D touch static shortcuts.
+
+SHORTCUT_TITLE_QUICK = "Quick 15 min";
+SHORTCUT_TITLE_BLITZ = "Blitz 5 min";
+SHORTCUT_TITLE_BULLET = "Bullet 3 min";
+SHORTCUT_TITLE_LIGHTNING = "Lightning 1 min";
