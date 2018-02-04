@@ -78,7 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     if let configuration = selectedConfiguration {
-      if let timerController = window?.rootViewController as? ViewController {
+      if let timerController = window?.rootViewController as? TimerViewController {
         timerController.setupManagers(with: configuration)
       }
     }

@@ -24,7 +24,6 @@
 		47983D721FE80D9600CFD692 /* CountDownTimerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47983D711FE80D9600CFD692 /* CountDownTimerCell.swift */; };
 		47983D741FE80DAE00CFD692 /* CountDownTimerRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47983D731FE80DAE00CFD692 /* CountDownTimerRow.swift */; };
 		47AD30371FB6315500A911D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AD30361FB6315500A911D9 /* AppDelegate.swift */; };
-		47AD30391FB6315500A911D9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AD30381FB6315500A911D9 /* ViewController.swift */; };
 		47AD303C1FB6315500A911D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47AD303A1FB6315500A911D9 /* Main.storyboard */; };
 		47AD303E1FB6315500A911D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47AD303D1FB6315500A911D9 /* Assets.xcassets */; };
 		47AD30411FB6315500A911D9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47AD303F1FB6315500A911D9 /* LaunchScreen.storyboard */; };
@@ -35,6 +34,7 @@
 		47B7F37C1FD6C8810046FBD0 /* PlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B7F37B1FD6C8810046FBD0 /* PlayerTests.swift */; };
 		47CA350320244E1B008D0E8F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 47CA350520244E1B008D0E8F /* InfoPlist.strings */; };
 		47CA350820244E20008D0E8F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 47CA350A20244E20008D0E8F /* Localizable.strings */; };
+		47CA350C2027C480008D0E8F /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AD30381FB6315500A911D9 /* TimerViewController.swift */; };
 		47D4D5341FCE04CE0071B01A /* pass.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 47D4D5331FCE04CE0071B01A /* pass.m4a */; };
 		47D4D5361FCE05900071B01A /* over.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 47D4D5351FCE05900071B01A /* over.m4a */; };
 		47D4D5391FCE4F160071B01A /* TimerConfigurationStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D4D5381FCE4F160071B01A /* TimerConfigurationStorage.swift */; };
@@ -73,7 +73,7 @@
 		47983D731FE80DAE00CFD692 /* CountDownTimerRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownTimerRow.swift; sourceTree = "<group>"; };
 		47AD30331FB6315500A911D9 /* BoardTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoardTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47AD30361FB6315500A911D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		47AD30381FB6315500A911D9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		47AD30381FB6315500A911D9 /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		47AD303B1FB6315500A911D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		47AD303D1FB6315500A911D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		47AD30401FB6315500A911D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -238,7 +238,7 @@
 		47AD305E1FB8C8D600A911D9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				47AD30381FB6315500A911D9 /* ViewController.swift */,
+				47AD30381FB6315500A911D9 /* TimerViewController.swift */,
 				4783DE8F1FC137F900C6A077 /* NewTimerViewController.swift */,
 				4783DE911FC4831D00C6A077 /* SettingsTableViewController.swift */,
 			);
@@ -406,6 +406,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47CA350C2027C480008D0E8F /* TimerViewController.swift in Sources */,
 				4751B3BF1FDDD9B700793697 /* UIColor+Utils.swift in Sources */,
 				47AD30601FB8C93500A911D9 /* PlayerManager.swift in Sources */,
 				47AD30671FBD275F00A911D9 /* SingleTimerView.swift in Sources */,
@@ -418,7 +419,6 @@
 				4780A26A1FCBBFA20035126F /* SoundManager.swift in Sources */,
 				47AD30591FB635DB00A911D9 /* TimerManager.swift in Sources */,
 				4780A2661FC808FB0035126F /* TimerConfiguration.swift in Sources */,
-				47AD30391FB6315500A911D9 /* ViewController.swift in Sources */,
 				473E190E1FBD2CEE00F36715 /* XibView.swift in Sources */,
 				4780A2681FCB62C10035126F /* UIView+Utils.swift in Sources */,
 				47D4D5391FCE4F160071B01A /* TimerConfigurationStorage.swift in Sources */,

@@ -14,14 +14,13 @@ struct NotificationName {
   static let pauseTimer = Notification.Name("pause_timer")
 }
 
-class ViewController: UIViewController {
+class TimerViewController: UIViewController {
 
   // MARK: Properties
   
   let optionsSegueId = "show_options"
   private let timerStorage = TimerConfigurationStorage()
 
-  
   private var playerManager: PlayerManager!
   private var soundManager: SoundManager!
   
@@ -156,15 +155,14 @@ class ViewController: UIViewController {
     if currentColor == .black {
       blackTimerDecreasedHeight.isActive = false
       blackTimerIncreasedHeight.isActive = true
+      
+      self.whiteTimerView.animateOut()
+      self.blackTimerView.animateIn()
+      
     } else {
       blackTimerIncreasedHeight.isActive = false
       blackTimerDecreasedHeight.isActive = true
-    }
-    
-    if currentColor == .black {
-      self.whiteTimerView.animateOut()
-      self.blackTimerView.animateIn()
-    } else {
+      
       self.blackTimerView.animateOut()
       self.whiteTimerView.animateIn()
     }
@@ -297,7 +295,7 @@ class ViewController: UIViewController {
   }
 }
 
-extension ViewController {
+extension TimerViewController {
  
   // MARK: Actions
   
@@ -382,7 +380,7 @@ extension ViewController {
 
 // MARK: Timer manager delegate
 
-extension ViewController: TimerManagerDelegate {
+extension TimerViewController: TimerManagerDelegate {
 
   func timerHasStarted(manager: TimerManager) {
     animatePlayerChange()
@@ -402,7 +400,7 @@ extension ViewController: TimerManagerDelegate {
 
 // MARK: Player manager delegate
 
-extension ViewController: PlayerManagerDelegate {
+extension TimerViewController: PlayerManagerDelegate {
   
   func playerHasChanged(currentPlayer: Player) {
     refreshTimerViews()
