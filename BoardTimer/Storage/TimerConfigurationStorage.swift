@@ -8,16 +8,21 @@
 
 import UIKit
 
+/// Class in charge of storing the timer configurations.
 class TimerConfigurationStorage: NSObject {
   
   // MARK: Constants
   
-  let timersKey = "custom_timers"
-  let defaultTimerKey = "default_timer"
+  /// Key for the custom timers storage.
+  private let timersKey = "custom_timers"
+  
+  /// Key for the default timer storage.
+  private let defaultTimerKey = "default_timer"
   
   // MARK: Properties
   
-  var defaults: UserDefaults {
+  /// The user defaults instance used to store the timers.
+  private var defaults: UserDefaults {
     get {
       return UserDefaults.standard
     }
@@ -25,10 +30,12 @@ class TimerConfigurationStorage: NSObject {
   
   // MARK: Imperatives
   
+  /// Clears the custom timers from the storage.
   func clear() {
     defaults.removeObject(forKey: timersKey)
   }
   
+  /// Returns the stored custom timers.
   func getSavedCustomTimers() -> [TimerConfiguration]? {
     var timers: [TimerConfiguration]? = nil
     
@@ -40,6 +47,8 @@ class TimerConfigurationStorage: NSObject {
     return timers
   }
   
+  /// Stores a single custom timer.
+  /// - Parameter timer: the custom timer configuration to be stored.
   func store(_ timer: TimerConfiguration) {
     var timers = getSavedCustomTimers() ?? []
     
@@ -48,6 +57,8 @@ class TimerConfigurationStorage: NSObject {
     store(timers)
   }
   
+  /// Stores the passed timers.
+  /// - Parameter timers: the custom timer configurations to be stored.
   private func store(_ timers: [TimerConfiguration]) {
     let encoder = JSONEncoder()
     if let encodedTimers = try? encoder.encode(timers) {
@@ -55,6 +66,7 @@ class TimerConfigurationStorage: NSObject {
     }
   }
   
+  /// Removes the passed timer, if it's stored.
   func remove(_ timer: TimerConfiguration) {
     guard var timers = getSavedCustomTimers() else { return }
     
@@ -64,6 +76,12 @@ class TimerConfigurationStorage: NSObject {
     }
   }
 
+  /// Stores the last used timer as the default timer.
+  ///
+  /// When a user selects a timer to be used, it is marked as the default timer.
+  /// When a user opens the app, this default timer is presented.
+  ///
+  /// - Parameter configuration: The timer to be stored as the default.
   func storeDefaultConfiguration(_ configuration: TimerConfiguration) {
     let encoder = JSONEncoder()
     
@@ -72,6 +90,7 @@ class TimerConfigurationStorage: NSObject {
     }
   }
 
+  /// Returns the last used timer.
   func getDefaultConfiguration() -> TimerConfiguration? {
     var defaultTimer: TimerConfiguration?
     
