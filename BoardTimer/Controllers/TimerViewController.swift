@@ -21,6 +21,7 @@ class TimerViewController: UIViewController {
   let optionsSegueId = "show_options"
   private let timerStorage = TimerConfigurationStorage()
 
+  private var timer: TimerManager!
   private var playerManager: PlayerManager!
   private var soundManager: SoundManager!
   
@@ -66,7 +67,7 @@ class TimerViewController: UIViewController {
   
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
-    self.playerManager.timer.pause()
+    timer.pause()
   }
   
   // MARK: Navigation
@@ -85,7 +86,7 @@ class TimerViewController: UIViewController {
     if let configuration = configuration {
       timerStorage.storeDefaultConfiguration(configuration)
       
-      let timer = TimerManager()
+      timer = TimerManager()
       timer.delegate = self
       
       let whitePlayer = Player(color: .white,
@@ -93,8 +94,7 @@ class TimerViewController: UIViewController {
       let blackPlayer = Player(color: .black,
                                configuration: configuration)
       
-      playerManager = PlayerManager(timer: timer,
-                                    white: whitePlayer,
+      playerManager = PlayerManager(white: whitePlayer,
                                     black: blackPlayer)
       playerManager.delegate = self
       
@@ -304,8 +304,8 @@ extension TimerViewController {
       return
     }
     
-    if !playerManager.timer.isRunning {
-      playerManager.timer.start()
+    if !timer.isRunning {
+      timer.start()
     } else {
       playerManager.toggleCurrentPlayer()
     }
@@ -339,8 +339,8 @@ extension TimerViewController {
   }
   
   @IBAction func didTapPause(sender: UIButton) {
-    if (playerManager.timer.isRunning) {
-      playerManager.timer.pause()
+    if (timer.isRunning) {
+      timer.pause()
     } else {
       presentSettings()
     }
@@ -371,8 +371,8 @@ extension TimerViewController {
   }
   
   @objc func pauseRequested(Notification: Notification) {
-    if playerManager.timer.isRunning {
-      playerManager.timer.pause()
+    if timer.isRunning {
+      timer.pause()
     }
   }
 
@@ -382,17 +382,17 @@ extension TimerViewController {
 
 extension TimerViewController: TimerManagerDelegate {
 
-  func timerHasStarted(manager: TimerManager) {
+  func timerDidStart(timer: TimerManager) {
     animatePlayerChange()
     soundManager.play(.pass)
     self.pauseButton.setImage(UIImage(named: "ic_pause"), for: .normal)
   }
 
-  func timerHasStopped(manager: TimerManager) {
+  func timerDidStop(timer: TimerManager) {
     animatePausedState()
   }
 
-  func timerHasFired(manager: TimerManager) {
+  func timerDidFire(timer: TimerManager) {
     playerManager.decreaseRemainingTime()
   }
 
@@ -402,22 +402,23 @@ extension TimerViewController: TimerManagerDelegate {
 
 extension TimerViewController: PlayerManagerDelegate {
   
-  func playerHasChanged(currentPlayer: Player) {
+  func playerDidChange(_ currentPlayer: Player) {
     refreshTimerViews()
     animatePlayerChange()
     soundManager.play(.pass)
+    timer.restart()
   }
   
-  func playerTimeHasRanOver(player: Player) {
-    playerManager.timer.pause()
+  func playerTimeDidEnd(_ player: Player) {
+    timer.pause()
     soundManager.play(.over)
   }
   
-  func playerTimeHasDecreased(player: Player) {
+  func playerTimeDidDecrease(_ player: Player) {
     refreshTimerViews()
   }
   
-  func playerTimeIsNearFinish(player: Player) {
+  func playerTimeWillFinish(_ player: Player) {
     switch player.color {
     case .white:
       whiteTimerView.animateWarningState()

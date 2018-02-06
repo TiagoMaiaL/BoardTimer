@@ -11,26 +11,33 @@ import Foundation
 protocol TimerManagerDelegate {
   
   /// Called when the internal timer has started
-  func timerHasStarted(manager: TimerManager)
+  func timerDidStart(timer: TimerManager)
   
   /// Called when the internal timer has stopped
-  func timerHasStopped(manager: TimerManager)
+  func timerDidStop(timer: TimerManager)
   
   /// Called every time the internal timer fires
-  func timerHasFired(manager: TimerManager)
-}
-
-enum FireDelay: TimeInterval {
-  case normal = 0.1, test = 1
+  func timerDidFire(timer: TimerManager)
 }
 
 class TimerManager {
+  
+  /// Enum indicating the two possible fire
+  /// delays used by the internal timer.
+  enum FireDelay: TimeInterval {
+    case normal = 0.1
+    case test = 1
+  }
  
   // MARK: Properties
   
+  /// The interval between each fire event.
   static var fireDelay = FireDelay.normal
   
+  /// The internal timer responsible for the fire events.
   private(set) var internalTimer: Timer?
+  
+  /// The object acting as the delegate.
   var delegate: TimerManagerDelegate?
   
   /// Indicates the current state of the timer.
@@ -45,16 +52,16 @@ class TimerManager {
     guard internalTimer == nil else { return }
     
     internalTimer = Timer.scheduledTimer(withTimeInterval: TimerManager.fireDelay.rawValue, repeats: true) { [unowned self] _ in
-      self.delegate?.timerHasFired(manager: self)
+      self.delegate?.timerDidFire(timer: self)
     }
     
-    delegate?.timerHasStarted(manager: self)
+    delegate?.timerDidStart(timer: self)
   }
   
   /// Pauses the internal timer.
   func pause() {
     invalidateTimer()
-    delegate?.timerHasStopped(manager: self)
+    delegate?.timerDidStop(timer: self)
   }
   
   /// Restarts the internal timer
@@ -66,6 +73,7 @@ class TimerManager {
     start()
   }
   
+  /// Invalidates the internal timer.
   private func invalidateTimer() {
     if let timer = internalTimer {
       timer.invalidate()

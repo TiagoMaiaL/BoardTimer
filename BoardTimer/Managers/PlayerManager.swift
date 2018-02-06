@@ -7,41 +7,49 @@
 //
 
 import Foundation
+import UIKit
 
 protocol PlayerManagerDelegate {
   
   /// Called when the player has changed
-  func playerHasChanged(currentPlayer: Player)
+  func playerDidChange(_ currentPlayer: Player)
   
   /// Called when the player's remaining time has ran over
-  func playerTimeHasRanOver(player: Player)
+  func playerTimeDidEnd(_ player: Player)
   
   /// Called when the player's remaining time has been decreased.
-  func playerTimeHasDecreased(player: Player)
+  func playerTimeDidDecrease(_ player: Player)
   
   /// Called when the player's remainig time is now under 20 secs.
-  func playerTimeIsNearFinish(player: Player)
+  func playerTimeWillFinish(_ player: Player)
 }
 
 class PlayerManager {
   
   // MARK: Properties
   
-  let timer: TimerManager
+  /// The white player struct.
   private(set) var whitePlayer: Player
+  
+  /// The black player struct.
   private(set) var blackPlayer: Player
   
+  /// The current player making the move
+  /// and having the time decreased.
   private(set) var currentPlayer: Player
   
+  /// The manager's delegate.
   var delegate: PlayerManagerDelegate?
   
+  /// Property used to inform if the timer is over.
   var isTimerOver: Bool {
     get {
       return whitePlayer.isOver || blackPlayer.isOver
     }
   }
   
-  /// Variable used to ensure the delegate warning method is going to be called only once.
+  /// Variable used to ensure the delegate's warning method
+  /// is going to be called only once per player.
   private var didWarnPlayer = [
     PlayerColor.white : false,
     PlayerColor.black : false,
@@ -49,8 +57,7 @@ class PlayerManager {
   
   // MARK: Initializers
   
-  init(timer: TimerManager, white: Player, black: Player) {
-    self.timer = timer
+  init(white: Player, black: Player) {
     whitePlayer = white
     blackPlayer = black
     
@@ -71,8 +78,7 @@ class PlayerManager {
     }
 
     currentPlayer.startTurn()
-    delegate?.playerHasChanged(currentPlayer: currentPlayer)
-    timer.restart()
+    delegate?.playerDidChange(currentPlayer)
   }
   
   /// Decreases by one the remaining time from the current player.
@@ -80,17 +86,17 @@ class PlayerManager {
   /// method and return.
   func decreaseRemainingTime() {
     if currentPlayer.isOver {
-      delegate?.playerTimeHasRanOver(player: currentPlayer)
+      delegate?.playerTimeDidEnd(currentPlayer)
       return
     }
     
     if currentPlayer.isNearFinish && didWarnPlayer[currentPlayer.color]! == false {
-      delegate?.playerTimeIsNearFinish(player: currentPlayer)
+      delegate?.playerTimeWillFinish(currentPlayer)
       didWarnPlayer[currentPlayer.color] = true
     }
     
     currentPlayer.decreaseTime()
-    delegate?.playerTimeHasDecreased(player: currentPlayer)
+    delegate?.playerTimeDidDecrease(currentPlayer)
   }
   
 }

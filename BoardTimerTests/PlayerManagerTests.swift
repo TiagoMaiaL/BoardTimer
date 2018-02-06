@@ -120,19 +120,19 @@ class PlayerManagerTests: XCTestCase, PlayerManagerDelegate {
   
   // MARK: PlayerManager delegate methods
   
-  func playerHasChanged(currentPlayer: Player) {
+  func playerDidChange(_ currentPlayer: Player) {
     changeExpectation?.fulfill()
   }
   
-  func playerTimeHasRanOver(player: Player) {
+  func playerTimeDidEnd(player: Player) {
     timeOutExpectation?.fulfill()
   }
   
-  func playerTimeHasDecreased(player: Player) {
+  func playerTimeDidDecrease(_ player: Player) {
     decreaseExpectation?.fulfill()
   }
   
-  func playerTimeIsNearFinish(player: Player) {
+  func playerTimeWillFinish(_ player: Player) {
     nearFinishExpectation?.fulfill()
   }
   
