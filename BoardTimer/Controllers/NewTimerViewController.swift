@@ -77,18 +77,23 @@ class NewTimerViewController: FormViewController {
         $0.value = false
       }
       <<< SegmentedRow<String>(delayTypeTag) {
-        $0.options = Array(TimerMode.names.values)
+        $0.options = Array(TimerConfiguration.Mode.names.values)
         $0.value = "Fischer"
         $0.hidden = "$useDelayTag == false"
         $0.add(rule: RuleRequired())
         $0.onChange { [unowned self] row in
           let labelRow = self.form.rowBy(tag: self.delayLabelTag) as! LabelRow
-          labelRow.title = TimerMode.get(from: row.value!).getDescription()
-          labelRow.reload()
+          
+          if let modeName = row.value, let mode = TimerConfiguration.Mode.get(from: modeName) {
+            labelRow.title = mode.description
+            labelRow.reload()
+          }
+          
+          
         }
       }
       <<< LabelRow(delayLabelTag) {
-        $0.title = TimerMode.fischer.getDescription()
+        $0.title = TimerConfiguration.Mode.fischer.description
         $0.hidden = "$useDelayTag == false"
         $0.cellSetup { (cell, _) in
           cell.height = {100}
@@ -135,7 +140,7 @@ class NewTimerViewController: FormViewController {
           guard let delayType = delayTypeRow.value else { return }
           guard let name = nameRow.value else { return }
           
-          let timerMode = TimerMode.get(from: delayType)
+          let timerMode = TimerConfiguration.Mode.get(from: delayType)
           let timer = TimerConfiguration(time: time,
                                          delay: delay,
                                          mode: timerMode,

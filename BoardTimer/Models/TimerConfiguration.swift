@@ -8,53 +8,83 @@
 
 import Foundation
 
-enum TimerMode: Int, Codable {
-  case none = 0, simple, fischer, bronstein
+/// A struct representing a timer configuration.
+///
+/// A timer configuration consists of:
+/// * An identifier
+/// * An optional name
+/// * A time amount(for each player)
+/// * An optional mode(fischer, simple, etc...)
+/// * An associated delay to apply according to the chosen mode
+struct TimerConfiguration: Codable, Equatable, CustomStringConvertible {
   
-  func getName() -> String {
-    return TimerMode.names[self] ?? ""
-  }
-  
-  func getDescription() -> String {
-    return TimerMode.description[self] ?? ""
-  }
-  
-  static let names = [
-    simple: NSLocalizedString("Simple", comment: "Timer Configuration: Simple mode name"),
-    fischer: NSLocalizedString("Fischer", comment: "Timer Configuration: Fischer mode name"),
-    bronstein: NSLocalizedString("Bronstein", comment: "Timer Configuration: Bronstein mode name")
-  ]
-  
-  static let description = [
-    simple: NSLocalizedString("The clock expends the delay period before subtracting from the remaining time. No time from the delay is accumulated.", comment: "Timer Configuration: Simple mode description."),
-    fischer: NSLocalizedString("The specified increment is added to the clock before the player move.", comment: "Timer Configuration: Fischer mode description."),
-    bronstein: NSLocalizedString("The increment is always added after the player move. Only the amount of delay used by the player is accumulated.", comment: "Timer Configuration: Bronstein mode description.")
-  ]
-  
-  static func get(from modeName: String) -> TimerMode {
-    switch modeName {
-    case names[.simple]!:
-      return .simple
-    case names[.fischer]!:
-      return .fischer
-    case names[.bronstein]!:
-      return .bronstein
-    default:
-      return .none
+  /// The available timer modes.
+  enum Mode: Int, Codable, CustomStringConvertible {
+    case simple
+    case fischer
+    case bronstein
+    
+    /// Returns the name of the mode instance.
+    func getName() -> String {
+      return Mode.names[self] ?? ""
+    }
+
+    // MARK: Mode CustomStringConvertible implementation.
+    
+    /// The description for the current instance.
+    var description: String {
+      switch self {
+      case .simple:
+        return NSLocalizedString("The clock expends the delay period before subtracting from the remaining time. No time from the delay is accumulated.", comment: "Timer Configuration: Simple mode description.")
+      case .fischer:
+        return NSLocalizedString("The specified increment is added to the clock before the player move.", comment: "Timer Configuration: Fischer mode description.")
+      case .bronstein:
+        return NSLocalizedString("The increment is always added after the player move. Only the amount of delay used by the player is accumulated.", comment: "Timer Configuration: Bronstein mode description.")
+      }
+    }
+    
+    /// The name for each enum instance.
+    static let names = [
+      simple: NSLocalizedString("Simple", comment: "Timer Configuration: Simple mode name"),
+      fischer: NSLocalizedString("Fischer", comment: "Timer Configuration: Fischer mode name"),
+      bronstein: NSLocalizedString("Bronstein", comment: "Timer Configuration: Bronstein mode name")
+    ]
+    
+    /// Returns an instance from the mode name.
+    static func get(from modeName: String) -> Mode? {
+      switch modeName {
+      case names[.simple]!:
+        return .simple
+      case names[.fischer]!:
+        return .fischer
+      case names[.bronstein]!:
+        return .bronstein
+      default:
+        return nil
+      }
     }
   }
-}
-
-struct TimerConfiguration: Codable, Equatable {
- 
+  
   // MARK: Properties
   
+  /// The timer's identifier.
   let uid = NSUUID().uuidString
+  
+  /// The timer for each player.
   let time: PlayerTime
+  
+  /// The amount of delay, depending on the timer mode.
   let delay: TimeInterval
-  let mode: TimerMode
+  
+  /// The mode configured for the current timer.
+  let mode: Mode?
+  
+  /// An optional name for the timer.
   let name: String?
   
+  // MARK: Timer Configuration CustomStringConvertible implementation.
+  
+  /// Returns a description of the timer, indicating it's configured time.
   var description: String {
     get {
       var description = ""
@@ -86,7 +116,7 @@ struct TimerConfiguration: Codable, Equatable {
         )
       }
       
-      if mode != .none && delay > 0 {
+      if let mode = mode {
         description += " | \(mode.getName()) " + String.localizedStringWithFormat(
           NSLocalizedString("%d sec(s)", comment: "Timer Configuration: Amount of seconds in the timer configuration"),
           Int(delay)
@@ -99,6 +129,7 @@ struct TimerConfiguration: Codable, Equatable {
   
   // MARK: Common timer configurations
   
+  /// Returns the default timers.
   static func getDefaultConfigurations() -> [TimerConfiguration] {
     return [
       TimerConfiguration(time: PlayerTime(hours: 0, minutes: 15, seconds: 0),
@@ -120,6 +151,7 @@ struct TimerConfiguration: Codable, Equatable {
     ]
   }
   
+  // MARK: Equatable protocol implementation.
   public static func ==(lhs: TimerConfiguration, rhs: TimerConfiguration) -> Bool {
     return lhs.uid == rhs.uid ||
            lhs.name == rhs.name

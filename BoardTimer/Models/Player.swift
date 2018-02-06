@@ -8,11 +8,13 @@
 
 import Foundation
 
+// TODO: Remove this enum from here, put this in the controller.
 enum PlayerColor {
   case white
   case black
 }
 
+// TODO: Put this as a internal type of the Player.
 struct PlayerTime: Equatable, Codable {
   let hours: Int
   let minutes: Int
