@@ -77,14 +77,14 @@ extension SettingsTableViewController {
       let selectedConfiguration = TimerConfiguration.getDefaultConfigurations()[indexPath.row]
       
       dismiss(animated: true) { [unowned self] in
-        NotificationCenter.default.post(name: NotificationName.newTimer,
+        NotificationCenter.default.post(name: TimerViewController.NotificationName.new.getName(),
                                         object: self,
                                         userInfo: ["timer_config": selectedConfiguration])
       }
     case .custom:
       if indexPath.row <= customTimers.count - 1 {
         dismiss(animated: true) { [unowned self] in
-          NotificationCenter.default.post(name: NotificationName.newTimer,
+          NotificationCenter.default.post(name: TimerViewController.NotificationName.new.getName(),
                                           object: self,
                                           userInfo: ["timer_config": self.customTimers[indexPath.row]])
         }

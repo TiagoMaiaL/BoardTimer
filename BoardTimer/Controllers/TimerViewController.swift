@@ -8,28 +8,69 @@
 
 import UIKit
 
-struct NotificationName {
-  static let restartTimer = Notification.Name("restart_timer")
-  static let newTimer = Notification.Name("new_timer")
-  static let pauseTimer = Notification.Name("pause_timer")
-}
-
 class TimerViewController: UIViewController {
+  
+  /// The possible notifications observable by this timer view controller.
+  enum NotificationName {
+    case restart
+    case pause
+    case new
+    
+    /// Returns the associated notification name object.
+    func getName() -> Notification.Name {
+      switch self {
+      case .restart:
+        return Notification.Name("restart_timer")
+      case .pause:
+        return Notification.Name("pause_timer")
+      case .new:
+        return Notification.Name("new_timer")
+      }
+    }
+  }
 
   // MARK: Properties
   
-  let optionsSegueId = "show_options"
+  /// Segue ID to present the settings view controller.
+  private let optionsSegueId = "show_options"
+  
+  /// Timer storage to retrieve and save the default timer configuration.
   private let timerStorage = TimerConfigurationStorage()
 
-  private var timer: TimerManager!
-  private var playerManager: PlayerManager!
-  private var soundManager: SoundManager!
+  /// The manager in charge of handling the pass between the two timer players.
+  var playerManager: PlayerManager! {
+    didSet {
+//      timer.restart()
+      playerManager.delegate = self
+    
+      timerStorage.storeDefaultConfiguration(playerManager.whitePlayer.configuration)
+      
+      updateTimerViews()
+      
+      [whiteTimerView, blackTimerView].forEach { timer in
+        timer?.animateDefaultState()
+      }
+    }
+  }
   
-  @IBOutlet weak var blackWrapperView: XibView!
-  @IBOutlet weak var whiteWrapperView: XibView!
-  weak var blackTimerView: SingleTimerView!
-  weak var whiteTimerView: SingleTimerView!
-  var currentPlayerView: SingleTimerView {
+  /// The internal timer manager.
+  private let timer = TimerManager()
+  
+  /// The internal sound manager.
+  private let soundManager = SoundManager()
+  
+  // TODO: Remove the XIBView class.
+  @IBOutlet private weak var blackWrapperView: XibView!
+  @IBOutlet private weak var whiteWrapperView: XibView!
+  
+  /// The timer view associated with the black player.
+  private weak var blackTimerView: SingleTimerView!
+  
+  /// The timer view associated with the white player.
+  private weak var whiteTimerView: SingleTimerView!
+  
+  /// The timer view associated with the current player.
+  private var currentPlayerView: SingleTimerView {
     get {
       if playerManager.currentPlayer.color == .white {
         return whiteTimerView
@@ -38,16 +79,34 @@ class TimerViewController: UIViewController {
       }
     }
   }
-  @IBOutlet weak var pauseButton: UIButton!
-  @IBOutlet weak var settingsButton: UIButton!
-  @IBOutlet weak var restartButton: UIButton!
-  @IBOutlet weak var darkOverlay: UIView!
   
-  @IBOutlet private var blackTimerDefaultHeight: NSLayoutConstraint!
-  private var blackTimerIncreasedHeight: NSLayoutConstraint!
-  private var blackTimerDecreasedHeight: NSLayoutConstraint!
+  /// The default height constraint applied to the black timer view.
+  /// - Note: This is a property used to animate the player views to indicate the timer states.
+  @IBOutlet var blackTimerDefaultHeight: NSLayoutConstraint!
   
-  @IBOutlet var passGesture: UITapGestureRecognizer!
+  /// The increased height constraint applied to the black timer view.
+  /// - Note: This is a property used to animate the player views to indicate the timer states.
+  var blackTimerIncreasedHeight: NSLayoutConstraint!
+  
+  /// The decreased height constraint applied to the black timer view.
+  /// - Note: This is a property used to animate the player views to indicate the timer states.
+  var blackTimerDecreasedHeight: NSLayoutConstraint!
+
+  
+  /// The pause control.
+  @IBOutlet private weak var pauseButton: UIButton!
+  
+  /// The settings control.
+  @IBOutlet private weak var settingsButton: UIButton!
+  
+  /// The restart control.
+  @IBOutlet private weak var restartButton: UIButton!
+  
+  /// The overlay view.
+  @IBOutlet private weak var darkOverlay: UIView!
+  
+  /// The tap gesture in charge of recognizing pass requests from each player.
+  @IBOutlet private var passGesture: UITapGestureRecognizer!
   
   override var prefersStatusBarHidden: Bool {
     return true
@@ -58,11 +117,13 @@ class TimerViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    let defaultConfiguration = timerStorage.getDefaultConfiguration() ?? TimerConfiguration.getDefaultConfigurations()[0]
-    setupManagers(with: defaultConfiguration)
+    setupTimerViews()
     setupObservers()
     
-    self.pauseButton.alpha = 1;
+    timer.delegate = self
+    playerManager = makePlayerManager(configuration: nil)
+    
+    pauseButton.alpha = 1;
   }
   
   override func viewWillDisappear(_ animated: Bool) {
@@ -74,7 +135,7 @@ class TimerViewController: UIViewController {
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == optionsSegueId {
-      let runningConfig = self.playerManager.whitePlayer.configuration
+      let runningConfig = playerManager.whitePlayer.configuration
       let settingsController = (segue.destination as! UINavigationController).viewControllers.first as! SettingsTableViewController
       settingsController.runningConfiguration = runningConfig
     }
@@ -82,40 +143,45 @@ class TimerViewController: UIViewController {
   
   // MARK: Setup
   
-  func setupManagers(with configuration: TimerConfiguration? = nil) {
-    if let configuration = configuration {
-      timerStorage.storeDefaultConfiguration(configuration)
-      
-      timer = TimerManager()
-      timer.delegate = self
-      
-      let whitePlayer = Player(color: .white,
-                               configuration: configuration)
-      let blackPlayer = Player(color: .black,
-                               configuration: configuration)
-      
-      playerManager = PlayerManager(white: whitePlayer,
-                                    black: blackPlayer)
-      playerManager.delegate = self
-      
-      soundManager = SoundManager()
-      
-      setupTimerViews()
-    }
+  /// Factory method in charge of creating a configured player manager.
+  func makePlayerManager(configuration: TimerConfiguration?) -> PlayerManager {
+    let configuration = timerStorage.getDefaultConfiguration() ?? TimerConfiguration.getDefaultConfigurations()[0]
+
+    let whitePlayer = Player(color: .white,
+                             configuration: configuration)
+    let blackPlayer = Player(color: .black,
+                             configuration: configuration)
+
+    return PlayerManager(white: whitePlayer,
+                         black: blackPlayer)
   }
   
-  func setupObservers() {
+  private func makeRestartDialog(usingHandler handler: @escaping (UIAlertAction) -> Void) -> UIAlertController {
+    let alert = UIAlertController(title:  NSLocalizedString("Reset", comment: "Timer Controller: Title of the reset dialog"),
+                                  message: NSLocalizedString("Are you sure you want to reset the current timer?", comment: "Timer Controller: Reset dialog message"),
+                                  preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: NSLocalizedString("reset", comment: "Timer Controller: dialog reset button title"),
+                                  style: .destructive,
+                                  handler: handler))
+    alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "Timer Controller: dialog cancel button title"),
+                                  style: .cancel))
+    return alert
+  }
+  
+  /// Configures the notification observers for the controller.
+  private func setupObservers() {
     NotificationCenter.default.addObserver(self,
                                            selector: #selector(newTimerRequested(notification:)),
-                                           name: NotificationName.newTimer,
+                                           name: NotificationName.new.getName(),
                                            object: nil)
     NotificationCenter.default.addObserver(self,
                                            selector: #selector(pauseRequested(Notification:)),
-                                           name: NotificationName.pauseTimer,
+                                           name: NotificationName.pause.getName(),
                                            object: nil)
   }
   
-  func setupTimerViews() {
+  /// Configures each timer view.
+  private func setupTimerViews() {
     blackTimerView = blackWrapperView.contentView as! SingleTimerView
     whiteTimerView = whiteWrapperView.contentView as! SingleTimerView
     
@@ -127,12 +193,13 @@ class TimerViewController: UIViewController {
     blackTimerIncreasedHeight = blackTimerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.6)
     blackTimerDecreasedHeight = blackTimerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4)
     
-    refreshTimerViews()
+    updateTimerViews()
     
     setupButtons()
   }
   
-  func setupButtons() {
+  /// Configures the initial controls state and attributes.
+  private func setupButtons() {
     [settingsButton, restartButton, pauseButton].forEach { button in
       button?.layer.shadowColor = UIColor.black.cgColor
       button?.layer.shadowOpacity = 0.4
@@ -141,13 +208,15 @@ class TimerViewController: UIViewController {
     }
   }
   
-  func setupOverlay() {
+  /// Configures the overlay view.
+  private func setupOverlay() {
     darkOverlay.alpha = 0
   }
   
   // MARK: Imperatives
   
-  func animatePlayerChange() {
+  /// Animates the timer views to indicate the previous player pass and change.
+  private func animatePlayerChange() {
     let currentColor = playerManager.currentPlayer.color
     
     blackTimerDefaultHeight.isActive = false
@@ -156,15 +225,15 @@ class TimerViewController: UIViewController {
       blackTimerDecreasedHeight.isActive = false
       blackTimerIncreasedHeight.isActive = true
       
-      self.whiteTimerView.animateOut()
-      self.blackTimerView.animateIn()
+      whiteTimerView.animateOut()
+      blackTimerView.animateIn()
       
     } else {
       blackTimerIncreasedHeight.isActive = false
       blackTimerDecreasedHeight.isActive = true
       
-      self.blackTimerView.animateOut()
-      self.whiteTimerView.animateIn()
+      blackTimerView.animateOut()
+      whiteTimerView.animateIn()
     }
     
     UIView.animate(withDuration: 0.5,
@@ -180,7 +249,8 @@ class TimerViewController: UIViewController {
     hideControls()
   }
   
-  func animatePausedState() {
+  /// Animates the timer views and controls to present the paused timer state.
+  private func animatePausedState() {
     [whiteTimerView, blackTimerView].forEach { timerView in
       timerView?.animateInitial()
     }
@@ -204,7 +274,8 @@ class TimerViewController: UIViewController {
     presentControls()
   }
   
-  func presentControls() {
+  /// Animates the restart and pause controls in.
+  private func presentControls() {
     UIView.animate(withDuration: 0.5,
                    delay: 0,
                    usingSpringWithDamping: 0.7,
@@ -219,7 +290,8 @@ class TimerViewController: UIViewController {
     })
   }
   
-  func hideControls() {
+  /// Animates the restart and pause controls out.
+  private func hideControls() {
     UIView.animate(withDuration: 0.5,
                    delay: 0,
                    usingSpringWithDamping: 0.7,
@@ -234,72 +306,33 @@ class TimerViewController: UIViewController {
     })
   }
   
-  func presentSettings() {
+  /// Presents the settings view controller.
+  private func presentSettings() {
     performSegue(withIdentifier: optionsSegueId, sender: self)
   }
   
-  func getFormattedRemainingTime(for player: Player) -> String {
-    var formattedText = ""
+  /// Updates the timer views to match the current state of each player.
+  private func updateTimerViews() {
+    guard whiteTimerView != nil,
+          blackTimerView != nil,
+          playerManager != nil else { return }
     
-    let remainingTime = player.remainingTime
-    
-    let hours = Int(remainingTime / (60 * 60))
-    let minutes = Int(remainingTime.truncatingRemainder(dividingBy: 60 * 60) / 60)
-    let seconds = remainingTime.truncatingRemainder(dividingBy: 60)
-    
-    if hours > 0 {
-      formattedText += "\(String(format: "%02d", hours)):"
-    }
-    
-    if minutes > 0 {
-      formattedText += "\(String(format: "%02d", minutes)):"
-    }
-    
-    if player.isNearFinish {
-      if player.remainingTime <= 0 {
-        formattedText += "0.0"
-      } else {
-        formattedText += "\(String(format: "%.1f", abs(seconds)))"
-      }
-    } else {
-      formattedText += "\(String(format: "%02d", Int(seconds)))"
-    }
-    
-    return formattedText
-  }
-  
-  func getMovesText(for player: Player) -> String {
-    return String.localizedStringWithFormat(NSLocalizedString("%d move(s)",
-                                                              comment: "Timer Controller: Moves label text"),
-                                            player.moves)
-  }
-  
-  func refreshTimerViews() {
     [(whiteTimerView, playerManager.whitePlayer),
-     (blackTimerView, playerManager.blackPlayer)].forEach { [unowned self] timerView, player in
+     (blackTimerView, playerManager.blackPlayer)].forEach { timerView, player in
       
       timerView.setProgress(player.progress)
-      timerView.setText(self.getFormattedRemainingTime(for: player))
-      timerView.movesLabel.text = self.getMovesText(for: player)
+      timerView.setText(player.formattedRemainingTime)
+      timerView.movesLabel.text = player.formattedMovesText
     }
   }
   
-  func restartTimer(with configuration: TimerConfiguration? = nil) {
-    playerManager = nil
-    setupManagers(with: configuration)
-    refreshTimerViews()
-    
-    [whiteTimerView, blackTimerView].forEach { timer in
-      timer?.animateDefaultState()
-    }
-  }
 }
 
 extension TimerViewController {
  
   // MARK: Actions
   
-  @IBAction func didTap(_ sender: UITapGestureRecognizer) {
+  @IBAction private func didTap(_ sender: UITapGestureRecognizer) {
     if playerManager.isTimerOver {
       return
     }
@@ -311,66 +344,35 @@ extension TimerViewController {
     }
   }
   
-  @IBAction func didTapRefresh(_ sender: UIButton? = nil) {
-    // TODO: Refactor this duplicated warning code.
-    
-    let alert = UIAlertController(title:  NSLocalizedString("Reset", comment: "Timer Controller: Title of the reset dialog"),
-                                  message: NSLocalizedString("Are you sure you want to reset the current timer?", comment: "Timer Controller: Reset dialog message"),
-                                  preferredStyle: .alert)
-    
-    alert.addAction(UIAlertAction(title: NSLocalizedString("reset", comment: "Timer Controller: dialog reset button title"),
-                                  style: .destructive,
-                                  handler: { [unowned self] _ in
-                                    let configuration: TimerConfiguration!
-                                    
-                                    if self.playerManager != nil {
-                                      configuration = self.playerManager.whitePlayer.configuration
-                                    } else {
-                                      // TODO: Determine the default configuration.
-                                      configuration = TimerConfiguration.getDefaultConfigurations()[3]
-                                    }
-                                    
-                                    self.restartTimer(with: configuration)
-                                  }))
-    alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "Timer Controller: dialog cancel button title"),
-                                  style: .cancel))
-
-    present(alert, animated: true)
+  @IBAction private func didTapRefresh(_ sender: UIButton? = nil) {
+    present(makeRestartDialog { action in
+      self.playerManager = self.makePlayerManager(configuration: nil)
+    }, animated: true)
   }
   
-  @IBAction func didTapPause(sender: UIButton) {
-    if (timer.isRunning) {
+  @IBAction private func didTapPause(sender: UIButton) {
+    if timer.isRunning {
       timer.pause()
     } else {
       presentSettings()
     }
   }
   
-  @IBAction func didTapSettings(sender: UIButton) {
+  @IBAction private func didTapSettings(sender: UIButton) {
     presentSettings()
   }
   
   // MARK: Notification Actions
   
-  @objc func newTimerRequested(notification: Notification) {
-    // TODO: Refactor this duplicated warning code.
+  @objc private func newTimerRequested(notification: Notification) {
     guard let configuration = notification.userInfo?["timer_config"] as? TimerConfiguration else { return }
     
-    let alert = UIAlertController(title:  NSLocalizedString("Reset", comment: "Timer Controller: Title of the reset dialog"),
-                                  message: NSLocalizedString("Are you sure you want to reset the current timer?", comment: "Timer Controller: Reset dialog message"),
-                                  preferredStyle: .alert)
-    alert.addAction(UIAlertAction(title: NSLocalizedString("reset", comment: "Timer Controller: dialog reset button title"),
-                                  style: .destructive,
-                                  handler: { [unowned self] _ in
-                                    self.restartTimer(with: configuration)
-                                  }))
-    alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "Timer Controller: dialog cancel button title"),
-                                  style: .cancel))
-
-    present(alert, animated: true)
+    present(makeRestartDialog { action in
+      self.playerManager = self.makePlayerManager(configuration: configuration)
+    }, animated: true)
   }
   
-  @objc func pauseRequested(Notification: Notification) {
+  @objc private func pauseRequested(Notification: Notification) {
     if timer.isRunning {
       timer.pause()
     }
@@ -385,7 +387,7 @@ extension TimerViewController: TimerManagerDelegate {
   func timerDidStart(timer: TimerManager) {
     animatePlayerChange()
     soundManager.play(.pass)
-    self.pauseButton.setImage(UIImage(named: "ic_pause"), for: .normal)
+    pauseButton.setImage(UIImage(named: "ic_pause"), for: .normal)
   }
 
   func timerDidStop(timer: TimerManager) {
@@ -403,7 +405,7 @@ extension TimerViewController: TimerManagerDelegate {
 extension TimerViewController: PlayerManagerDelegate {
   
   func playerDidChange(_ currentPlayer: Player) {
-    refreshTimerViews()
+    updateTimerViews()
     animatePlayerChange()
     soundManager.play(.pass)
     timer.restart()
@@ -415,17 +417,11 @@ extension TimerViewController: PlayerManagerDelegate {
   }
   
   func playerTimeDidDecrease(_ player: Player) {
-    refreshTimerViews()
+    updateTimerViews()
   }
   
   func playerTimeWillFinish(_ player: Player) {
-    switch player.color {
-    case .white:
-      whiteTimerView.animateWarningState()
-    case .black:
-      blackTimerView.animateWarningState()
-    }
-    
+    currentPlayerView.animateWarningState()
     soundManager.play(.warning)
   }
   

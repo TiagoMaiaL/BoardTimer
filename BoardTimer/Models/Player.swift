@@ -85,6 +85,42 @@ class Player {
     }
   }
   
+  /// The formatted remaining time.
+  public var formattedRemainingTime: String {
+    var formattedText = ""
+    
+    let hours = Int(remainingTime / (60 * 60))
+    let minutes = Int(remainingTime.truncatingRemainder(dividingBy: 60 * 60) / 60)
+    let seconds = remainingTime.truncatingRemainder(dividingBy: 60)
+    
+    if hours > 0 {
+      formattedText += "\(String(format: "%02d", hours)):"
+    }
+    
+    if minutes > 0 {
+      formattedText += "\(String(format: "%02d", minutes)):"
+    }
+    
+    if isNearFinish {
+      if remainingTime <= 0 {
+        formattedText += "0.0"
+      } else {
+        formattedText += "\(String(format: "%.1f", abs(seconds)))"
+      }
+    } else {
+      formattedText += "\(String(format: "%02d", Int(seconds)))"
+    }
+    
+    return formattedText
+  }
+  
+  /// The formatted moves text.
+  public var formattedMovesText: String {
+    return String.localizedStringWithFormat(NSLocalizedString("%d move(s)",
+                                                              comment: "Timer Controller: Moves label text"),
+                                            moves)
+  }
+  
   /// Property indicating if the player's remaining time has ended or not.
   var isOver: Bool {
     return remainingTime <= 0

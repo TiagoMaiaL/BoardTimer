@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
 
   func applicationWillResignActive(_ application: UIApplication) {
-    NotificationCenter.default.post(name: NotificationName.pauseTimer,
+    NotificationCenter.default.post(name: TimerViewController.NotificationName.pause.getName(),
                                     object: self)
   }
 
@@ -79,7 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     if let configuration = selectedConfiguration {
       if let timerController = window?.rootViewController as? TimerViewController {
-        timerController.setupManagers(with: configuration)
+        timerController.playerManager = timerController.makePlayerManager(configuration: configuration)
       }
     }
     
