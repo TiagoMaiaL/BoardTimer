@@ -9,7 +9,7 @@
 import UIKit
 import Eureka
 
-final class CountDownTimerCell: Cell<PlayerTime>, CellType, UIPickerViewDelegate, UIPickerViewDataSource {
+final class CountDownTimerCell: Cell<Player.Time>, CellType, UIPickerViewDelegate, UIPickerViewDataSource {
 
   // MARK: Types
   
@@ -127,9 +127,9 @@ final class CountDownTimerCell: Cell<PlayerTime>, CellType, UIPickerViewDelegate
     let selectedMinute = pickerView.selectedRow(inComponent: PickerComponent.Minute.rawValue)
     let selectedSecond = pickerView.selectedRow(inComponent: PickerComponent.Second.rawValue)
     
-    self.row.value = PlayerTime(hours: selectedHour,
-                                minutes: selectedMinute,
-                                seconds: selectedSecond)
+    self.row.value = Player.Time(hours: selectedHour,
+                                 minutes: selectedMinute,
+                                 seconds: selectedSecond)
     displayValue()
   }
 }

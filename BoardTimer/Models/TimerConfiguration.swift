@@ -10,7 +10,7 @@ import Foundation
 
 /// A struct representing a timer configuration.
 ///
-/// A timer configuration consists of:
+/// - Note: A timer configuration consists of:
 /// * An identifier
 /// * An optional name
 /// * A time amount(for each player)
@@ -71,7 +71,7 @@ struct TimerConfiguration: Codable, Equatable, CustomStringConvertible {
   let uid = NSUUID().uuidString
   
   /// The timer for each player.
-  let time: PlayerTime
+  let time: Player.Time
   
   /// The amount of delay, depending on the timer mode.
   let delay: TimeInterval
@@ -132,19 +132,19 @@ struct TimerConfiguration: Codable, Equatable, CustomStringConvertible {
   /// Returns the default timers.
   static func getDefaultConfigurations() -> [TimerConfiguration] {
     return [
-      TimerConfiguration(time: PlayerTime(hours: 0, minutes: 15, seconds: 0),
+      TimerConfiguration(time: Player.Time(hours: 0, minutes: 15, seconds: 0),
                          delay: 0,
                          mode: .none,
                          name: NSLocalizedString("Quick Play", comment: "Timer Configuration: Quick Play configuration name.")),
-      TimerConfiguration(time: PlayerTime(hours: 0, minutes: 5, seconds: 0),
+      TimerConfiguration(time: Player.Time(hours: 0, minutes: 5, seconds: 0),
                          delay: 0,
                          mode: .none,
                          name: NSLocalizedString("Blitz", comment: "Timer Configuration: Blitz configuration name.")),
-      TimerConfiguration(time: PlayerTime(hours: 0, minutes: 3, seconds: 0),
+      TimerConfiguration(time: Player.Time(hours: 0, minutes: 3, seconds: 0),
                          delay: 0,
                          mode: .none,
                          name: NSLocalizedString("Bullet", comment: "Timer Configuration: Bullet configuration name.")),
-      TimerConfiguration(time: PlayerTime(hours: 0, minutes: 1, seconds: 0),
+      TimerConfiguration(time: Player.Time(hours: 0, minutes: 1, seconds: 0),
                          delay: 0,
                          mode: .none,
                          name: NSLocalizedString("Lightning", comment: "Timer Configuration: Lightning configuration name.")),
