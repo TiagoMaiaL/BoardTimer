@@ -10,14 +10,45 @@ import UIKit
 
 class SettingsTableViewController: UITableViewController {
   
+  /// Enum discribing the possible sections of the settings table view.
+  enum Sections: Int {
+    case timers = 0
+    case custom
+    
+    /// The number of sections.
+    static var count: Int { return custom.hashValue + 1 }
+    
+    /// The associated titles with each section.
+    static let titles = [
+      timers: NSLocalizedString("Common timers", comment: "Settings: Default timers section title"),
+      custom: NSLocalizedString("Custom timers", comment: "Settings: Custom timers section title"),
+      ]
+    
+    /// Returns the title of the section.
+    func getTitle() -> String {
+      if let title = Sections.titles[self] {
+        return title
+      } else {
+        return ""
+      }
+    }
+  }
+
+  
   // MARK: Constants
   
+  /// Segue id used to present the new timer view controller.
   private let customTimerSegueID = "new_timer"
+  
+  /// The timers storage
   private let storage = TimerConfigurationStorage()
   
   // MARK: Properties
   
+  /// The created custom timers.
   private var customTimers: [TimerConfiguration]!
+  
+  /// The timer configuration currently chosen in the timer controller.
   var runningConfiguration: TimerConfiguration?
   
   // MARK: Life cycle
@@ -36,7 +67,7 @@ class SettingsTableViewController: UITableViewController {
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    refreshCustomSection()
+    updateCustomSection()
   }
   
   // MARK: Actions
@@ -47,10 +78,11 @@ class SettingsTableViewController: UITableViewController {
   
   // MARK: Imperatives
   
-  private func refreshCustomSection() {
+  /// Updates the custom timers section.
+  private func updateCustomSection() {
     if let updatedCustomTimers = TimerConfigurationStorage().getSavedCustomTimers() {
       if updatedCustomTimers.count > customTimers.count {
-        let customSection = SettingsSection.custom
+        let customSection = Sections.custom
         let path = IndexPath(row: updatedCustomTimers.count - 1, section: customSection.rawValue)
         
         customTimers = updatedCustomTimers
@@ -65,12 +97,12 @@ class SettingsTableViewController: UITableViewController {
 extension SettingsTableViewController {
   
   override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    guard let section = SettingsSection(rawValue: section) else { return nil }
+    guard let section = Sections(rawValue: section) else { return nil }
     return section.getTitle()
   }
 
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    guard let section = SettingsSection(rawValue: indexPath.section) else { return }
+    guard let section = Sections(rawValue: indexPath.section) else { return }
     
     switch section {
     case .timers:
@@ -95,11 +127,11 @@ extension SettingsTableViewController {
   }
   
   override func numberOfSections(in tableView: UITableView) -> Int {
-    return SettingsSection.count
+    return Sections.count
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    guard let section = SettingsSection(rawValue: section) else { return 0 }
+    guard let section = Sections(rawValue: section) else { return 0 }
     
     switch section {
     case .timers:
@@ -110,7 +142,7 @@ extension SettingsTableViewController {
   }
   
   override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-    guard let section = SettingsSection(rawValue: indexPath.section), section == .custom else { return [] }
+    guard let section = Sections(rawValue: indexPath.section), section == .custom else { return [] }
     guard indexPath.row < self.customTimers.count else { return [] }
     
     let delete = UITableViewRowAction(style: .destructive,
@@ -126,15 +158,15 @@ extension SettingsTableViewController {
   }
 
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let section = SettingsSection(rawValue: indexPath.section) else { return UITableViewCell() }
+    guard let section = Sections(rawValue: indexPath.section) else { return UITableViewCell() }
     
     let cell: UITableViewCell!
     
     switch section {
     case .timers:
-      cell = getTimersCell(for: indexPath, and: tableView)
+      cell = makeTimersCell(path: indexPath, tableView: tableView)
     case .custom:
-      cell = getCustomCell(for: indexPath, and: tableView)
+      cell = makeCustomCell(path: indexPath, tableView: tableView)
     }
     
     return cell
@@ -142,7 +174,8 @@ extension SettingsTableViewController {
   
   // MARK: Cell factory methods
   
-  func getTimersCell(for path: IndexPath, and tableView: UITableView) -> UITableViewCell {
+  /// Returns a configured cell for default timers.
+  func makeTimersCell(path: IndexPath, tableView: UITableView) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "timer_cell", for: path)
     
     let cellConfiguration = TimerConfiguration.getDefaultConfigurations()[path.row]
@@ -161,7 +194,8 @@ extension SettingsTableViewController {
     return cell
   }
   
-  func getCustomCell(for path: IndexPath, and tableView: UITableView) -> UITableViewCell {
+  /// Returns a configured cell for custom timers.
+  func makeCustomCell(path: IndexPath, tableView: UITableView) -> UITableViewCell {
     var cell: UITableViewCell!
     
     if path.row <= customTimers.count - 1 {
@@ -181,26 +215,3 @@ extension SettingsTableViewController {
     return cell
   }
 }
-
-// MARK: Data source enums
-
-enum SettingsSection: Int {
-  case timers = 0, custom
-  
-  static var count: Int { return custom.hashValue + 1 }
-  
-  static let titles = [
-    timers: NSLocalizedString("Common timers", comment: "Settings: Default timers section title"),
-    custom: NSLocalizedString("Custom timers", comment: "Settings: Custom timers section title"),
-  ]
-  
-  func getTitle() -> String {
-    if let title = SettingsSection.titles[self] {
-      return title
-    } else {
-      return ""
-    }
-  }
-
-}
-

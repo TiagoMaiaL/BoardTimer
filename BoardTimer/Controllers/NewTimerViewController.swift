@@ -114,21 +114,7 @@ class NewTimerViewController: FormViewController {
       +++ Section()
       <<< ButtonRow() {
         $0.title = NSLocalizedString("Create timer", comment: "New Timer: Form button title")
-        
-        let tagsToUse = [nameTag, timeTag, useDelayTag, delayTypeTag, delayAmountTag]
-        // TODO: Refactor this. Change it to use only strings.
-        $0.disabled = Condition.function(tagsToUse) { [unowned self] form -> Bool in
-          let nameRow = form.rowBy(tag: self.nameTag) as? NameRow,
-              timeRow = form.rowBy(tag: self.timeTag) as? CountDownTimerRow,
-              useDelayRow = form.rowBy(tag: self.useDelayTag) as? SwitchRow,
-              delayTypeRow = form.rowBy(tag: self.delayTypeTag) as? SegmentedRow<String>,
-              delayAmountRow = form.rowBy(tag: self.delayAmountTag) as? StepperRow
-
-          return (nameRow?.value == nil || timeRow?.value == nil) ||
-                 (useDelayRow?.value == true &&
-                  (delayTypeRow?.value == nil || delayAmountRow?.value == 0))
-        }
-        
+        $0.disabled = "$nameTag == nil OR $timeTag == nil OR ($useDelayTag == true AND ($delayTypeTag == nil OR $delayAmountTag == 0))"
         $0.onCellSelection { [unowned self] (_, buttonRow) in
           let nameRow = self.form.rowBy(tag: self.nameTag) as! NameRow,
               timeRow = self.form.rowBy(tag: self.timeTag) as! CountDownTimerRow,
